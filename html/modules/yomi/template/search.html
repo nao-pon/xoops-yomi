@@ -58,20 +58,23 @@ menu_bar();
 ?>
 </font></div>
 <hr>
+
+<!-- ヘッダスペース -->
+<div style="text-align:center;">
+<div style="margin-left:auto;margin-right:auto;">
+<?php
+head_sp();
+?>
+</div>
+</div>
+
 <!-- ナビゲーションバー -->
 <?=YOMI_HOME_URL?> &gt; 
 <table width="100%"><tr><td id="title-bar">
 <b><?=$Stitle?></b>
 </td></tr></table>
 <?=$search_day?>
-<div style="text-align:center;">
-<div style="margin-left:auto;margin-right:auto;">
-<?php
-#ヘッダスペース
-head_sp();
-?>
-</div>
-</div>
+
 <?php
 #ファイルの読み込み＆下層カテゴリ表示
 gane_st(); #カテゴリ属性をロード

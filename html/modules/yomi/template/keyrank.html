@@ -23,19 +23,22 @@ menu_bar();
 ?>
 </font></div>
 <hr>
+
+<!-- ヘッダスペース -->
+<div style="text-align:center;">
+<div style="margin-left:auto;margin-right:auto;">
+<?php
+head_sp();
+?>
+</div>
+</div>
+
 <!-- ナビゲーションバー -->
 <?=YOMI_HOME_URL?> &gt; 
 <table width="100%"><tr><td id="title-bar">
 <b>キーワードランキング</b>
 </td></tr></table>
-<div style="text-align:center;">
-<div style="margin-left:auto;margin-right:auto;">
-<?php
-#ヘッダスペース
-head_sp();
-?>
-</div>
-</div>
+
 <?php
 ##最終更新時刻を取得
 $time=time();

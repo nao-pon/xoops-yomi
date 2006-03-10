@@ -5,9 +5,12 @@ $CK_data=get_cookie();
 $time=time();
 $start=$time-$EST['rank_kikan']*86400;
 $end=$time;
+$_no_ad_space = false;
 if($_GET['mode'] == "kt"){ #各カテゴリの場合
 
 	$Stitle=$ganes[$_GET['kt']];
+	// ヘッダ広告スペース抑止
+	$_no_ad_space = (preg_match("/\.$/",$Stitle));	
 	
 	//xoops2 タイトル設定
 	global $xoopsModule,$xoopsTpl;
@@ -169,6 +172,7 @@ else{ #その他の特殊カテゴリ
 $navi = "";
 $kt=explode("_",$_GET['kt']); array_pop($kt);
 $temp_kt = "";
+$_no_head_sp = false;
 foreach ($kt as $tmp){
 	$temp_kt .= $tmp;
 	$navi .= "<a href=\"".yomi_makelink($temp_kt)."$Eend\">$ganes[$temp_kt]</a> &gt; ";
@@ -205,23 +209,25 @@ else{form.target="";}
 <div align=right><font id=small>
 <?php
 	menu_bar();
-	?></font></div>
-<hr>
+?>
+</font></div>
+
+<hr />
+
+<!-- ヘッダスペース -->
+<div style="text-align:center;">
+<div style="margin-left:auto;margin-right:auto;">
+<?php
+if (!$_no_ad_space){head_sp();}
+?>
+</div>
+</div>
+
 <!-- ナビゲーションバー -->
 <?=YOMI_HOME_URL?> &gt; <?=$navi?> 
 <table width=100%><tr><td id="title-bar">
 <b><?=$Stitle?></b>
 </td></tr></table>
-
-<div style="text-align:center;">
-<div style="margin-left:auto;margin-right:auto;">
-<?php
-#ヘッダスペース
-head_sp();
-?>
-</div>
-</div>
-
 <?=$guide?>
 <?php
 gane_st(); #カテゴリ属性をロード

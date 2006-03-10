@@ -11,6 +11,9 @@ elseif($_GET['mode'] == "rank_bf"){$Stitle="前回の人気ランキング";}
 else{$Stitle="人気ランキング(累計)";}
 if($_GET['kt']){$Stitle.=" - " . $ganes[$_GET['kt']];}
 
+// ヘッダ広告スペース抑止
+$_no_ad_space = (preg_match("/\.$/",$ganes[$_GET['kt']]));
+
 if (isset($_GET['child_show'])) {
 	$EST['kt_child_show'] = $_GET['child_show'];
 	$g_prm_child = "&child_show=".$_GET['child_show'];
@@ -141,6 +144,16 @@ menu_bar();
 ?>
 </font></div>
 <hr>
+
+<!-- ヘッダスペース -->
+<div style="text-align:center;">
+<div style="margin-left:auto;margin-right:auto;">
+<?php
+if (!$_no_ad_space){head_sp();}
+?>
+</div>
+</div>
+
 <!-- ナビゲーションバー -->
 <?=YOMI_HOME_URL?> &gt; <?=$navi?> 
 <?php
@@ -150,15 +163,6 @@ if($_GET['kt']){echo "<a href=\"$Ekt$_GET[kt]$Eend\">".$ganes[$_GET['kt']]."</a>
 <table width=100%><tr><td id="title-bar">
 <b><?=$Stitle?></b>
 </td></tr></table>
-
-<div style="text-align:center;">
-<div style="margin-left:auto;margin-right:auto;">
-<?php
-#ヘッダスペース
-head_sp();
-?>
-</div>
-</div>
 
 <?php
 ##ページ説明を表示
