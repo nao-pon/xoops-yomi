@@ -1,6 +1,18 @@
 <?php
+// Check config files.
 
-//error_reporting(E_ALL);
+if (!is_readable('pl/cfg.php'))
+{
+	exit ("Please file copy 'yomi/pl/cfg.php.dev' as 'yomi/pl/cfg.php'");
+}
+if (!is_readable('pl/other_cfg.php'))
+{
+	exit ("Please file copy 'yomi/pl/other_cfg.php.dev' as 'yomi/pl/other_cfg.php'");
+}
+if (!is_readable('pl/search.dat'))
+{
+	exit ("Please file copy 'yomi/pl/search.dat.dev' as 'yomi/pl/search.dat'");
+}
 
 if(ini_get("magic_quotes_gpc"))
 {

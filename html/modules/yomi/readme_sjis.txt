@@ -50,7 +50,11 @@ WonderLinkで配布しているスクリプト（以下、配布スクリプト）は
 サーバの設定などにより動作しない場合もありますのでご了承ください。 
 
 ■インストール方法
-・yomi_xoops.zip をダウンロードして解凍します。 
+・yomi_xoops.zip をダウンロードして解凍します。
+・次のファイルを以下のようにリネームしてください。
+　　pl/cfg.php.dev       -> pl/cfig.php
+　　pl/other_cfg.php.dev -> pl/other_cfg.php
+　　pl/search.dat.dev    -> pl/search.dat 
 ・XOOPS の modules ディレクトリに yomi ディレクトリ以下すべてをアップロードしてパーミッションを設定します。
 　　pl/cfg.php(666)
 　　pl/other_cfg.php(666)
