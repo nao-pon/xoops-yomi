@@ -1,0 +1,141 @@
+<?php
+gane_st();
+require "pl/other_cfg.php";
+?>
+<link rel="stylesheet" href="<?=$EST['html_path_url']?>style.css" type="text/css">
+
+<a name=top></a>
+<form action="<?=$EST['admin']?>" method=post>
+<?php echo YOMI_TICKET_TAG; ?>
+<!-- メニューバー -->
+<div align=right><font id=small>
+<?php
+menu_bar();
+?>
+</font></div>
+<hr noshade color=#aaaaaa>
+<?=YOMI_HOME_URL?> &gt;
+<table width=100%><tr><td id="title-bar">
+<font color=#000000><b>カテゴリ設定</b></font>
+</td></tr></table>
+	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=mode value="kanri">
+	<input type=submit value="管理室に戻る">
+<br>
+</form>
+[<a href="#kt">カテゴリの修正・削除</a>] 
+[<a href="#kt_new">カテゴリの新規作成</a>] 
+[<a href="#kt_ex">カテゴリの説明文設定</a>] 
+<hr noshade color=#aaaaaa>
+<form action="<?=$EST['admin']?>" method=post>
+<?php echo YOMI_TICKET_TAG; ?>
+[<a href="#top">トップに戻る</a>]
+<ul>
+<font size="+1"><a name="kt">【 <b>カテゴリの修正・削除</b> 】</a></font><br>
+	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=mode value="cfg_make_kt">
+	<input type=hidden name=mente_mode value="mente">
+	※「読み」にはそのカテゴリ名の読み仮名をひらがな・数字(半角)・英字(半角)を使って設定してください<br>
+	※「読み」を設定しない場合にはカテゴリ名が読み仮名として適用されます
+	<br>
+<table border=0>
+<?php
+foreach($gane_other as $tmp){$g_fl[$tmp]=1;}
+foreach($ganes as $tmp=>$val){
+	if($gane_top[$tmp]){$c_t=" checked";}
+	else{$c_t="";}
+	if($gane_UR[$tmp]){$c_no=" checked";}
+	else{$c_no="";}
+	if($g_fl[$tmp]){$c_other=" checked";}
+	else{$c_other="";}
+	echo "<tr valign=bottom><td>";
+	if(!strstr($tmp,"_")){echo "<br>[削除] <input type=submit value=\"設定実行\"><br>";}
+	?>
+　<input type=checkbox name=d_<?=$tmp?> value=on> <a href="<?=$Ekt.$tmp.$Eend?>" target="_blank"><?=$tmp?></a> <input type=text name=kt_<?=$tmp?> value="<?=$val?>">
+</td><td>
+[トップ<input type=checkbox name=t_<?=$tmp?> value=1<?=$c_t?>>] [その他<input type=checkbox name=o_<?=$tmp?> value=1<?=$c_other?>>] [登録不可<input type=checkbox name=no_<?=$tmp?> value=1<?=$c_no?>>] [参照<input type=text name=ref_<?=$tmp?> value="<?=$gane_ref[$tmp]?>" size=10>]
+ [読み<input type=text name=furi_<?=$tmp?> value="<?=$EST_furi[$tmp]?>" size=10>]
+</td></tr>
+<?php
+}
+?>
+</table>
+<br><input type=submit value="カテゴリ設定実行"> <input type=reset value="リセット">
+</form>
+</ul>
+<hr noshade color=#aaaaaa>
+<form action="<?=$EST['admin']?>" method=post>
+<?php echo YOMI_TICKET_TAG; ?>
+[<a href="#top">トップに戻る</a>]
+<ul>
+<font size="+1"><a name="kt_new">【 <b>カテゴリの新規作成</b> 】</a></font>
+	<input type=hidden name=pass value="<?=$_POST[pass]?>">
+	<input type=hidden name=mode value="cfg_make_kt">
+	<input type=hidden name=mente_mode value="new">
+<br>
+※ <b>カテゴリ番号<>カテゴリ名</b> という書式で記入してください<br>
+※複数指定する場合には一つのデータごとに改行してください<br>
+※すでにあるデータ番号を指定した場合には上書きされます<br>
+※右のテキストエリアは18に「サッカー」、18_01に「サッカー&gt;選手」というカテゴリを増やす場合の見本(記入例)です。<br>
+<textarea name=kt_new cols=40 rows=6></textarea>
+<textarea cols=40 rows=6 readonly>18<>サッカー
+18_01<>選手</textarea>
+<br><br><input type=submit value="カテゴリの新規作成実行"> <input type=reset value="リセット">
+</form>
+</ul>
+<hr noshade color=#aaaaaa>
+<form action="<?=$EST['admin']?>" method=post>
+<?php echo YOMI_TICKET_TAG; ?>
+[<a href="#top">トップに戻る</a>]
+<ol>
+<font size="+1"><a name="kt_ex">【 <b>カテゴリの説明文設定</b> 】</a></font><br><br>
+	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=mode value="cfg_make_kt_ex">
+<table border=0>
+<?php
+gane_guide();
+#表示のための一時的な特殊カテゴリ名称の代入
+$ganes['new_ys']=$EST['name_new'];
+$ganes['renew_ys']=$EST['name_renew'];
+$ganes['m1_ys']=$EST['name_m1'];
+$ganes['m2_ys']=$EST['name_m2'];
+$ganes['rank']=$EST['name_rank'];
+$ganes['rank_bf']=$EST['name_rank_bf'];
+$ganes['rank_rui']=$EST['name_rank_rui'];
+$ganes['rev']=$EST['name_rev'];
+$ganes['rev_bf']=$EST['name_rev_bf'];
+$ganes['rev_rui']=$EST['name_rev_rui'];
+
+foreach($KTEX as $key=>$val){
+	echo "<tr valign=bottom><td>";
+	if(!strstr($key,"_") || strstr($key,"ys")){echo "<br>[削除]<br>";}
+	?>
+　<input type=checkbox name=d_<?=$key?> value="1"> <?=$ganes[$key]?>
+</td><td>
+<?=$key?> <input type=text name=ex_<?=$key?> value="<?=$val?>" size=60>
+</td>
+</tr>
+<?php
+}
+?>
+</table>
+<br><br>
+[新規作成]<br>
+※ <b>カテゴリ番号<>説明文</b> の形式で記入してください<br>
+※複数指定する場合は一つのデータごとに改行してください<br>
+<textarea name=ktex cols=70 rows=6></textarea>
+<br><br><input type=submit value="変更する"> <input type=reset value="リセット">
+</form>
+</ol>
+<hr noshade color=#aaaaaa>
+<?php
+if(!$Eadd_below_mode){echo $Eadd_data_below;}
+cp_cr();
+?>
+
+<?php
+if (isset($link) && $link) {
+	@mysql_close($link);
+}
+exit;
+?>

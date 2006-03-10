@@ -1,0 +1,22 @@
+//[id]	[name]	[top_url]	[search_url]	[search_key]	[option]	[encode]	[and]	[or]	[number]
+this	このサイト内	XOOPS_URL/	XOOPS_URL/search.php?action=results	query
+google	Google	http://www.google.com/	http://www.google.com/search?hl=ja&lr=lang_ja&ie=UTF-8&oe=UTF-8	q		utf8		|	num
+yahoo	Yahoo! Japan	http://www.yahoo.co.jp/	http://search.yahoo.co.jp/bin/search?	p		euc		 OR 	n
+fresheye	フレッシュアイ	http://www.fresheye.com/	http://search.fresheye.com/?ord=s	kw		sjis		 | 	
+ceek	ceek.jp(統合検索)	http://www.ceek.jp/	http://www.ceek.jp/search.cgi?	q		euc			
+ask	ask.jp	http://ask.jp/	http://ask.jp/web.asp?o=0&qsrc=8&ie=EUC-JP	q		euc		 OR 	
+infoseek	infoseek	http://www.infoseek.co.jp/	http://www.infoseek.co.jp/OTitles?lk=noframes&svx=101100&col=OW	qt		euc
+-
+goo_blog	ブログ全体(goo)	http://www.goo.ne.jp/	http://blog.goo.ne.jp/search/search.php?status=select	MT		euc			dc
+goo_news	最速ニュース(goo)	http://news.goo.ne.jp/	http://news.goo.ne.jp/news/search/search.php?kind=web&day=all	MT
+google_img	画像(google)	http://www.google.com/	http://images.google.com/images?hl=ja&ie=UTF-8&oe=UTF-8	q		utf8		|	num
+biglobe_av	動画・音声(Biglobe)	http://search.biglobe.ne.jp/mov/	http://cgi.search.biglobe.ne.jp/cgi-bin/mov/search?where=xml_ms	query					display
+-
+amazon	Amazon	http://www.amazon.co.jp/	http://www.amazon.co.jp/exec/obidos/external-search/250-5816208-6249850?mode=blended&encoding-string-jp=%93%FA%96%7B%8C%EA	keyword		sjis
+bk1	bk1	http://www.bk1.co.jp/	http://www.bk1.co.jp/cgi-bin/srch/srch_result_book.cgi?srch=1	kywd		euc			dp
+rakuten	楽天市場	http://www.rakuten.co.jp/	http://esearch.rakuten.co.jp/rms/sd/esearch/vc?sv=2	sitem		euc
+yahoo_shop	Yahoo!ショッピング	http://shopping.yahoo.co.jp/	http://search.shopping.yahoo.co.jp/search?	p		euc			n
+-
+yahoo_dic	Yahoo!辞書	http://dic.yahoo.co.jp/	http://dic.yahoo.co.jp/bin/dsearch?	p
+-
+vector	Vector(ソフト)	http://www.vector.co.jp/	http://search.vector.co.jp/search?	query

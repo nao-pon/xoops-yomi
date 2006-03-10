@@ -1,0 +1,193 @@
+<link rel="stylesheet" href="<?=$EST['html_path_url']?>style.css" type="text/css">
+
+<a name=top></a>
+<form action="<?=$EST['admin']?>" method=post>
+<?php echo YOMI_TICKET_TAG; ?>
+<!-- メニューバー -->
+<div align=right><font id=small>
+<?php
+menu_bar();
+?>
+</font></div>
+<hr noshade color=#aaaaaa>
+<?=YOMI_HOME_URL?> &gt;
+<table width=100%><tr><td id="title-bar">
+<font color=#000000><b>デッドリンクチェック</b></font>
+</td></tr></table>
+	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=mode value="kanri">
+	<input type=submit value="管理室に戻る">
+<br>
+</form>
+[<a href="#user">ユーザ報告のリンク切れデータ</a>] 
+[<a href="#user_cfg">リンク切れ報告の設定</a>] 
+<br>
+[<a href="#dl">デッドリンクチェック用のファイルをダウンロード</a>] 
+[<a href="#change">チェック済みデータを元にデッドリンクチェック実行</a>] 
+<hr noshade color=#aaaaaa>
+<?php
+$jyuni=1;$jyuni_z=1;
+?>
+<a name="user"></a>
+<form action="<?=$EST['cgi_path_url']?>regist_ys.php" method=post>
+<?php echo YOMI_TICKET_TAG; ?>
+<a name="make">[<a href="#top">トップに戻る</a>]</a><br>
+<ul>
+	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=no_link value="on">
+	<input type=hidden name=mode value="act_del">
+	<input type=hidden name=del_mode value="multi">
+	<input type=hidden name=changer value="admin">
+	<font size="+1">【ユーザ報告のリンク切れデータ】</font><br>
+	▼ユーザ(訪問者)の方が報告してくださったリンク切れと思われるサイトのデータのリストです<br>
+	※データを削除する場合には「<b>削除</b>」をチェックしてください<br>
+	※データが存在している場合で、このリストから消したい場合には「<b>存在</b>」をチェックしてください<br>
+	この場合、登録データは削除されません<br>
+	※とりあえずこのリストに残しておきたい場合には「<b>保留</b>」を選んでください<br>
+	※IPリストにはリンク切れを報告してくださった方のIPアドレスのリストが入っています<br>　
+	万が一いたずらなどで困っている場合には、<a href="#user_cfg">リンク切れ報告の設定</a>から該当するIPを拒否する設定にしてください<br>
+	※リンク=<b>リンク切れ</b>/移転=<b>ホームページ移転</b>/バナー=<b>バナーリンク切れ</b>/<br>　
+	違反=<b>規約違反</b>/他=<b>その他</b>/ の略です。数字は報告数を表します。
+	<br><br>
+<table cellpadding=5 border=1>
+<tr>
+<th>削除</th><th>存在</th><th>保留</th>
+<th>リンク</th><th>移転</th><th>バナー</th>
+<th>違反</th><th>他</th>
+<th>URL</th>
+<th>編集</th>
+<th>
+コメント等
+</th>
+</tr>
+<?php
+if(isset($url)) {
+	foreach ($url as $id=>$val){
+		if($EST[no_link_min]<=$count[$id]){
+			?>
+<tr valign=top>
+<td>
+<input type=radio name="id_<?=$id?>" value="on" style="background-color:red;">x
+</td>
+<td>
+<input type=radio name="id_<?=$id?>" value="off" style="background-color:blue;">o
+</td>
+<td>
+<input type=radio name="id_<?=$id?>" value=""  style="background-color:yellow;" checked>-
+</td>
+<td align=center><?=$count["1_$id"]?></td>
+<td align=center><?=$count["2_$id"]?></td>
+<td align=center><?=$count["3_$id"]?></td>
+<td align=center><?=$count["4_$id"]?></td>
+<td align=center><?=$count["5_$id"]?></td>
+<td>
+<a href="<?=$url[$id]?>" target="_blank">ジャンプ</a>
+</td>
+<td align=center>
+<a href="regist_ys.php?pass=<?=$_POST['pass']?>&changer=admin&in_mode=mente&Smode_name=mente&id=<?=$id?>" target="_blank">編集</a>
+</td>
+<td>
+<?php
+			echo "<textarea cols=40 rows=3>";
+			$i=0;
+			$com2=explode("<1>",$com[$id]);
+			$ip=explode("&",$PR_ip[$id]);
+			foreach($ip as $tmp){
+				$Dcom=explode("<2>",$com2[$i]); $fl=0;
+				$Dcom[2]=str_replace("<br>", "\n", $Dcom[2]);
+				if($Dcom[0]){echo "$Dcom[0] / "; $fl=1;}
+				if($Dcom[1]){echo "$Dcom[1]"; $fl=1;}
+				if($fl){echo "\n";}
+				if($_){echo "IP:${tmp}\n";$fl=1;}
+				if($Dcom[2]){echo "$Dcom[2]\n";$fl=1;}
+				if($fl){echo "+--------+\n";}
+				$i++;
+			}
+			echo "</textarea>";
+			?>
+</td>
+</tr>
+<?php
+		}
+	}
+}
+?>
+</table><br>
+	<input type=submit value="削除処理実行"> <input type=reset value="リセット">
+</form>
+</ul>
+<?php
+?>
+<hr noshade color=#aaaaaa>
+<a name="user_cfg"></a>
+<form action="<?=$EST['admin']?>" method=post>
+<?php echo YOMI_TICKET_TAG; ?>
+	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=mode value="cfg_make">
+<a name="config">[<a href="#top">トップに戻る</a>]</a>
+<ul>
+<font size="+1">【リンク切れ報告の設定】</font><br>
+	<br>
+	<li><b>報告する最低値</b><br>
+	<ul>
+	<input type=text name=no_link_min value="<?=$EST['no_link_min']?>" size=4>
+	</ul>
+	<li><b>通知を拒否するIPアドレス(の一部)リスト</b><br>
+	※複数指定する場合には半角カンマ( <b>,</b> )で区切ってください<br>
+	※ここで設定した文字列を含むIPアドレスからリンク切れの報告があっても報告リストには書き込まれなくなります<br>
+	<ul>
+	<input type=text name=no_link_ip value="<?=$EST['no_link_ip']?>" size=60>
+	</ul>
+	<br>
+	<input type=submit value="変更する"> <input type=reset value="リセット">
+</ul>
+</form>
+<hr noshade color=#aaaaaa>
+<a name="dl"></a>
+<form action="<?=$EST['admin']?>?dummy=list.dat" method=post target="_blank">
+<?php echo YOMI_TICKET_TAG; ?>
+	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=mode value="log_kt_change_act">
+	<input type=hidden name=log_mode value="del">
+<a name="del">[<a href="#top">トップに戻る</a>]</a>
+<ul>
+<font size="+1">【デッドリンクチェック用のファイルをダウンロード】</font><br>
+	▼デッドリンクチェック用のファイルをダウンロードします(Windows専用)<br>
+	※この機能を使用する場合にはWindows用ソフトの「<a href="http://www.nakka.com/" target="_blank">WWWC</a>」が必要です。
+	<br><br>
+	<input type=hidden name=mode value=dl_check_dl>
+	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+★デッドリンクチェック用のリストファイルをダウンロード⇒
+	<input type=submit value="ダウンロード">
+</ul>
+</form>
+<hr noshade color=#aaaaaa>
+<a name="dl"></a>
+<form action="<?=$EST['admin']?>" method=post>
+<?php echo YOMI_TICKET_TAG; ?>
+	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=mode value="dl_check_act">
+<a name="change">[<a href="#top">トップに戻る</a>]</a>
+<ul>
+<font size="+1">【チェック済みデータを元にデッドリンクチェック実行】</font><br>
+	<br>
+	チェック済みデータファイル名<br>
+	<ul>
+		<input type=text name=checkfile value="log/Item.dat">
+	</ul>
+	<br>
+	<input type=submit value="デッドリンクチェック実行"> <input type=reset value="リセット">
+</ul>
+</form>
+<hr noshade color=#aaaaaa>
+<?php
+if(!$Eadd_below_mode){print $Eadd_data_below;}
+cp_cr();
+?>
+
+<?php
+if (isset($link) && $link) {
+	@mysql_close($link);
+}
+exit;
+?>

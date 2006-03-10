@@ -1,0 +1,36 @@
+<link rel="stylesheet" href="<?=$EST['html_path_url']?>style.css" type="text/css">
+<a name=top></a>
+<!-- メニューバー -->
+<div align=right><font id=small>
+<?php
+menu_bar();
+?>
+</font></div>
+<hr>
+<?=YOMI_HOME_URL?> &gt; <a href="<?=$EST['cgi_path'].$EST['search']?>">詳細検索</a> &gt;
+<?php
+#ヘッダスペース
+head_sp();
+?>
+<table width=100%><tr><td id="title-bar">
+<b>外部検索エンジンへのリンク画面(検索ワード：<?=$_GET['word']?> / 検索条件：<?=$_GET['method']?>)</b>
+</td></tr></table>
+<br>
+<ul>▼リンクをクリックすると各検索エンジンの検索結果のページにジャンプします</ul>
+<?php
+$location_list=meta("meta_page","on");
+PR_meta_page($location_list);
+?>
+<hr>
+<?php
+#フッタスペース
+foot_sp();
+include("footer.php");
+?>
+
+<?php
+if (isset($link) && $link) {
+	@mysql_close($link);
+}
+exit;
+?>

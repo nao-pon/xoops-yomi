@@ -1,0 +1,191 @@
+<?php
+##ラジオボックスの設定
+#キーワードランキング(実施しない=0/実施する=1)
+if($EST['keyrank']){$Ckeyrank_0=""; $Ckeyrank_1=" checked";}
+else{$Ckeyrank_0=" checked"; $Ckeyrank_1="";}
+?>
+<link rel="stylesheet" href="<?=$EST['html_path_url']?>style.css" type="text/css">
+
+<a name=top></a>
+<form action="<?=$EST['admin']?>" method=post>
+<?php echo YOMI_TICKET_TAG; ?>
+<!-- メニューバー -->
+<div align=right><font id=small>
+<?php
+menu_bar();
+?>
+</font></div>
+<hr noshade color=#aaaaaa>
+<?=YOMI_HOME_URL?> &gt;
+<table width=100%><tr><td id="title-bar">
+<font color=#000000><b>キーワードランキングの設定</b></font>
+</td></tr></table>
+	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=mode value="kanri">
+	<input type=submit value="管理室に戻る">
+<br>
+</form>
+[<a href="#hyouji">各キーワードの表示/非表示設定</a>] 
+[<a href="#del_word">集計対象外の検索ワードの一括登録</a>]
+<br>
+[<a href="#config">キーワードランキングの環境設定</a>]
+<hr noshade color=#aaaaaa>
+<?php
+if(!$EST['keyrank']){echo "<font color=red>※現在、キーワードランキングは実施しない設定になっています</font><br>";}
+$jyuni=1;$jyuni_z=1;
+?>
+<br>
+<a name="hyouji">[<a href="#top">トップに戻る</a>]</a>
+<ul>
+<form action="<?=$EST['admin']?>" method=post>
+	<?php echo YOMI_TICKET_TAG; ?>
+	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=mode value="key_cfg_act">
+	<font size="+1">【各キーワードの表示/非表示設定】</font><br><br>
+	<input type=submit value="変更する"> <input type=reset value="リセット">
+<br><br>
+※ポイントが<b><?=$EST['keyrank_min']?></b>未満の検索ワードは省略しています<br>
+※検索ワードは英字は小文字に変換されていますので、<br>　
+ランキング中の表示名称を変えたいときは、「表示名称」に表示する言葉を記入してください。<br><br>
+▼保留中の検索ワード<br>
+<table border cellpadding=7>
+<tr><th>pt.</th><th>公表へ</th><th>禁止へ</th><th>データ削除</th><th>検索ワード</th><th>表示名称</th></tr>
+<?php
+$query="SELECT word,COUNT(*) AS pt FROM $EST[sqltb]key GROUP BY word ORDER BY pt DESC";
+$result=$xoopsDB->query($query) or die("Query failed 70 $query");
+while(list($key,$pt)=mysql_fetch_row($result)){
+	if(!$open_key[$key] and !$bad_key[$key]){
+		$skey = htmlspecialchars($key);
+		$PR_key=$key;
+		$PR_key=str_replace("’", "'", $PR_key);
+		$PR_key_en=urlencode($PR_key);
+		if($pt<$EST[keyrank_min]){break;}
+		?>
+<tr><th><?=$pt?></th>
+<th>
+<input type=checkbox name="open[]" value="<?=$skey?>">o
+</th>
+<th>
+<input type=checkbox name="bad[]" value="<?=$skey?>">x
+</th>
+<th>
+<input type=checkbox name="delete[]" value="<?=$skey?>">-
+</th>
+<td><a href="<?=$EST['search']?>?word=<?=$PR_key_en?>&mode=search" target="_blank"><?=htmlspecialchars($PR_key)?></a></td>
+<?php
+		if($open_key[$key] != "1"){
+			$open_key[$key]=rtrim($open_key[$key]);
+			echo "<td><input type=text name=\"hm_$key\" value=\"$open_key[$key]\"></td>";
+		}
+		else{echo "<td><input type=text name=\"hm_$key\" value=\"\"></td>";}
+		?>
+</tr>
+<?php
+	}
+	else {
+		$point[$key]=$pt;
+	}
+}
+?>
+</table>
+<br>
+<input type=submit value="変更する"> <input type=reset value="リセット">
+<br><br>
+▼公表対象の検索ワード<br>
+<table border cellpadding=7>
+<tr><th>pt.</th><th>公表解除</th><th>検索ワード</th><th>表示名称</th></tr>
+<?php
+if($open_key) {
+	foreach($open_key as $key=>$val){
+		if($open_key[$key]){
+			$skey = htmlspecialchars($key);
+			$PR_key=$key;
+			$PR_key=str_replace("’", "'", $PR_key);
+			$PR_key_en=urlencode($PR_key);
+			?>
+<tr><th><?=$point[$key]?></th><th><input type=checkbox name="del_oo_<?=$skey?>" value="on"></th>
+<td><a href="<?=$EST[search]?>?word=<?=$PR_key_en?>&mode=search" target="_blank"><?=htmlspecialchars($PR_key)?></a></td>
+<?php
+			if($val != "1"){
+				$val=rtrim($val);
+				echo "<td><input type=text name=\"hm_$key\" value=\"$val\"></td>";
+			}
+			else{echo "<td><input type=text name=\"hm_$key\" value=\"\"></td>";}
+			?>
+</tr>
+<?php
+		}
+	}
+}
+?>
+</table>
+<br>
+<input type=submit value="変更する"> <input type=reset value="リセット">
+<br><br>
+▼集計対象外の検索ワード<br>
+<table border cellpadding=7>
+<tr><th>解除</th><th>検索ワード</th></tr>
+<?php
+if($bad_key) {
+	foreach($bad_key as $key=>$val){
+		$PR_key=$key;
+		$PR_key=str_replace("’", "'", $PR_key);
+		$PR_key_en=urlencode($PR_key);
+		?>
+<tr><th><input type=checkbox name="del_bb_<?=$key?>" value="on"></th>
+<td><a href="<?=$EST[search]?>?word=<?=$PR_key_en?>&mode=search" target="_blank"><?=$PR_key?></a></td></tr>
+<?php
+	}
+}
+	?>
+</table>
+<br>
+<input type=submit value="変更する"> <input type=reset value="リセット">
+</ul>
+</form>
+<hr noshade color=#aaaaaa>
+<form action="<?=$EST['admin']?>" method=post>
+	<?php echo YOMI_TICKET_TAG; ?>
+	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=mode value="key_cfg_del_word_act">
+<a name="del_word">[<a href="#top">トップに戻る</a>]</a>
+<ol>
+<font size="+1">【集計対象外の検索ワードの一括登録】</font><br><br>
+<ul>※複数指定する場合には半角カンマ( <b>,</b> )で区切ってください<br>
+<input type=text name=del_key_list size=60>
+</ul>
+<br>
+<input type=submit value="変更する"> <input type=reset value="リセット">
+</form>
+</ol>
+<hr noshade color=#aaaaaa>
+<form action="<?=$EST['admin']?>" method=post>
+	<?php echo YOMI_TICKET_TAG; ?>
+	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=mode value="cfg_make">
+<a name="config">[<a href="#top">トップに戻る</a>]</a>
+<ol>
+<font size="+1">【キーワードランキングの環境設定】</font><br><br>
+<li>キーワードランキング→
+		<input type=radio name="keyrank" value="0"<?=$Ckeyrank_0?>>実施しない | 
+		<input type=radio name="keyrank" value="1"<?=$Ckeyrank_1?>>実施する
+<li>管理室で表示する最低数→<input type=text name=keyrank_min value="<?=$EST['keyrank_min']?>" size=2>
+<li>ランキングの集計期間→<input type=text name=keyrank_kikan value="<?=$EST['keyrank_kikan']?>" size=2>日ごとに集計する
+<li>ランキングの表示数→ベスト<input type=text name=keyrank_hyouji value="<?=$EST['keyrank_hyouji']?>" size=2>位まで表示する
+<li>一日ごとに指定数以下のデータは削除→検索数が<input type=text name=keyrank_cut value="<?=$EST['keyrank_cut']?>" size=2>以下なら削除する<br>
+※この設定はキーワードランキングのログサイズが大きくなり過ぎないようにするための設定です。
+	<br><br><input type=submit value="変更する"> <input type=reset value="リセット">
+</ol>
+</form>
+<hr noshade color=#aaaaaa>
+<?php
+if(!$Eadd_below_mode){echo $Eadd_data_below;}
+cp_cr();
+?>
+
+<?php
+if (isset($link) && $link) {
+	@mysql_close($link);
+}
+exit;
+?>

@@ -1,0 +1,74 @@
+<?php
+EST_reg();
+#look_mes.cgiのログフォーマット
+#[0]=>ID[0]
+#[1]=>登録日[4]
+#[2]=>新設希望カテゴリ
+#[3]=>管理人へのコメント
+#[4]=>メールアドレス[9]
+#[5]=>お名前[8]
+#[6]=>URL[2]
+#[7]=>タイトル[1]
+?>
+<link rel="stylesheet" href="<?=$EST['html_path_url']?>style.css" type="text/css">
+
+<a name=top></a>
+<form action="<?=$EST['admin']?>" method=post>
+<?php echo YOMI_TICKET_TAG; ?>
+<!-- メニューバー -->
+<div align=right><font id=small>
+<?php
+menu_bar();
+?>
+</font></div>
+<hr noshade color=#aaaaaa>
+<?=YOMI_HOME_URL?> &gt;
+<table width=100%><tr><td id="title-bar">
+<font color=#000000><b>登録者のメッセージを見る</b></font>
+</td></tr></table>
+	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=mode value="kanri">
+	<input type=submit value="管理室に戻る">
+<br>
+<hr noshade color=#aaaaaa>
+</form>
+<?php
+if(!$EST_reg['look_mes']){echo "<font color=red>※現在、登録者からのメッセージは保存しない設定になっています</font><br>";}
+elseif(preg_match("/(\d+)/", $EST_reg['look_mes'], $match)){echo "※現在、登録者からのメッセージが<b>$match[1]</b>件に達するごとにまとめて管理人のメールアドレスに送信される設定になっています。<br>";}
+?>
+<p>
+<ul>
+<?php
+$fp=fopen("$EST[log_path]look_mes.cgi", "r");
+while($tmp=fgets($fp, 4096)){
+	$look_mes=explode("<>",$tmp);
+	?>
+<hr width="80%" align=left>
+[登録日]：<?=$look_mes[1]?> / [お名前]：<?=$look_mes[5]?> / [Email]:<a href="mailto:<?=$look_mes[4]?>"><?=$look_mes[4]?></a><br>
+[タイトル]：<?=$look_mes[7]?> / [URL]：<a href="<?=$look_mes[6]?>" target="_blank"><?=$look_mes[6]?></a><br>
+[<a href="<?=$EST['cgi_path_url']?>regist_ys.php?mode=enter&id=<?=$look_mes[0]?>" target="_blank">修正・削除</a>]<br>
+<?php
+	if($look_mes[2]){echo "[新設希望カテゴリ]：<?=$look_mes[2]?><br>";}
+	if($look_mes[3]){
+		$look_mes[3]=str_replace("<br>", "\n", $look_mes[3]);
+		p?>
+[管理人へのメッセージ]<br>
+<textarea cols=70 rows=4><?=$look_mes[3]?></textarea>
+<?php
+	}
+}
+fclose($fp);
+?>
+</ul>
+<hr noshade color=#aaaaaa>
+<?php
+if(!$Eadd_below_mode){echo $Eadd_data_below;}
+cp_cr();
+?>
+
+<?php
+if (isset($link) && $link) {
+	@mysql_close($link);
+}
+exit;
+?>

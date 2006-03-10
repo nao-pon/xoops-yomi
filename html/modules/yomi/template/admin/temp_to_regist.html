@@ -1,0 +1,174 @@
+<?php
+$Ekreg=10; #表示数
+$size_url_w=50; #URL/バナーURL/キーワードの横サイズ
+$size_syoukai_w=30; #紹介文/管理人コメント/メッセージの横サイズ
+if(!$_POST['pre_no']){$_POST['pre_no']=1;}
+if($_POST['page'] == "次のページ"){$_POST['pre_no']=$_POST['pre_no']+$Ekreg;}
+elseif($_POST['page'] == "前のページ"){$_POST['pre_no']=$_POST['pre_no']-$Ekreg;}
+?>
+<link rel="stylesheet" href="<?=$EST['html_path_url']?>style.css" type="text/css">
+
+<a name=top></a>
+<form action="<?=$EST['admin']?>" method=post>
+<?php echo YOMI_TICKET_TAG; ?>
+<!-- メニューバー -->
+<div align=right><font id=small>
+<?php
+menu_bar();
+?>
+</font></div>
+<hr noshade color=#aaaaaa>
+<?=YOMI_HOME_URL?> &gt;
+<table width=100%><tr><td id="title-bar">
+<font color=#000000><b>登録待ち表示画面</b></font>
+</td></tr></table>
+	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=mode value="kanri">
+	<input type=submit value="管理室に戻る">
+</form>
+<form action="<?=$EST[admin]?>" method=post>
+	<?php echo YOMI_TICKET_TAG; ?>
+	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=mode value=temp_to_regist>
+	<input type=hidden name=pre_no value="<?=$_POST['pre_no']?>">
+<?php
+if($_POST['pre_no']-$Ekreg>=0){echo"<input type=submit name=page value=\"前のページ\"> ";}
+if($_POST['pre_no']+$Ekreg<=$Ctemp){echo"<input type=submit name=page value=\"次のページ\">";}
+?>
+</form>
+<hr noshade color=#aaaaaa>
+<center>
+<form action="<?=$EST['admin']?>" method=post>
+	<?php echo YOMI_TICKET_TAG; ?>
+	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=mode value=temp_to_regist_act>
+	<input type=submit value="登録・削除の実行">　
+	<input type=reset value="リセット">
+<br><br>
+<?php
+if($Ctemp<1){echo"登録待ちのデータはありません<br><br>";}
+else{
+	$linkn=1;$link_back="top";$link_next=2;
+	foreach ($ganes as $kt=>$val){
+		$PRgane_list .="<option value=\"$kt\">" . full_kt($kt) . "\n";
+	}
+	$fp = fopen("$EST[log_path]$EST[temp_logfile]", "r");
+	$i1=1;
+	while($tmp = fgets($fp, 4096)){
+		if($_POST['pre_no']<=$i1 && $i1<$_POST['pre_no']+$Ekreg){
+			$Slog=explode("<>",$tmp);
+			$kt=explode("&",$Slog[10]);
+			list($sougo_fl,$add_kt,$to_admin)=explode("<1>",$Slog[14]);
+			$Slog[6]=str_replace("<br>", "\n", $Slog[6]);
+			$to_admin=str_replace("<br>", "\n", $to_admin);
+			if($sougo_fl){$sougo_fl="する";}
+			else{$sougo_fl="しない";}
+			?>
+<a name="<?=$linkn?>"></a>
+<table border="4" cellpadding="8" style="width:100%;">
+<tr>
+	<td valign=top>【タイトル】<br><input type=text name=Ftitle<?=$Slog[0]?> value="<?=$Slog[1]?>" size=<?=$size_url_w?>></td>
+<td rowspan=4 valign=top>【登録の可否】　<a href="#top">▲一番上</a> <a href="#bottom">▼一番下</a><br>
+	[ 登録<input type=radio name=R<?=$Slog[0]?> value=reg> ] 
+	[ 削除<input type=radio name=R<?=$Slog[0]?> value=del> ] 
+	[ 保留<input type=radio name=R<?=$Slog[0]?> value="" checked> ]　
+	<a href="#<?=$link_back?>">△上</a> 
+	<a href="#<?=$link_next?>">▽下</a>
+	<br><br>
+	【登録申請日】<br><?=$Slog[4]?><br>
+	【お名前】(ユーザID: <?=$Slog[17]?> ) <input type=hidden name=Fuid<?=$Slog[0]?> value=<?=$Slog[17]?>><br><input type=text name=Fname<?=$Slog[0]?> value="<?=$Slog[8]?>"><br>
+	【メールアドレス】<br><input type=text name=Femail<?=$Slog[0]?> value="<?=$Slog[9]?>"> ⇒<a href="mailto:<?=$Slog[9]?>">メール</a><br>
+	<br>【新設希望カテゴリ】
+	<br><?=$add_kt?>
+	<br>【相互リンク】
+	<br><?=$sougo_fl?>
+<?php
+			if($sougo_fl == "する"){
+				echo "<input type=hidden name=Fsougo$Slog[0] value=1>";
+			}
+			?>
+</td>
+</tr>
+<tr>
+	<td>【マーク】<br>
+<?php
+			for($i=1; $i <= 2; $i++){ #←マーク数を増やす時は修正
+				$op_name = $EST["name_m$i"];
+				if ($i == 2 && $sougo_fl == "する")
+				{
+					$op_name = "<span style=\"color:red;\">{$op_name}</span>";
+				}
+				echo "<input type=checkbox name=Fmark".$i."_".$Slog[0]." value=1>".$op_name."　 ";
+			}
+			?>
+	</td>
+</tr>
+<tr>
+	<td nowrap valign=top>【URL】<br><input type=text name=Furl<?=$Slog[0]?> value="<?=$Slog[2]?>" size=<?=$size_url_w?>> ⇒<a href="<?=$Slog[2]?>" target="_blank">URL</a></td>
+</tr>
+<tr><td>【バナーURL】<br><input type=text name=Fbana_url<?=$Slog[0]?> value="<?=$Slog[12]?>" size=<?=$size_url_w?>> ⇒<a href="<?=$Slog[12]?>" target="_blank">URL</a>
+<?php
+			if($Slog[12]){echo "<br><img src=\"$Slog[12]\" width=$EST_reg[Mbana_w] height=$EST_reg[Mbana_h]>";}
+			?>
+</td>
+</tr>
+<tr>
+	<td>【紹介文】<br><textarea name=Fsyoukai<?=$Slog[0]?> cols="<?=$size_syoukai_w?>" rows="3" style="width:100%;"><?=$Slog[6]?></textarea></td>
+	<td>【管理人コメント】<br><textarea name=Fkanricom<?=$Slog[0]?> cols="<?=$size_syoukai_w?>" rows="3" style="width:100%;"></textarea></td>
+</tr>
+	<td valign=top>
+	【登録するカテゴリ】<br>
+<?php
+			for($i=1; $i <= $EST_reg['kt_max']; $i++){
+				if($ganes[$kt[$i]]){
+					?>
+	<select name=F<?=$Slog[0]?>kt<?=$i?>>
+	<option value="<?=$kt[$i]?>" selected>
+<?php
+					echo full_kt($kt[$i]);
+				}
+				else{
+					?>
+	<select name=F<?=$Slog[0]?>kt<?=$i?>>
+<?php
+				}
+				echo "<option value=\"\">--指定しない--" . $PRgane_list . "</select><br>";
+			}
+			?>
+<td valign=top>【キーワード】<br><input type=text name=Fkey<?=$Slog[0]?> value="<?=$Slog[15]?>" size=<?=$size_url_w?>></td>
+</tr>
+<tr>
+<td valign="bottom">【<b>登録者</b>へのメッセージ】<br><textarea name=Fto_reg<?=$Slog[0]?> cols=<?=$size_syoukai_w?> rows=4 style="width:100%;"></textarea>
+</td>
+<td valign="bottom">【<?=$Slog[8]?>さんから管理人へのメッセージ】<br><textarea name=Fto_admin<?=$Slog[0]?> cols=<?=$size_syoukai_w?> rows=4 style="width:100%;"><?=$to_admin?></textarea></td></tr>
+</table><br><br>
+<?php
+			$link_back=$linkn;
+			$linkn++;
+			$link_next++;
+		}
+		elseif($i1>=$_POST[pre_no]+$Ekreg){break;}
+		$i1++;
+	}
+	fclose($fp);
+}
+?>
+	<input type=submit value="登録・削除の実行">　
+	<input type=reset value="リセット">
+<br>
+<div align=left><a href="#top">▲ページ先頭に戻る</a></div>
+<a name=bottom></a>
+	</form>
+</center>
+<hr noshade color=#aaaaaa>
+<?php
+if(!isset($Eadd_below_mode)){echo $Eadd_data_below;}
+cp_cr();
+?>
+
+<?php
+if (isset($link) && $link) {
+	@mysql_close($link);
+}
+exit;
+?>

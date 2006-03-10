@@ -1,0 +1,113 @@
+<link rel="stylesheet" href="<?=$EST['html_path_url']?>style.css" type="text/css">
+
+<a name=top></a>
+<!-- メニューバー -->
+<div align=right><font id=small>
+<?php
+menu_bar();
+?>
+</font></div>
+<hr>
+<br><center>
+<table style="width:80%; border:0;"><tr><td class="yomi">
+<?=YOMI_HOME_URL?>　&gt;
+<table border=3 width="100%" cellpadding=20>
+<tr><td>
+<br>
+<center><font size="+2">【パスワード認証画面】</font><br />
+<font color="red"><b>※登録ユーザの方はログインしてから修正・削除してください。</b></font>
+</center>
+<br>
+<table border=0 cellpadding=15>
+<tr>
+<td class="yomi" style="vertical-align:top; text-align:right;width:40%" nowrap>
+<form action="regist_ys.php" method=post>
+	<?php echo YOMI_TICKET_TAG; ?>
+	<input type=hidden name=in_mode value=mente>
+	<input type=hidden name=Smode_name value=mente>
+<div align=left>
+１．登録データの修正<br><br>
+</div>
+変更する人：登録者
+<input type=hidden name=changer value="">
+<?php
+#local($pre_pass); #パスワードの既入力値
+	$pre_pass=$CK_data[0];
+#cookieの有無を判定
+if(count($CK_data)>=0){$Ccookie_0=""; $Ccookie_1=" checked";}
+else{$Ccookie_0=" checked"; $Ccookie_1="";}
+?>
+<br>
+ID:<input type=text name=id value="<?=$_POST['id']?>" size=12><br>
+PASS:<input type=password name=pass value="<?=$pre_pass?>" size=12><br>
+<font size="-1">パスワードを記録する</font><input type=radio name=cookie value="on"<?=$Ccookie_1?>><br>
+<font size="-1">パスワードを記録しない</font><input type=radio name=cookie value="off"<?=$Ccookie_0?>><br>
+<input type=submit value="修正画面">
+</form>
+</td>
+<td class="yomi" style="vertical-align:top;width:60%">
+<?=$PR_data?>
+</td>
+</tr>
+</table>
+<hr>
+<table border=0 cellpadding=15>
+<tr><td  class="yomi" style="vertical-align:top; text-align:right;width:40%" nowrap>
+<form action="regist_ys.php" method=post>
+	<?php echo YOMI_TICKET_TAG; ?>
+	<input type=hidden name=mode value="act_del">
+	<input type=hidden name=del_mode value="single">
+<div align=left>２．登録データの削除</div><br>
+削除する人：登録者
+<input type=hidden name=changer value="">
+<br>
+ID:<input type=text name=id value="<?=$_POST['id']?>" size=12><br>
+PASS:<input type=password name=pass value="<?=$pre_pass?>" size=12><br>
+削除確認チェック→<input type=checkbox name=del_check value=on><br>
+<input type=submit value="削除">
+</form>
+</td><td class="yomi" style="vertical-align:top; text-align:right;width:60%"></td></tr>
+</table>
+<?php
+if($EST['re_pass_fl']){
+	?>
+<hr>
+<table border=0 cellpadding=15>
+<tr><td align=right>
+<form action="regist_ys.php" method=post>
+	<?php echo YOMI_TICKET_TAG; ?>
+	<input type=hidden name=mode value="act_repass">
+	<input type=hidden name=repass_mode value="repass">
+<div align=left>３．パスワードの再発行</div>
+<br>
+ID:<input type=text name=id value="<?=$_POST['id']?>" size=12><br>
+E-Mail:<input type=text name=email value="" size=20><br>
+再発行確認チェック→<input type=checkbox name=repass_check value=on><br>
+<input type=submit value="再発行">
+</td></tr>
+</table>
+<?php
+	if($EST['mail_pass']){echo "※新しいパスワードは登録時のメールアドレスに送信されます";}
+	?>
+</form>
+<?php
+}
+?>
+<hr>
+<br>
+<center><form><input type=button value="　戻る　" onClick="history.back()"></form></center> <br>
+</td></tr>
+</table>
+</td></tr>
+</table>
+</center>
+<?php
+include("footer.php");
+?>
+
+<?php
+if (isset($link) && $link) {
+    @mysql_close($link);
+}
+exit;
+?>

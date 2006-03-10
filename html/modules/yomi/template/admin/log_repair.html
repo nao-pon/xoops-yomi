@@ -1,0 +1,61 @@
+<link rel="stylesheet" href="<?=$EST['html_path_url']?>style.css" type="text/css">
+
+<a name=top></a>
+<form action="<?=$EST['admin']?>" method=post>
+<?php echo YOMI_TICKET_TAG; ?>
+<!-- メニューバー -->
+<div align=right><font id=small>
+<?php
+menu_bar();
+?>
+</font></div>
+<hr noshade color=#aaaaaa>
+<?=YOMI_HOME_URL?> &gt;
+<table width=100%><tr><td id="title-bar">
+<font color=#000000><b>ログ(登録データ)の修復</b></font>
+</td></tr></table>
+	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=mode value="kanri">
+	<input type=submit value="管理室に戻る">
+<br>
+</form>
+<hr noshade color=#aaaaaa>
+<form action="<?=$EST['admin']?>" method=post>
+<?php echo YOMI_TICKET_TAG; ?>
+<ul>
+<font color="red">※データベースのバックアップファイルを作成します。</font><br><br>
+	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=mode value="log_repair_act">
+	<input type=hidden name=act value="dump">
+	<font size="+1">【バックアップデータの作成】</font><br>
+	バックアップファイル名<input type=text name=file value="<?=$EST['log_path']?>ys_log.dump">
+	<input type=submit name=bk_day value="作成">
+	<input type=checkbox name=dump value="on">(←確認チェック)<br><br>
+</form>
+</ul>
+<hr noshade color=#aaaaaa>
+<form action="<?=$EST['admin']?>" method=post>
+<?php echo YOMI_TICKET_TAG; ?>
+<ul>
+<font color="red">※一度復元したら元のデータは二度と戻らないので注意してから復元してください。</font><br><br>
+	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=mode value="log_repair_act">
+	<input type=hidden name=act value="restore">
+	<font size="+1">【バックアップデータの復元】</font><br>
+	バックアップファイル名<input type=text name=file value="<?=$EST['log_path']?>ys_log.dump">
+	<input type=submit name=bk_day value="復元">
+	<input type=checkbox name=restore value="on">(←確認チェック)<br><br>
+</form>
+</ul>
+<hr noshade color=#aaaaaa>
+<?php
+if(!$Eadd_below_mode){echo $Eadd_data_below;}
+cp_cr();
+?>
+
+<?php
+if (isset($link) && $link) {
+	@mysql_close($link);
+}
+exit;
+?>

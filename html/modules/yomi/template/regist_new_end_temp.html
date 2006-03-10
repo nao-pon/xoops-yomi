@@ -1,0 +1,106 @@
+<link rel="stylesheet" href="<?=$EST['html_path_url']?>style.css" type="text/css">
+
+<a name=top></a>
+<!-- メニューバー -->
+<div align=right><font id=small>
+<?php
+menu_bar();
+?>
+</font></div>
+<hr>
+<table width="100%"><tr><td id="title-bar">
+<b>仮登録完了</b>
+</td></tr></table>
+<ol>
+	▼仮登録が以下のとおり完了しました。管理人が確認した後に正式登録されます。<br><br>
+<!--お名前-->
+	<li>【お名前】<br>
+		<ul><?=$Slog[8]?></ul><br>
+<!--メールアドレス-->
+	<li>【メールアドレス】<br>
+		<ul><?=$Slog[9]?></ul><br>
+<?php
+if (!$x_uid) {
+?>
+<!--パスワード-->
+	<li>【パスワード】<br>
+		<ul><?=$Spass?></ul><br>
+<?php
+}
+?>
+<!--ホームページアドレス-->
+	<li>【ホームページアドレス】<br>
+		<ul><a href="<?=$Slog[2]?>"><?=$Slog[2]?></a>　[<a href="<?=$Slog[2]?>" target="_blank">確認</a>]
+		</ul><br>
+<?php
+if($EST_reg['bana_url']){
+?>
+<!--タイトルバナーのURL-->
+	<li>【タイトルバナーのURL】
+		<ul><a href="<?=$Slog[12]?>"><?=$Slog[12]?></a>　[<a href="<?=$Slog[12]?>" target="_blank">確認</a>]
+		</ul><br>
+<?php
+}
+?>
+<!--ホームページのタイトル-->
+	<li>【ホームページのタイトル】
+		<ul><?=$Slog[1]?></ul><br>
+<!--ホームページの紹介文-->
+	<li>【ホームページの紹介文】
+		<ul>
+		<table width="100%" border=0><tr><td><?=nl2br($Slog[6])?></td></tr></table>
+		</ul><br>
+<!--登録するカテゴリ-->
+	<li>【登録するカテゴリ】
+		<ul>
+<?php
+PR_preview_kt2();
+?>
+</ul><br>
+<!--キーワード-->
+	<li>【キーワード】
+		<ul><?=$Slog[15]?></ul><br>
+<?php
+if($EST_reg['add_kt'] && $_POST['in_mode'] != "mente"){
+?>
+<!--追加して欲しいカテゴリ-->
+	<li>【追加して欲しいカテゴリ】
+		<ul><?=$_POST['Fadd_kt']?>
+		</ul><br>
+<?php
+}
+if($EST_reg['to_admin'] && $_POST['in_mode'] != "mente"){
+?>
+<!--管理人へのメッセージ-->
+	<li>【管理人へのメッセージ】
+		<ul>
+		<table width="100%" border=0><tr><td><?=$_POST['Fto_admin']?></td></tr></table>
+		</ul>
+<?php
+}
+if($EST_reg['sougo'] && $_POST['in_mode'] !=  "mente"){
+	if($_POST[Fsougo]){$PRsougo="相互リンクする";}
+	else{$PRsougo="相互リンクしない";}
+	?>
+<!--相互リンク連絡項目-->
+	<br><li>【相互リンクの有無】
+	<input type=hidden name=Fsougo value="$_POST['Fsougo']?>">
+		<ul><?=$PRsougo?></ul>
+<?php
+}
+?>
+<!--ここまで-->
+	<br><br>
+		【　<?=YOMI_HOME_URL?>に戻る　】
+</ol></form>
+<hr>
+<?php
+include("footer.php");
+?>
+
+<?php
+if (isset($link) && $link) {
+	@mysql_close($link);
+}
+exit;
+?>

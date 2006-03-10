@@ -1,0 +1,682 @@
+<?php
+##ラジオボックスの設定
+#サーチエンジンのトップ
+if($EST['top']){$Ctop_0=""; $Ctop_1=" checked";}
+else{$Ctop_0=" checked"; $Ctop_1="";}
+#カテゴリ変更(可能=0/不可=1)
+if($EST['user_change_kt']){$Cuser_change_kt_0=""; $Cuser_change_kt_1=" checked";}
+else{$Cuser_change_kt_0=" checked"; $Cuser_change_kt_1="";}
+#仮登録モードに(しない=0/する=1)
+if($EST['user_check']){$Cuser_check_0=""; $Cuser_check_1=" checked";}
+else{$Cuser_check_0=" checked"; $Cuser_check_1="";}
+#管理人にメールを送信(しない=0/する=1)
+if($EST['mail_to_admin']){$Cmail_to_admin_0=""; $Cmail_to_admin_1=" checked";}
+else{$Cmail_to_admin_0=" checked"; $Cmail_to_admin_1="";}
+#登録者にメールを送信(しない=0/する=1)
+if($EST['mail_to_register']){$Cmail_to_register_0=""; $Cmail_to_register_1=" checked";}
+else{$Cmail_to_register_0=" checked"; $Cmail_to_register_1="";}
+#新規登録完了メールを送信(しない=0/する=1)
+if($EST['mail_new']){$Cmail_new_0=""; $Cmail_new_1=" checked";}
+else{$Cmail_new_0=" checked"; $Cmail_new_1="";}
+#登録内容変更完了メールを送信(しない=0/する=1)
+if($EST['mail_ch']){$Cmail_ch_0=""; $Cmail_ch_1=" checked";}
+else{$Cmail_ch_0=" checked"; $Cmail_ch_1="";}
+#仮登録完了メールを送信(しない=0/する=1)
+if($EST['mail_temp']){$Cmail_temp_0=""; $Cmail_temp_1=" checked";}
+else{$Cmail_temp_0=" checked"; $Cmail_temp_1="";}
+#パスワード変更メールを送信(しない=0/する=1)
+if($EST['mail_pass']){$Cmail_pass_0=""; $Cmail_pass_1=" checked";}
+else{$Cmail_pass_0=" checked"; $Cmail_pass_1="";}
+#パスワード再発行を(しない=0/する=1)
+if($EST['re_pass_fl']){$Cre_pass_fl_0=""; $Cre_pass_fl_1=" checked";}
+else{$Cre_pass_fl_0=" checked"; $Cre_pass_fl_1="";}
+#紹介文の改行(無効=0/有効=1)
+if($EST['syoukai_br']){$Csyoukai_br_0=""; $Csyoukai_br_1=" checked";}
+else{$Csyoukai_br_0=" checked"; $Csyoukai_br_1="";}
+#ジャンプ処理(Locationを使う=1/メタタグを使う=0)
+if($EST['location']){$Clocation_0=""; $Clocation_1=" checked";}
+else{$Clocation_0=" checked"; $Clocation_1="";}
+#アクセスカウンタ(使用しない=0/使用する=1)
+if($EST['count']){$Ccount_0=""; $Ccount_1=" checked";}
+else{$Ccount_0=" checked"; $Ccount_1="";}
+#下層カテゴリデータ(表示しない=0/表示する=1)
+if($EST['kt_child_show']){$Cchild_0=""; $Cchild_1=" checked";}
+else{$Cchild_0=" checked"; $Cchild_1="";}
+EST_reg();
+#二重URL登録(可能=0/不可=1)
+if($EST_reg['nijyu_url']){$Cnijyu_url_0=""; $Cnijyu_url_1=" checked";}
+else{$Cnijyu_url_0=" checked"; $Cnijyu_url_1="";}
+#追加希望カテゴリ(必須=☆/任意=0)
+if($EST_reg['Fadd_kt']){$CFadd_kt_0=""; $CFadd_kt_1=" checked";}
+else{$CFadd_kt_0=" checked"; $CFadd_kt_1="";}
+#バナーURL(必須=☆/任意=0)
+if($EST_reg['Fbana_url']){$CFbana_url_0=""; $CFbana_url_1=" checked";}
+else{$CFbana_url_0=" checked"; $CFbana_url_1="";}
+#E-Mailアドレス(必須=☆/任意=0)
+if($EST_reg['Femail']){$CFaemail_0=""; $CFemail_1=" checked";}
+else{$CFemail_0=" checked"; $CFemail_1="";}
+#キーワード(必須=☆/任意=0)
+if($EST_reg['Fkey']){$CFkey_0=""; $CFkey_1=" checked";}
+else{$CFkey_0=" checked"; $CFkey_1="";}
+#お名前(必須=☆/任意=0)
+if($EST_reg['Fname']){$CFname_0=""; $CFname_1=" checked";}
+else{$CFname_0=" checked"; $CFname_1="";}
+#紹介文(必須=☆/任意=0)
+if($EST_reg['Fsyoukai']){$CFsyoukai_0=""; $CFsyoukai_1=" checked";}
+else{$CFsyoukai_0=" checked"; $CFsyoukai_1="";}
+#タイトル(必須=☆/任意=0)
+if($EST_reg['Ftitle']){$CFtitle_0=""; $CFtitle_1=" checked";}
+else{$CFtitle_0=" checked"; $CFtitle_1="";}
+#管理人へのメッセージ(必須=☆/任意=0)
+if($EST_reg['Fto_admin']){$CFto_admin_0=""; $CFto_admin_1=" checked";}
+else{$CFto_admin_0=" checked"; $CFto_admin_1="";}
+#URL(必須=☆/任意=0)
+if($EST_reg['Furl']){$CFurl_0=""; $CFurl_1=" checked";}
+else{$CFurl_0=" checked"; $CFurl_1="";}
+#新規登録権限(管理人のみ=1/すべての訪問者=0/登録ユーザーのみ=2)
+if($EST_reg['no_regist'] == 2){$Cno_regist_0=""; $Cno_regist_1=""; $Cno_regist_2=" checked";}
+elseif ($EST_reg['no_regist'] == 1){$Cno_regist_0=""; $Cno_regist_1=" checked"; $Cno_regist_2="";}
+else {$Cno_regist_0=" checked"; $Cno_regist_1=""; $Cno_regist_2="";}
+#管理人のみが修正・削除できるモード(ON=1/OFF=0)
+if($EST_reg['no_mente']){$Cno_mente_0=""; $Cno_mente_1=" checked";}
+else{$Cno_mente_0=" checked"; $Cno_mente_1="";}
+#バナーURLの登録項目(ON=1/OFF=0)
+if($EST_reg['bana_url']){$Cbana_url_0=""; $Cbana_url_1=" checked";}
+else{$Cbana_url_0=" checked"; $Cbana_url_1="";}
+#新規登録時の追加希望カテゴリ項目(ON=1/OFF=0)
+if($EST_reg['add_kt']){$Cadd_kt_0=""; $Cadd_kt_1=" checked";}
+else{$Cadd_kt_0=" checked"; $Cadd_kt_1="";}
+#新規登録時の管理人へのコメント項目(ON=1/OFF=0)
+if($EST_reg['to_admin']){$Cto_admin_0=""; $Cto_admin_1=" checked";}
+else{$Cto_admin_0=" checked"; $Cto_admin_1="";}
+#新規登録時の相互リンク連絡項目(ON=1/OFF=0)
+if($EST_reg['sougo']){$Csougo_0=""; $Csougo_1=" checked";}
+else{$Csougo_0=" checked"; $Csougo_1="";}
+##セレクトボックスの設定
+#標準のログ表示順(mark/id_new/id_old/time_new/time_old/ac_new/ac_old)
+switch ($EST['defo_hyouji']) {
+	case "id_new": $Sdefo_hyouji="登録日の新しい順"; break;
+	case "id_old": $Sdefo_hyouji="登録日の古い順"; break;
+	case "time_new": $Sdefo_hyouji="更新日の新しい順"; break;
+	case "time_old": $Sdefo_hyouji="更新日の古い順"; break;
+	case "ac_new": $Sdefo_hyouji="アイウエオ順(昇順)"; break;
+	case "ac_old": $Sdefo_hyouji="アイウエオ順(降順)"; break;
+	default: $Sdefo_hyouji="マーク順";
+}
+?>
+<link rel="stylesheet" href="<?=$EST['html_path_url']?>style.css" type="text/css">
+
+<a name=top></a>
+<form action="<?=$EST['admin']?>" method=post>
+<?php echo YOMI_TICKET_TAG; ?>
+<!-- メニューバー -->
+<div align=right><font id=small>
+<?php
+menu_bar();
+?>
+</font></div>
+<hr noshade color=#aaaaaa>
+<?=YOMI_HOME_URL?> &gt;
+<table width=100%><tr><td id="title-bar">
+<font color=#000000><b>環境設定</b></font>
+</td></tr></table>
+	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=mode value="kanri">
+	<input type=submit value="管理室に戻る">
+<br>
+</form>
+[<a href="#pass_change">パスワード変更</a>] 
+[<a href="#cfg">環境設定(一般)</a>] 
+[<a href="#regist">登録処理関係の設定</a>]<br>
+[<a href="#start">初期設定</a>] 
+[<a href="#menu">メニューバー/外部検索エンジン/ヘッダ・フッタスペースの設定</a>] 
+<hr noshade color=#aaaaaa>
+<form action="<?=$EST['admin']?>" method=post>
+<?php echo YOMI_TICKET_TAG; ?>
+[<a href="#top">トップに戻る</a>]
+<ul>
+<font size="+1"><a name="pass_change">【 <b>パスワード変更</b> 】</a></font>
+<?php
+if($EST['pass'] == "setup"){
+	echo "<font color=\"red\">※パスワードが未変更です。パスワードを変更してください。</font>";
+}
+?>
+<br>
+	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=mode value="cfg_make">
+	※半角8文字以内<br>
+	新しいパスワード：<input type=text name=new_pass value="" size=12>
+<br><input type=submit value="パスワード変更"> <input type=reset value="リセット">
+</form>
+</ul>
+<hr noshade color=#aaaaaa>
+<form action="<?=$EST['admin']?>" method=post>
+<?php echo YOMI_TICKET_TAG; ?>
+[<a href="#top">トップに戻る</a>]
+<ol>
+<font size="+1"><a name="cfg">【 <b>環境設定(一般) </b> 】</a></font><br>
+※特に指定の無い場合は数値はすべて半角数字で記入してください<br>
+※設定項目名のリンクをクリックすると変更ボタンにジャンプします
+<br><br>
+	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=mode value="cfg_make">
+	<li><a href="#cfg_submit"><b>サーチエンジンのトップへのURL(http://から始まるアドレス)</b></a><br>
+	<ul>
+	<input type=text name=home value="<?=$EST['home']?>" size=50>
+	</ul><br>
+	<li><a href="#cfg_submit"><b>yomi.phpのファイル名</b></a><br>
+	<ul>
+	<input type=text name=script value="<?=$EST['script']?>">
+	</ul><br>
+	<li><a href="#cfg_submit"><b>検索用のCGIファイル名</b></a><br>
+	<ul>
+	<input type=text name=search value="<?=$EST['search']?>">
+	</ul><br>
+	<li><a href="#cfg_submit"><b>ランキング用のCGIファイル名</b></a><br>
+	<ul>
+	<input type=text name=rank value="<?=$EST['rank']?>">
+	</ul><br>
+	<li><a href="#cfg_submit"><b>管理処理用のCGIファイル名</b></a><br>
+	<ul>
+	<input type=text name=admin value="<?=$EST['admin']?>">
+	</ul><br>
+	<li><a href="#cfg_submit"><b>管理メニューを実行できるIPアドレス</b></a><br>
+	※特に指定しない場合には記入しないでください<br>
+	※指定した場合にはそれ以外のIPアドレス又はホスト名で管理室に入室することができなくなります<br>
+	※IPアドレス又はホスト名の一部記入してください<br>
+	※複数指定したい場合には半角カンマ( <b>,</b> )で区切ってください
+	<br>
+	<ul>
+	<input type=text name=login_ip value="<?=$EST['login_ip']?>" size=50>
+	</ul><br>
+	<li><a href="#cfg_submit"><b>ユーザ(登録者)権限設定</b></a><br>
+	<ul>
+			<li><b>ユーザのカテゴリ変更</b><br>
+			<ul>
+			<input type=radio name="user_change_kt" value="0"<?=$Cuser_change_kt_0?>>許可する | 
+			<input type=radio name="user_change_kt" value="1"<?=$Cuser_change_kt_1?>>許可しない
+			</ul>
+	</ul>
+	<ul>
+			<li><b>審査登録システム</b><br>
+			※仮登録モードにした場合には管理人が管理室から登録の可否を決定できます<br>
+			<ul>
+			<input type=radio name="user_check" value="0"<?=$Cuser_check_0?>>仮登録モードにしない | 
+			<input type=radio name="user_check" value="1"<?=$Cuser_check_1?>>仮登録モードにする
+			</ul>
+	</ul><br>
+	<li><a href="#cfg_submit"><b>カテゴリの１ページあたりの表示数</b></a><br>
+	<ul>
+	<input type=text name=hyouji value="<?=$EST['hyouji']?>" size=5>
+	</ul><br>
+	<li><a href="#cfg_submit"><b>ログディレクトリ(フォルダ)のパス</b></a><br>
+	※本体ログファイル等のログ関係のファイルを入れておくディレクトリです
+	※パーミッションは「707」又は「777」に設定
+	<ul>
+	<input type=text name=log_path value="<?=$EST['log_path']?>" size=40>
+	</ul><br>
+	<li><a href="#cfg_submit"><b>テンプレートディレクトリのパス</b></a><br>
+	※各種テンプレートデザインファイルを入れておくディレクトリです
+	※パーミッションは変更する必要はありません
+	<ul>
+	<input type=text name=temp_path value="<?=$EST['temp_path']?>" size=40>
+	</ul><br>
+	<li><a href="#cfg_submit"><b>HTMLファイル用ディレクトリのパス</b></a><br>
+	※各種HTMLファイルを入れておくディレクトリです<br>
+	※パーミッションは「707」又は「777」に設定<br>
+	※HTMLファイルが閲覧可能なディレクトリに設定してください<br>
+	<ul>
+	<input type=text name=html_path value="<?=$EST['html_path']?>" size=40>
+	</ul><br>
+	<li><a href="#cfg_submit"><b>HTMLファイルディレクトリのURL</b></a><br>
+	※HTMLファイルを入れておくディレクトリのURLです<br>
+	※HTMLファイルが閲覧可能なディレクトリに設定してください<br>
+	<ul>
+	<input type=text name=html_path_url value="<?=$EST['html_path_url']?>" size=40>
+	</ul><br>
+	<li><a href="#cfg_submit"><b>PHPファイルディレクトリのURL</b></a><br>
+	※PHPファイル(yomi.php/search.php/rank.php/admin.php/regist_ys.php)を入れておくディレクトリのURLです<br>
+	<ul>
+	<input type=text name=cgi_path_url value="<?=$EST['cgi_path_url']?>" size=40>
+	</ul><br>
+	<li><a href="#cfg_submit"><b>画像ファイルディレクトリのURL</b></a><br>
+	※画像ファイル(new.gif/renew.gif等)を入れておくディレクトリのURLです<br>
+	※画像ファイルが閲覧可能\なディレクトリに設定してください<br>
+	<ul>
+	<input type=text name=img_path_url value="<?=$EST['img_path_url']?>" size=40>
+	</ul><br>
+	<li><a href="#cfg_submit"><b>仮登録用ログファイル名</b></a><br>
+	※仮登録時に登録待ち状態のデータが保存されているファイルです<br>
+	<ul>
+	<input type=text name=temp_logfile value="<?=$EST['temp_logfile']?>" size=20>
+	</ul><br>
+	<li><a href="#cfg_submit"><b>このサーチエンジンの名称</b></a><br>
+	<ul>
+	<input type=text name=search_name value="<?=$EST['search_name']?>" size=20>
+	</ul><br>
+	<li><a href="#cfg_submit"><b>管理人の名前</b></a><br>
+	<ul>
+	<input type=text name=admin_name value="<?=$EST['admin_name']?>" size=20>
+	</ul><br>
+	<li><a href="#cfg_submit"><b>管理人のE-Mailアドレス</b></a><br>
+	<ul>
+	<input type=text name=admin_email value="<?=$EST['admin_email']?>" size=20>
+	</ul><br>
+	<li><a href="#cfg_submit"><b>管理人のホームページのURL</b></a><br>
+	<ul>
+	<input type=text name=admin_hp value="<?=$EST['admin_hp']?>" size=50>
+	</ul><br>
+	<li><a href="#cfg_submit"><b>新着・更新期間の日数</b></a><br>
+	<ul>
+	<input type=text name=new_time value="<?=$EST['new_time']?>" size=5>
+	</ul><br>
+	<li><a href="#cfg_submit"><b>名称設定</b></a><br>
+	<ul>
+		<li><b>新着</b><br>
+		<ul><input type=text name=name_new value="<?=$EST['name_new']?>" size=20></ul>
+		<li><b>更新</b><br>
+		<ul><input type=text name=name_renew value="<?=$EST['name_renew']?>" size=20></ul>
+		<li><b>おすすめ</b><br>
+		<ul><input type=text name=name_m1 value="<?=$EST['name_m1']?>" size=20></ul>
+		<li><b>相互リンク</b><br>
+		<ul><input type=text name=name_m2 value="<?=$EST['name_m2']?>" size=20></ul>
+		<li><b>人気ランキング</b><br>
+		<ul><input type=text name=name_rank value="<?=$EST['name_rank']?>" size=20></ul>
+		<li><b>前回の人気ランキング</b><br>
+		<ul><input type=text name=name_rank_bf value="<?=$EST['name_rank_bf']?>" size=20></ul>
+		<li><b>累計人気ランキング</b><br>
+		<ul><input type=text name=name_rank_rui value="<?=$EST['name_rank_rui']?>" size=20></ul>
+		<li><b>アクセスランキング</b><br>
+		<ul><input type=text name=name_rev value="<?=$EST['name_rev']?>" size=20></ul>
+		<li><b>前回のアクセスランキング</b><br>
+		<ul><input type=text name=name_rev_bf value="<?=$EST['name_rev_bf']?>" size=20></ul>
+		<li><b>累計アクセスランキング</b><br>
+		<ul><input type=text name=name_rev_rui value="<?=$EST['name_rev_rui']?>" size=20></ul>
+	</ul><br>
+	<li><a href="#cfg_submit"><b>メールの設定</b></a><br>
+	<ul>
+		<li><b>管理人にメールを送信</b><br>
+		<ul>
+			<input type=radio name="mail_to_admin" value="1"<?=$Cmail_to_admin_1?>>する | 
+			<input type=radio name="mail_to_admin" value="0"<?=$Cmail_to_admin_0?>>しない
+		</ul>
+		<li><b>登録者にメールを送信</b><br>
+		<ul>
+			<input type=radio name="mail_to_register" value="1"<?=$Cmail_to_register_1?>>する | 
+			<input type=radio name="mail_to_register" value="0"<?=$Cmail_to_register_0?>>しない
+		</ul>
+		<li><b>新規登録完了メールを送信</b><br>
+		<ul>
+			<input type=radio name="mail_new" value="1"<?=$Cmail_new_1?>>する | 
+			<input type=radio name="mail_new" value="0"<?=$Cmail_new_0?>>しない
+		</ul>
+		<li><b>登録内容変更完了メールを送信</b><br>
+		<ul>
+			<input type=radio name="mail_ch" value="1"<?=$Cmail_ch_1?>>する | 
+			<input type=radio name="mail_ch" value="0"<?=$Cmail_ch_0?>>しない
+		</ul>
+		<li><b>仮登録完了メールを送信</b><br>
+		<ul>
+			<input type=radio name="mail_temp" value="1"<?=$Cmail_temp_1?>>する | 
+			<input type=radio name="mail_temp" value="0"<?=$Cmail_temp_0?>>しない
+		</ul>
+		<li><b>パスワード変更メールを送信</b><br>
+		<ul>
+			<input type=radio name="mail_pass" value="1"<?=$Cmail_pass_1?>>する | 
+			<input type=radio name="mail_pass" value="0"<?=$Cmail_pass_0?>>しない
+		</ul>
+	</ul><br>
+	<li><a href="#cfg_submit"><b>パスワード再発行</b></a><br>
+	※パスワード変更メールを送信しない設定でこの設定を「する」にした場合にはWEB上でパスワードの通知が行われます<br>
+	※上記の理由からパスワード変更メールを送信しない設定でこの設定を「する」にすることは推奨しません
+	<ul>
+		<input type=radio name="re_pass_fl" value="1"<?=$Cre_pass_fl_1?>>する | 
+		<input type=radio name="re_pass_fl" value="0"<?=$Cre_pass_fl_0?>>しない
+	</ul><br>
+	<li><a href="#cfg_submit"><b>紹介文の改行</b></a><br>
+	<ul>
+		<input type=radio name="syoukai_br" value="1"<?=$Csyoukai_br_1?>>有効にする | 
+		<input type=radio name="syoukai_br" value="0"<?=$Csyoukai_br_0?>>無効にする
+	</ul><br>
+	<li><a href="#cfg_submit"><b>標準のログ表示順</b></a><br>
+	<ul>
+		<select name="defo_hyouji">
+			<option value="<?=$EST['defo_hyouji']?>" selected><?=$Sdefo_hyouji?>
+			<option value="mark">マーク順
+			<option value="id_new">登録日の新しい順
+			<option value="id_old">登録日の古い順
+			<option value="time_new">更新日の新しい順
+			<option value="time_old">更新日の古い順
+			<option value="ac_new">アイウエオ順(昇順)
+			<option value="ac_old">アイウエオ順(降順)
+		</select>
+	</ul><br>
+	<li><a href="#cfg_submit"><b>ジャンプ処理</b></a><br>
+	※まず、<a href="<?=$EST['script']?>?mode=random" target="_blank">ランダムジャンプ</a> をクリックしてみてページが表示できない場合には「メタタグを使う」にしてください
+	<ul>
+		<input type=radio name="location" value="1"<?=$Clocation_1?>>Locationを使う | 
+		<input type=radio name="location" value="0"<?=$Clocation_0?>>メタタグを使う
+	</ul><br>
+	<li><a href="#cfg_submit"><b>キーワードランキングの設定</b></a><br>
+	<ul>
+	「管理室」→「キーワードランキングの設定」から実行してください
+	</ul><br>
+	<li><a href="#cfg_submit"><b>人気ランキングの設定</b></a><br>
+	<ul>
+	「管理室」→「人気ランキングの設定」から実行してください
+	</ul><br>
+<!--
+	<li><a href="#cfg_submit"><b>アクセスカウンタ</b></a>
+	<ul>
+		<input type=radio name="count" value="0"<?=$Ccount_0?>>使用しない | 
+		<input type=radio name="count" value="1"<?=$Ccount_1?>>使用する
+	</ul><br>
+-->
+	<li><a href="#cfg_submit"><b>カテゴリ表示で下層カテゴリデータの表示</b></a>
+	<ul>
+		<input type=radio name="kt_child_show" value="0"<?=$Cchild_0?>>表示しない | 
+		<input type=radio name="kt_child_show" value="1"<?=$Cchild_1?>>表示する
+	</ul><br>
+	<input type=hidden name="allow_search_form" value="<?=$EST['allow_search_form']?>">
+<a name="cfg_submit"></a>
+<br><input type=submit value="環境設定(一般) を変更する"> <input type=reset value="リセット">
+</form>
+</ol>
+<hr noshade color=#aaaaaa>
+<form action="<?=$EST['admin']?>" method=post>
+<?php echo YOMI_TICKET_TAG; ?>
+	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=mode value="cfg_make_reg">
+[<a href="#top">トップに戻る</a>]
+<ol>
+<font size="+1"><a name="regist">【 <b>登録処理関係の設定</b> 】</a></font><br><br>
+	<li><a href="#regist_submit"><b>カテゴリ選択数</b></a><br>
+	<ul>
+		<input type=text name=kt_min value=<?=$EST_reg['kt_min']?> size=3>個〜
+		<input type=text name=kt_max value=<?=$EST_reg['kt_max']?> size=3>個
+	</ul><br>
+	<li><a href="#regist_submit"><b>二重URL登録</b></a><br>
+	<ul>
+		[ <input type=radio name=nijyu_url value="1"<?=$Cnijyu_url_1?>>許可しない | <input type=radio name=nijyu_url value="0"<?=$Cnijyu_url_0?>>許可する ]
+	</ul><br>
+	<li><a href="#regist_submit"><b>記入必須項目</b></a><br>
+		<ul>
+			<li><a href="#regist_submit"><b>追加希望カテゴリ</b></a>
+				<ul>[ <input type=radio name=Fadd_kt value="☆"<?=$CFadd_kt_1?>>必須 | <input type=radio name=Fadd_kt value=""<?=$CFadd_kt_0?>>任意 ]</ul>
+			<li><a href="#regist_submit"><b>バナーURL</b></a>
+				<ul>[ <input type=radio name=Fbana_url value="☆"<?=$CFbana_url_1?>>必須 | <input type=radio name=Fbana_url value=""<?=$CFbana_url_0?>>任意 ]</ul>
+			<li><a href="#regist_submit"><b>E-Mailアドレス</b></a>
+				<ul>[ <input type=radio name=Femail value="☆"<?=$CFemail_1?>>必須 | <input type=radio name=Femail value=""<?=$CFemail_0?>>任意 ]</ul>
+			<li><a href="#regist_submit"><b>キーワード</b></a>
+				<ul>[ <input type=radio name=Fkey value="☆"<?=$CFkey_1?>>必須 | <input type=radio name=Fkey value=""<?=$CFkey_0?>>任意 ]</ul>
+			<li><a href="#regist_submit"><b>お名前</b></a>
+				<ul>[ <input type=radio name=Fname value="☆"<?=$CFname_1?>>必須 | <input type=radio name=Fname value=""<?=$CFname_0?>>任意 ]</ul>
+			<li><a href="#regist_submit"><b>紹介文</b></a>
+				<ul>[ <input type=radio name=Fsyoukai value="☆"<?=$CFsyoukai_1?>>必須 | <input type=radio name=Fsyoukai value=""<?=$CFsyoukai_0?>>任意 ]</ul>
+			<li><a href="#regist_submit"><b>タイトル</b></a>
+				<ul>[ <input type=radio name=Ftitle value="☆"<?=$CFtitle_1?>>必須 | <input type=radio name=Ftitle value=""<?=$CFtitle_0?>>任意 ]</ul>
+			<li><a href="#regist_submit"><b>管理人へのメッセージ</b></a>
+				<ul>[ <input type=radio name=Fto_admin value="☆"<?=$CFto_admin_1?>>必須 | <input type=radio name=Fto_admin value=""<?=$CFto_admin_0?>>任意 ]</ul>
+			<li><a href="#regist_submit"><b>URL</b></a>
+				<ul>[ <input type=radio name=Furl value="☆"<?=$CFurl_1?>>必須 | <input type=radio name=Furl value=""<?=$CFurl_0?>>任意 ]</ul>
+		</ul><br>
+	<li><a href="#regist_submit"><b>文字数制限/バナーサイズ等の設定</b></a><br>
+		※数値はすべて半角数字で記入してください<br><br>
+		<ul>
+			<li><a href="#regist_submit"><b>追加希望カテゴリ</b></a>
+				<ul><input type=text name=Madd_kt value="<?=$EST_reg['Madd_kt']?>" size=5>文字以内(全角換算)</ul>
+			<li><a href="#regist_submit"><b>バナーURL</b></a>
+				<ul><input type=text name=Mbana_url value="<?=$EST_reg['Mbana_url']?>" size=5>文字以内(半角換算)</ul>
+			<li><a href="#regist_submit"><b>バナーURLの縦サイズ</b></a>
+				<ul><input type=text name=Mbana_h value="<?=$EST_reg['Mbana_h']?>" size=5>ピクセル</ul>
+			<li><a href="#regist_submit"><b>バナーURLの横サイズ</b></a>
+				<ul><input type=text name=Mbana_w value="<?=$EST_reg['Mbana_w']?>" size=5>ピクセル</ul>
+			<li><a href="#regist_submit"><b>E-Mailアドレス</b></a>
+				<ul><input type=text name=Memail value="<?=$EST_reg['Memail']?>" size=5>文字以内(半角換算)</ul>
+			<li><a href="#regist_submit"><b>キーワード</b></a>
+				<ul><input type=text name=Mkey value="<?=$EST_reg['Mkey']?>" size=5>文字以内(全角換算)</ul>
+			<li><a href="#regist_submit"><b>お名前</b></a>
+				<ul><input type=text name=Mname value="<?=$EST_reg['Mname']?>" size=5>文字以内(全角換算)</ul>
+			<li><a href="#regist_submit"><b>紹介文</b></a>
+				<ul><input type=text name=Msyoukai value="<?=$EST_reg['Msyoukai']?>" size=5>文字以内(全角換算)</ul>
+			<li><a href="#regist_submit"><b>タイトル</b></a>
+				<ul><input type=text name=Mtitle value="<?=$EST_reg['Mtitle']?>" size=5>文字以内(全角換算)</ul>
+			<li><a href="#regist_submit"><b>管理人へのメッセージ</b></a>
+				<ul><input type=text name=Mto_admin value="<?=$EST_reg['Mto_admin']?>" size=5>文字以内(全角換算)</ul>
+			<li><a href="#regist_submit"><b>URL</b></a>
+				<ul><input type=text name=Murl value="<?=$EST_reg['Murl']?>" size=5>文字以内(半角換算)</ul>
+		</ul><br>
+	<li><a href="#regist_submit"><b>登録禁止ワードの設定</b></a><br>
+	※複数指定する場合には半角スペース(空白)で区切ってください(例) 禁止ワード１ 禁止ワード２ 禁止ワード3<br>
+	※このチェックは <b>名前</b>/<b>E-Mailアドレス</b>/<b>URL/バナーURL</b>/<b>タイトル</b>/<b>紹介文</b>/<b>キーワード</b> / <b>登録者IPアドレス</b>/<b>ホスト名</b> に有効です
+	<ul>
+		<input type=text name=kt_no_word value="<?=$EST_reg['kt_no_word']?>" size=70>
+	</ul><br>
+	<li><a href="#regist_submit"><b>新規 登録権限 設定</b></a><br>
+	※<b>管理人のみ</b>にされているときは、<font color=red>管理人以外は新規登録することができなくなります</font>ので注意してください<br>
+	※上記の状態の場合に管理人が登録する場合には「管理室」→「管理人による新規登録」から新規登録を行ってください
+		<ul>
+		<input type=radio name=no_regist value="1"<?=$Cno_regist_1?>>管理人のみ | <input type=radio name=no_regist value="2"<?=$Cno_regist_2?>>登録ユーザーのみ | <input type=radio name=no_regist value="0"<?=$Cno_regist_0?>>すべての訪問者
+		</ul><br>
+	<li><a href="#regist_submit"><b>管理人のみが修正・削除できるモード</b></a><br>
+	※<b>ON</b>にされているときは、<font color=red>管理人以外は修正・削除することができなくなります</font>ので注意してください<br>
+		<ul>
+		<input type=radio name=no_mente value="1"<?=$Cno_mente_1?>>ON | <input type=radio name=no_mente value="0"<?=$Cno_mente_0?>>OFF
+		</ul><br>
+	<li><a href="#regist_submit"><b>バナーURLの登録項目</b></a><br>
+	※<b>表示する</b>にされているときは、新規登録・内容変更ページにバナーURLの登録項目を記入する項目が追加されます<br>
+		<ul>
+		<input type=radio name=bana_url value="1"<?=$Cbana_url_1?>>表示する | <input type=radio name=bana_url value="0"<?=$Cbana_url_0?>>表示しない
+		</ul><br>
+	<li><a href="#regist_submit"><b>新規登録時の追加希望カテゴリ項目</b></a><br>
+	※<b>表示する</b>にされているときは、訪問者の新規登録欄に追加希望カテゴリ項目を記入する項目が追加されます<br>
+		<ul>
+		<input type=radio name=add_kt value="1"<?=$Cadd_kt_1?>>表示する | <input type=radio name=add_kt value="0"<?=$Cadd_kt_0?>>表示しない
+		</ul><br>
+	<li><a href="#regist_submit"><b>新規登録時の管理人へのコメント項目</b></a><br>
+	※<b>表示する</b>にされているときは、訪問者の新規登録欄に管理人へのコメント項目が追加されます<br>
+		<ul>
+		<input type=radio name=to_admin value="1"<?=$Cto_admin_1?>>表示する | <input type=radio name=to_admin value="0"<?=$Cto_admin_0?>>表示しない
+		</ul><br>
+	<li><a href="#regist_submit"><b>新規登録時の相互リンク連絡項目</b></a><br>
+	※<b>表示する</b>にされているときは、訪問者の新規登録欄に「相互リンク」の有無を記入する項目が追加されます<br>
+		<ul>
+		<input type=radio name=sougo value="1"<?=$Csougo_1?>>表示する | <input type=radio name=sougo value="0"<?=$Csougo_0?>>表示しない
+		</ul><br>
+	<li><a href="#regist_submit"><b>登録者のメッセージの最大保存数(半角英数字で指定)</b></a><br>
+	※<b>1以上</b>に設定されているときは、「管理室」→「登録者のメッセージを見る」で<br>　
+	保存されたメッセージを読んだり削除したりすることができます<br>
+	※最大保存数を超えた場合には古い順に自動削除されます。<br>
+	※最大保存数に達したときにまとめて管理人宛てにメールを送る場合には数字の後ろに <b>m</b> を付けてください。(例 <b>30m</b> )<br>
+	※審査登録制にしている場合には保存されません<br>
+	※この機能を使用しない場合には <b>0</b> を記入してください
+		<ul>
+		<input type=text name=look_mes value="<?=$EST_reg['look_mes']?>" size=10>
+		</ul><br>
+<a name="regist_submit"></a>
+<br><br><input type=submit value="登録処理関係の設定を変更する"> <input type=reset value="リセット">
+</form>
+</ol>
+<hr noshade color=#aaaaaa>
+<form action="<?=$EST['admin']?>" method=post>
+<?php echo YOMI_TICKET_TAG; ?>
+[<a href="#top">トップに戻る</a>]
+<ol>
+<font size="+1"><a name="start">【 <b>初期設定</b> 】</a></font><br><br>
+※運用開始時に最低限設定する必要のある項目です<br>
+<font color="red">※設定を間違えるとサーバによっては正常に動作しない項目ですので必ず確認するようにしてください</font><br><br>
+	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=mode value="cfg_make">
+	<li><b>サーチエンジンのトップへのURL(http://から始まるアドレス)</b><br>
+	※CGIでトップページを表示させる場合には「yomi.cgi」へのURLを記入してください<br>
+	<ul>
+	<input type=text name=home value="<?=$EST['home']?>" size=50>
+	</ul><br>
+	<li><b>HTMLファイル用ディレクトリのパス</b><br>
+	※各種HTMLファイルを入れておくディレクトリです<br>
+	※HTMLファイルが閲覧可能なディレクトリに設定してください<br>
+	<ul>
+	<input type=text name=html_path value="<?=$EST['html_path']?>" size=40>
+	</ul><br>
+	<li><b>HTMLファイルディレクトリのURL</b><br>
+	<font color=red>※必ず修正してください</font><br>
+	※HTMLファイルを入れておくディレクトリのURLです<br>
+	※HTMLファイルが閲覧可能なディレクトリに設定してください<br>
+	<ul>
+	<input type=text name=html_path_url value="<?=$EST['html_path_url']?>" size=40>
+	</ul><br>
+	<li><b>画像ファイルディレクトリのURL</b><br>
+	<font color=red>※必ず修正してください</font><br>
+	※画像ファイル(new.gif/renew.gif等)を入れておくディレクトリのURLです<br>
+	※画像ファイルが閲覧可能なディレクトリに設定してください<br>
+	<ul>
+	<input type=text name=img_path_url value="<?=$EST['img_path_url']?>" size=40>
+	</ul><br>
+	<li><b>PHPファイルディレクトリのURL</b><br>
+	<font color=red>※必ず修正してください</font><br>
+	※PHPファイル(yomi.php/search.php/rank.php/admin.php/regist_ys.php)を入れておくディレクトリのURLです<br>
+	<ul>
+	<input type=text name=cgi_path_url value="<?=$EST['cgi_path_url']?>" size=40>
+	</ul><br>
+	<li><b>このサーチエンジンの名称</b><br>
+	<ul>
+	<input type=text name=search_name value="<?=$EST['search_name']?>" size=20>
+	</ul>
+	<li><b>管理人の名前</b><br>
+	<ul>
+	<input type=text name=admin_name value="<?=$EST['admin_name']?>" size=20>
+	</ul>
+	<li><b>管理人のE-Mailアドレス</b><br>
+	<ul>
+	<input type=text name=admin_email value="<?=$EST['admin_email']?>" size=20>
+	</ul>
+	<li><b>管理人のホームページのURL</b><br>
+	<ul>
+	<input type=text name=admin_hp value="<?=$EST['admin_hp']?>" size=50>
+	</ul>
+	<li><b>メールの設定</b><br>
+	<ul>
+		<li><b>管理人にメールを送信</b><br>
+		<ul>
+			<input type=radio name="mail_to_admin" value="1"<?=$Cmail_to_admin_1?>>する | 
+			<input type=radio name="mail_to_admin" value="0"<?=$Cmail_to_admin_0?>>しない
+		</ul>
+		<li><b>登録者にメールを送信</b><br>
+		<ul>
+			<input type=radio name="mail_to_register" value="1"<?=$Cmail_to_register_1?>>する | 
+			<input type=radio name="mail_to_register" value="0"<?=$Cmail_to_register_0?>>しない
+		</ul>
+		<li><b>新規登録完了メールを送信</b><br>
+		<ul>
+			<input type=radio name="mail_new" value="1"<?=$Cmail_new_1?>>する | 
+			<input type=radio name="mail_new" value="0"<?=$Cmail_new_0?>>しない
+		</ul>
+		<li><b>登録内容変更完了メールを送信</b><br>
+		<ul>
+			<input type=radio name="mail_ch" value="1"<?=$Cmail_ch_1?>>する | 
+			<input type=radio name="mail_ch" value="0"<?=$Cmail_ch_0?>>しない
+		</ul>
+		<li><b>仮登録完了メールを送信</b><br>
+		<ul>
+			<input type=radio name="mail_temp" value="1"<?=$Cmail_temp_1?>>する | 
+			<input type=radio name="mail_temp" value="0"<?=$Cmail_temp_0?>>しない
+		</ul>
+		<li><b>パスワード変更メールを送信</b><br>
+		<ul>
+			<input type=radio name="mail_pass" value="1"<?=$Cmail_pass_1?>>する | 
+			<input type=radio name="mail_pass" value="0"<?=$Cmail_pass_0?>>しない
+		</ul>
+	</ul>
+	<li><b>ジャンプ処理</b><br>
+	※まず、<a href="<?=$EST['script']?>?mode=random" target="_blank">ランダムジャンプ</a> をクリックしてみてページが表示できない場合には「メタタグを使う」にしてください
+	<ul>
+		<input type=radio name="location" value="1"<?=$Clocation_1?>>Locationを使う | 
+		<input type=radio name="location" value="0"<?=$Clocation_0?>>メタタグを使う
+	</ul>
+<br><br><input type=submit value="初期設定を変更する"> <input type=reset value="リセット">
+</form>
+</ol>
+<hr noshade color=#aaaaaa>
+<?php
+$PR_search_form=$PR_menu_bar=$PR_head_sp=$PR_foot_sp="";
+$fl_sf=0;$fl_mb=0;$fl_hs=0;$fl_fs=0;
+$fp=fopen("pl/cfg.php", "r");
+while($tmp=fgets($fp, 4096)){
+	if(preg_match("/^'allow_search_form'=>'(.*)',\n/",$tmp,$reg)){
+		$PR_allow_search_form = str_replace(" ","\n",$reg[1]);
+	}
+	if($tmp == "function search_form(){\n"){$fl_sf=1;}
+	elseif($tmp == "} #end of &search_form\n"){$fl_sf=0;}
+	elseif($fl_sf){$PR_search_form.=$tmp;}
+	elseif($tmp == "function menu_bar(){\n"){$fl_mb=1;}
+	elseif($tmp == "} #end of &menu_bar\n"){$fl_mb=0;}
+	elseif($fl_mb){$PR_menu_bar.=$tmp;}
+	elseif($tmp == "function head_sp(){\n"){$fl_hs=1;}
+	elseif($tmp == "} #end of &head_sp\n"){$fl_hs=0;}
+	elseif($fl_hs){$PR_head_sp.=$tmp;}
+	elseif($tmp == "function foot_sp(){\n"){$fl_fs=1;}
+	elseif($tmp == "} #end of &foot_sp\n"){$fl_fs=0;}
+	elseif($fl_fs){$PR_foot_sp.=$tmp;}
+}
+fclose($fp);
+$PR_menu_bar=trim($PR_menu_bar);
+$PR_menu_bar=str_replace("\n","&br;",$PR_menu_bar);
+$PR_menu_bar=preg_replace("/^global \\\$EST;&br;\?>\n?/","",$PR_menu_bar);
+$PR_menu_bar=preg_replace("/<\?php$/","",$PR_menu_bar);
+$PR_menu_bar=str_replace("&br;","\n",$PR_menu_bar);
+$PR_menu_bar=str_replace(array("<",">"), array("&lt;","&gt;"), $PR_menu_bar);
+
+$PR_search_form=trim($PR_search_form);
+$PR_search_form=str_replace("\n","&br;",$PR_search_form);
+$PR_search_form=preg_replace("/^global \\\$EST;&br;\?>\n?/","",$PR_search_form);
+$PR_search_form=preg_replace("/<\?php$/","",$PR_search_form);
+$PR_search_form=str_replace("&br;","\n",$PR_search_form);
+$PR_search_form=str_replace(array("<",">"), array("&lt;","&gt;"), $PR_search_form);
+
+$PR_head_sp=trim($PR_head_sp);
+$PR_head_sp=str_replace("\n","&br;",$PR_head_sp);
+$PR_head_sp=preg_replace("/^\?>\n?/","",$PR_head_sp);
+$PR_head_sp=preg_replace("/<\?php$/","",$PR_head_sp);
+$PR_head_sp=str_replace("&br;","\n",$PR_head_sp);
+$PR_head_sp=str_replace(array("<",">"), array("&lt;","&gt;"), $PR_head_sp);
+
+$PR_foot_sp=trim($PR_foot_sp);
+$PR_foot_sp=str_replace("\n","&br;",$PR_foot_sp);
+$PR_foot_sp=preg_replace("/^\?>\n?/","",$PR_foot_sp);
+$PR_foot_sp=preg_replace("/<\?php$/","",$PR_foot_sp);
+$PR_foot_sp=str_replace("&br;","\n",$PR_foot_sp);
+$PR_foot_sp=str_replace(array("<",">"), array("&lt;","&gt;"), $PR_foot_sp);
+
+?>
+[<a href="#top">トップに戻る</a>]
+<ol>
+<font size="+1"><a name="menu">【 <b>メニューバー/外部検索エンジン/ヘッダ・フッタスペースの設定</b> 】</a></font><br><br>
+※PHPの文法が分かる方はテキストエリア中にPHPの実行文を記入することもできます。
+<form action="<?=$EST['admin']?>" method=post>
+<?php echo YOMI_TICKET_TAG; ?>
+	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=mode value="cfg_make_PR_menu">
+	<li>メニューバーの設定(各画面の一番上に出てくるメニューです)<br>
+	<textarea name=menu_bar cols=90 rows=6><?=$PR_menu_bar?></textarea><br><br>
+	<li>外部検索エンジンの設定(検索フォームの&lt;select&gt;〜&lt;/select&gt;の内部のHTMLです)<br>　　※空入力で利用可能な検索エンジンを pl/search.dat から自動設定します。
+	<textarea name=search_form cols=90 rows=6><?=$PR_search_form?></textarea><br><br>
+	<li>検索窓を使用許可するURL(未入力ですべて許可。前方一致で判断、複数は改行で区切る。)<br>
+	<textarea name=allow_search_form cols=90 rows=6><?=$PR_allow_search_form?></textarea><br><br>
+	<li>ヘッダスペースの設定(各ページのヘッダ部分のスペースです。※管理室は除く)<br>
+	<textarea name=head_sp cols=90 rows=6><?=$PR_head_sp?></textarea><br><br>
+	<li>フッタスペースの設定(各ページのフッタ部分のスペースです。※管理室は除く)<br>
+	<textarea name=foot_sp cols=90 rows=6><?=$PR_foot_sp?></textarea><br>
+<br><br><input type=submit value="メニューバー/外部検索エンジン/ヘッダ・フッタスペースの設定を変更する"> <input type=reset value="リセット">
+</form>
+</ol>
+<hr noshade color=#aaaaaa>
+<?php
+if(!$Eadd_below_mode){echo $Eadd_data_below;}
+cp_cr();
+?>
+<?php
+if (isset($link) && $link) {
+	@mysql_close($link);
+}
+exit;
+?>

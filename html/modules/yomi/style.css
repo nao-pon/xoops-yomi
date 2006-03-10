@@ -1,0 +1,39 @@
+.xoops_yomi_block_td
+{
+	border:solid 1px;
+	border-color:#9999FF;
+}
+.xoops_yomi_block_image
+{
+	text-align:center;
+}
+.xoops_yomi_block_title
+{
+	text-align:center;
+	font-size:13px;
+	margin:3px 0px 0px 0px;
+	border-style:dashed;
+	border-color:red;
+	border-width: 1px 0px 1px 0px;
+}
+.xoops_yomi_block_message
+{
+	color: #666666;
+	background-color: #EEFFEE;
+	font-size:90%;
+	margin:3px 5px 5px 5px;
+	border-style: dotted;
+	border-color: #999999;
+	border-width: 1px;
+	padding: 3px;
+	font-size:10px;
+}
+.xoops_yomi_block_pt
+{
+	text-align:center;
+	font-size:12px;
+}
+.xoops_yomi_block_in_out
+{
+	font-size:10px;
+}

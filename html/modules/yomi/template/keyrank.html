@@ -1,0 +1,149 @@
+<?php
+require "$EST[log_path]keyrank_ys.php";
+?>
+
+<link rel="stylesheet" href="<?=$EST['html_path_url']?>style.css" type="text/css">
+<script type="text/javascript">
+<!--
+function ch_type(sel){
+// onchangeでウィンドウを開く方法を選択
+var form=document.form1;
+var open_type=sel.options[sel.selectedIndex].value;
+if(open_type==1){form.target="_blank";}
+else{form.target="";}
+}
+//-->
+</script>
+
+<a name=top></a>
+<!-- メニューバー -->
+<div align=right><font id=small>
+<?php
+menu_bar();
+?>
+</font></div>
+<hr>
+<!-- ナビゲーションバー -->
+<?=YOMI_HOME_URL?> &gt; 
+<table width="100%"><tr><td id="title-bar">
+<b>キーワードランキング</b>
+</td></tr></table>
+<div style="text-align:center;">
+<div style="margin-left:auto;margin-right:auto;">
+<?php
+#ヘッダスペース
+head_sp();
+?>
+</div>
+</div>
+<?php
+##最終更新時刻を取得
+$time=time();
+$last_mod=date("Y/m/d(D) H:i", $time);
+##検索フォーム
+make_serach_box();
+?>
+<ul>
+▼検索キーワードランキングの<b>ベスト<?=$EST['keyrank_hyouji']?>位</b>まで表示しています。 <i>最終更新：<?=$last_mod?></i><br>
+<br>
+<table style="width:100%;padding:10px;" cellpadding=10><tr>
+<td valign=top>
+<table style="width:100%;padding:7px;" border cellpadding=7>
+<tr><th colspan=3>現在のランキング<br>( 
+<?php
+echo get_time($time - $EST['keyrank_kikan']*86400)." 〜 ".get_time($time);
+?>
+)</th></tr>
+<tr><th>順位</th><th>検索ワード</th><th>別窓</th></tr>
+<?php
+function PR_keyrank_data($keyrank_fl){
+	global $time,$xoopsDB;
+	$jyuni=1;$jyuni_z=1;
+	global $EST, $open_key;
+	if($keyrank_fl == "bf"){
+		$start = $time - $EST['keyrank_kikan']*86400*2;
+		$end = $time - $EST['keyrank_kikan']*86400-1;
+	}
+	else{
+		$start = $time - $EST['keyrank_kikan']*86400;
+		$end = $time;
+	}
+	if($open_key) {
+		foreach($open_key as $key=>$val) {
+			$query = "SELECT count(*) FROM $EST[sqltb]key WHERE (time BETWEEN '$start' AND '$end') AND (word='$key')";
+			$result = $xoopsDB->query($query) or die("Query failed1");
+			$tmp = mysql_fetch_row($result);
+			$point[$key]=$tmp[0];
+		}
+	}
+	if(isset($point)) {
+		arsort($point);
+		foreach($point as $keyword=>$pt) {
+			if($pt >= $EST['keyrank_cut']) {
+				$PR_key=str_replace("’", "'", $keyword);
+				$en_keyword=urlencode($PR_key);
+				if($bf_c != $pt){$jyuni=$jyuni_z;}
+				?>
+<tr><td class="yomi-s"><?=$jyuni?></td>
+<td class="yomi-s"><a href="<?=$EST['cgi_path_url'].$EST['search']?>?mode=search&word=<?=$en_keyword?>">
+<?php
+				if($open_key[$keyword] == "1"){echo $PR_key;}
+				else{echo $open_key[$keyword];}
+				?>
+</a> -> <?=$pt?>pts.</td>
+<td class="yomi-s" style="text-align:center;"><a href="<?=$EST['cgi_path_url'].$EST['search']?>?mode=search&word=<?=$en_keyword?>" target="_blank">■</a></td></tr>
+<?php
+				$jyuni_z++;
+				$bf_c=$pt;
+				if($jyuni_z>$EST['keyrank_hyouji']){break;}
+			}
+		}
+	}
+	while($jyuni_z<=$EST['keyrank_hyouji']){
+		?>
+<tr><td class="yomi-s">-</td>
+<td class="yomi-s">-</td>
+<td class="yomi-s" style="text-align:center;">-</td></tr>
+<?php
+		$jyuni_z++;
+	}
+}
+PR_keyrank_data("pre");
+?>
+</table>
+</td>
+<td valign=top>
+<table style="width:100%;padding:7px;" border cellpadding=7>
+<tr><th colspan=3>前回のランキング<br>
+(
+<?php
+echo get_time($time - $EST['keyrank_kikan']*86400*2)." 〜 ".get_time($time - $EST['keyrank_kikan']*86400-1);
+?>
+ )
+</th></tr>
+<tr><th>順位</th><th>検索ワード</th><th>別窓</th></tr>
+<!--bf_ranking-->
+<?php
+PR_keyrank_data("bf");
+?>
+<!--bf_ranking-->
+</table>
+</td>
+</tr>
+</table>
+</ul>
+<hr>
+<?php
+gane_st();
+PR_other_kt("rank.php?mode=keyrank");
+#フッタスペース
+foot_sp();
+include("footer.php");
+?>
+
+<?php
+if (isset($link) && $link) {
+	@mysql_close($link);
+}
+exit;
+?>

@@ -1,0 +1,104 @@
+<link rel="stylesheet" href="<?=$EST['html_path_url']?>style.css" type="text/css">
+
+<a name=top></a>
+<form action="<?=$EST['admin']?>" method=post>
+<?php echo YOMI_TICKET_TAG; ?>
+<!-- メニューバー -->
+<div align=right><font id=small>
+<?php
+menu_bar();
+?>
+</font></div>
+<hr noshade color=#aaaaaa>
+<?=YOMI_HOME_URL?> &gt;
+<table width=100%><tr><td id="title-bar">
+<font color=#000000><b>各種ログ変換</b></font>
+</td></tr></table>
+	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=mode value="kanri">
+	<input type=submit value="管理室に戻る">
+<br>
+</form>
+[<a href="#v4todb">Ver4形式→データベース</a>]  
+<hr noshade color=#aaaaaa>
+<?php
+$jyuni=1;$jyuni_z=1;
+?>
+<a name="v4todb"></a>
+<table style="width:100%"><tr><td>
+<form action="<?=$EST['admin']?>" method=post target="xoops_yomi_log_conv">
+	<?php echo YOMI_TICKET_TAG; ?>
+	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=mode value="log_conv_act">
+	<input type=hidden name=log_mode value="v4todb">
+<a name="config">[<a href="#top">トップに戻る</a>]</a>
+<ul>
+<font size="+1">【Ver4→データベース】</font><br>
+	▼Ver4形式のログファイルからデータベースに追加することができます<br>
+	アクセスカウントは、リセットされます<br>
+	登録時のパスワードは使用できなくなります。
+	<br><br>
+	[変換前のファイル](Ver4形式のファイル名)<br>
+	<input type=text name=bf_file value="log/ys4.cgi"><br>
+	<input type=checkbox name=check value="on">←確認チェック
+	<br>
+	<input type=submit value="変換する"> <input type=reset value="リセット">
+</ul>
+</form>
+</td><td>☆　処理状況<br />
+<iframe name="xoops_yomi_log_conv" width="300" height="150"></iframe>
+</td></tr></table>
+<hr noshade color=#aaaaaa>
+<a name="kt_sort_conv"></a>
+<form action="<?=$EST['admin']?>" method=post>
+	<?php echo YOMI_TICKET_TAG; ?>
+	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=mode value="log_conv_kt_sort">
+<a name="config">[<a href="#top">トップに戻る</a>]</a>
+<ul>
+<font size="+1">【カテゴリ・ソート変換】</font><br>
+	▼現在のカテゴリ設定をアイウエオ順にソートして変換します。<br>
+	　[例] <b>01</b> カテゴリをソート変換した場合<br>
+	　01_01 かきくけこ<br>
+	　01_02 さしすせそ<br>
+	　01_03 あいうえお<br><br>
+	　というカテゴリがあった場合、<br><br>
+	　01_01 あいうえお<br>
+	　01_02 かきくけこ<br>
+	　01_03 たちつてと<br><br>
+	　というように変換されます<br>
+	※それぞれのログデータにも変換が反映されます<br>
+	※実行前に必ず、<font color=red>「カテゴリ設定」の『読みの設定』</font>を行ってください<br>
+	※HTMLでカテゴリを表示する形式にしている場合には、実行後に<br>
+	<font color=red>「管理室」→「HTMLログファイル更新処理」からソート変換したカテゴリを更新</font>してください。
+	<br><br>
+	[変換対象のカテゴリ]<br>
+	<input type=checkbox name=all value=on>すべてのカテゴリ<br>
+	<ul>
+	▽個別に指定する場合は以下に入力<br>
+	　※複数指定する場合には半角カンマ( <b>,</b> )で区切ってください<br>
+	　※半角マイナス記号( <b>-</b> )で連続したカテゴリを一気に指定することができます<br>
+	　※数字の後ろに <b>n</b> を付けるとそのカテゴリは変換対象から<font color=red>除外</font>されます<br>
+	　(例1) <b>01-17,19</b> なら <b>01</b>〜<b>17</b> と <b>19</b> のカテゴリを指定したことになります<br>
+	　(例2) 「すべてのカテゴリ」にチェックして <b>18n</b> と記入した場合、 <b>18</b> 以外のカテゴリすべてが変換対象となります<br>　
+	(例3) <b>02-20,05-12n,23</b> なら <b>02</b>〜<b>04</b> と <b>13</b>〜<b>20</b> と <b>23</b> のカテゴリを指定したことになります<br>
+	<input type=text name=kt_str size=40>
+	</ul><br>
+	<br>
+	<input type=checkbox name=check value="on">←確認チェック
+	<br>
+	<input type=submit value="変換する"> <input type=reset value="リセット">
+</ul>
+</form>
+<hr noshade color=#aaaaaa>
+<?php
+if(!$Eadd_below_mode){echo $Eadd_data_below;}
+cp_cr();
+?>
+
+<?php
+if (isset($link) && $link) {
+	@mysql_close($link);
+}
+exit;
+?>

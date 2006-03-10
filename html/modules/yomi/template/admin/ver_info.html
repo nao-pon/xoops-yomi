@@ -1,0 +1,41 @@
+<link rel="stylesheet" href="<?=$EST['html_path_url']?>style.css" type="text/css">
+
+<a name=top></a>
+<form action="<?=$EST['admin']?>" method=post>
+<?php echo YOMI_TICKET_TAG; ?>
+<!-- メニューバー -->
+<div align=right><font id=small>
+<?php
+menu_bar();
+?>
+</font></div>
+<hr noshade color=#aaaaaa>
+<?=YOMI_HOME_URL?> &gt;
+<table width=100%><tr><td id="title-bar">
+<font color=#000000><b>バージョン情報</b?</font>
+</td></tr></table>
+	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=mode value="kanri">
+	<input type=submit value="管理室に戻る">
+<br>
+<hr noshade color=#aaaaaa>
+</form>
+<ul class="yomi">
+<li>スクリプト名：<b>Yomi-Search [ XPOOPS ]</b>
+<li>元バージョン：<b>Ver<?=$ver?></b>
+<li>固有バージョン：<b>Ver<?=$x_ver?></b>
+<li>タイプ：<b>Works with MySQL</b>
+<li>固有の追加機能：<b>XOOPS & XOOPS 2 用モジュール</b>
+</ul>
+<hr noshade color=#aaaaaa>
+<?php
+if(!$Eadd_below_mode){echo $Eadd_data_below;}
+cp_cr();
+?>
+
+<?php
+if (isset($link) && $link) {
+	@mysql_close($link);
+}
+exit;
+?>

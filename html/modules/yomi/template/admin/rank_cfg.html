@@ -1,0 +1,111 @@
+<?php
+##ラジオボックスの設定
+#人気ランキング(実施しない=0/実施する=1)
+if($EST['rank_fl']){$Crank_fl_0=""; $Crank_fl_1=" checked";}
+else{$Crank_fl_0=" checked"; $Crank_fl_1="";}
+#アクセス(実施しない=0/実施する=1)
+if($EST['rev_fl']){$Crev_fl_0=""; $Crev_fl_1=" checked";}
+else{$Crev_fl_0=" checked"; $Crev_fl_1="";}
+?>
+<link rel="stylesheet" href="<?=$EST['html_path_url']?>style.css" type="text/css">
+
+<a name=top></a>
+<form action="<?=$EST['admin']?>" method=post>
+<?php echo YOMI_TICKET_TAG; ?>
+<!-- メニューバー -->
+<div align=right><font id=small>
+<?php
+menu_bar();
+?>
+</font></div>
+<hr noshade color=#aaaaaa>
+<?=YOMI_HOME_URL?> &gt;
+<table width=100%><tr><td id="title-bar">
+<font color=#000000><b>人気ランキング・アクセスランキングの設定</b></font>
+</td></tr></table>
+	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=mode value="kanri">
+	<input type=submit value="管理室に戻る">
+<br>
+</form>
+[<a href="#config">人気ランキングの環境設定</a>] 
+[<a href="#config_rev">アクセスランキングの環境設定</a>] 
+<hr noshade color=#aaaaaa>
+<?php
+if(!$EST['rank_fl']){echo "<font color=red>※現在、人気ランキングは実施しない設定になっています</font><br>";}
+?>
+<form action="<?=$EST['admin']?>" method=post>
+	<?php echo YOMI_TICKET_TAG; ?>
+	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=mode value="cfg_make">
+<a name="config">[<a href="#top">トップに戻る</a>]</a>
+<ol>
+<font size="+1">【人気ランキングの環境設定】</font><br>
+※人気ランキングとは<font color=red>内部から外部へのアクセス数</font>を集計したランキングです<br>
+※このページへのリンクは「<b>rank.php</b>」です
+<br><br>
+<li>人気ランキング→
+		<input type=radio name="rank_fl" value="0"<?=$Crank_fl_0?>>実施しない | 
+		<input type=radio name="rank_fl" value="1"<?=$Crank_fl_1?>>実施する<br><br>
+<li>ランクインさせる最低アクセス数→<input type=text name=rank_min value="<?=$EST['rank_min']?>" size=2><br><br>
+<li>ランキングの集計期間→<input type=text name=rank_kikan value="<?=$EST['rank_kikan']?>" size=3>日ごとに集計する<br><br>
+<li>ランキングの更新頻度(時間)<br>
+※何時間ごとにランキングを更新するかを決めます<br>
+※この時間内に同一IPから同一データに2回以上アクセスがあっても1アクセスとして集計します
+<br>
+→<input type=text name=rank_time value="<?=$EST['rank_time']?>" size=3>時間ごとに更新する<br><br>
+<li>ランキングデータの最大保持件数→ベスト<input type=text name=rank_best value="<?=$EST['rank_best']?>" size=4>位まで保存する<br><br>
+<li>集計対象のURLの一部<br>
+※(例)設置するURLが <b>http://www.xxx.zzz/~test/yomi.php</b> なら <b>www.xxx.zzz/~test</b> と記入してください<br>
+※外部からの不正なアクセスをランキング集計対象から取り除くための機能です<br>
+※複数指定する場合には半角カンマ( <b>,</b> )で区切ってください
+※必要無い場合には未記入でも可
+<br>
+→<input type=text name=rank_ref value="<?=$EST['rank_ref']?>" size=40>
+	<br><br><input type=submit value="変更する"> <input type=reset value="リセット">
+</ol>
+</form>
+<hr noshade color=#aaaaaa>
+<?php
+if(!$EST['rank_fl']){echo "<font color=red>※現在、人気ランキングは実施しない設定になっています</font><br>";}
+?>
+<form action="<?=$EST['admin']?>" method=post>
+	<?php echo YOMI_TICKET_TAG; ?>
+	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=mode value="cfg_make">
+<a name="config_rev">[<a href="#top">トップに戻る</a>]</a>
+<ol>
+<font size="+1">【アクセスランキングの環境設定】</font><br>
+※アクセスランキングとは<font color=red>外部からのアクセス数</font>を集計したランキングです<br>
+※このページへのリンクは「<b>rank.php?mode=rev</b>」です
+<br><br>
+<li>アクセスランキング→
+		<input type=radio name="rev_fl" value="0"<?=$Crev_fl_0?>>実施しない | 
+		<input type=radio name="rev_fl" value="1"<?=$Crev_fl_1?>>実施する<br><br>
+<li>ランクインさせる最低アクセス数→<input type=text name=rev_min value="<?=$EST['rev_min']?>" size=2><br><br>
+<li>ランキングの集計期間→<input type=text name=rev_kikan value="<?=$EST['rev_kikan']?>" size=3>日ごとに集計する<br><br>
+<li>ランキングの更新頻度(時間)<br>
+※何時間ごとにランキングを更新するかを決めます<br>
+※更新頻度は人気ランキングの設定と同じ設定になります。
+<br><br>
+<li>ランキングデータの最大保持件数→ベスト<input type=text name=rev_best value="<?=$EST['rev_best']?>" size=4>位まで保存する<br><br>
+<li>ランキング用URLの転送先<br>
+	<ol>
+	※通常はサーチエンジンのトップページを指定します<br>
+	<input type=text name=rev_url value="<?=$EST['rev_url']?>" size=50>
+	</ol>
+	<br><br>
+	<br><br><input type=submit value="変更する"> <input type=reset value="リセット">
+</ol>
+</form>
+<hr noshade color=#aaaaaa>
+<?php
+if(!$Eadd_below_mode){echo $Eadd_data_below;}
+cp_cr();
+?>
+<?php
+if (isset($link) && $link) {
+	@mysql_close($link);
+}
+exit;
+?>

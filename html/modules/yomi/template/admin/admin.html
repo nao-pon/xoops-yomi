@@ -1,0 +1,209 @@
+<link rel="stylesheet" href="<?=$EST['html_path_url']?>style.css" type="text/css">
+<a name=top></a>
+<!-- メニューバー -->
+<div align=right><font id=small>
+<?php
+menu_bar();
+?>
+</font></div>
+<hr noshade color=#aaaaaa>
+<?=YOMI_HOME_URL?> &gt;
+<table width=100%><tr><td id="title-bar">
+<font color=#000000><b>管理室</b></font>
+</td></tr></table>
+<?php
+$Ctemp=0;
+	$fp=fopen("$EST[log_path]$EST[temp_logfile]", "r");
+	while($tmp=fgets($fp, 4096)){
+		$Ctemp++;
+	}
+	fclose($fp);
+?>
+<div align=center>
+<form action="<?=$EST['admin']?>" method=post>
+	<?php echo YOMI_TICKET_TAG; ?>
+	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<select name=mode>
+		<option value="temp_to_regist" selected>01. 登録待ち(<?=$Ctemp?>件)
+		<option value="config">02. 環境設定
+		<option value="config_kt">03. カテゴリ設定
+		<option value="look_mes">04. 登録者のメッセージを見る
+		<option value="log_kt_change">05. ログデータの交換・移動・削除
+		<option value="log_repair">06. ログ（登録データ）のバックアップ・復元
+		<option value="rank_cfg">07. 人気ランキング・アクセスランキングの設定
+		<option value="key_cfg">08. キーワードランキングの設定
+		<option value="log_conv">09. 各種ログ変換
+		<option value="dl_check">10. デッドリンクチェック
+		<option value="ver_info">11. バージョン情報
+		</select>
+	<input type=submit value="実行"> [<a href="#menu">help</a>]
+</form>
+<?php
+if($EST['pass'] == "setup"){
+print "<font color=red>※まず、「02. 環境設定」を選んでパスワードの設定を行ってください※</font><br>";
+}
+?>
+</div>
+<hr noshade color=#aaaaaa>
+<form action="regist_ys.php" method=post>
+	<?php echo YOMI_TICKET_TAG; ?>
+	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+		<input type=hidden name=changer value="admin">
+		<input type=hidden name=in_mode value="new_dairi">
+(1)管理人による新規登録：
+	<input type=submit value="登録する"> [<a href="#dairi">help</a>]
+</form>
+<form action="<?=$EST['admin']?>" method=post>
+	<?php echo YOMI_TICKET_TAG; ?>
+(2)クッキーによる登録内容変更画面への直接認証：
+	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=mode value="kanri">
+	<input type=submit name=set value="設定"> 
+	<input type=submit name=set value="解除">
+	 (現在は「<b><?=$PRset?></b>」に設定されています) [<a href="#cookie">help</a>]
+</form>
+<hr noshade color=#aaaaaa>
+<a name="menu">★各メニューの説明</a> [<a href="#top">Topに戻る</a>]
+<ol>
+<form action="<?=$EST['admin']?>" method=post>
+	<?php echo YOMI_TICKET_TAG; ?>
+	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=mode value="temp_to_regist">
+	<li><font size="+1">【 <b>登録待ち(<?=$Ctemp?>件)</b> 】</font><input type=submit value="GO"><br>
+　登録者が登録申請中のデータを登録するかどうかの決定をします。<br>
+　( )内の数値は登録待ちデータの件数。仮登録モードを有効にしている場合のみ有効です。<br>
+　仮登録中のデータは「<?=$EST['temp_logfile']?>」に記録されています。
+<br><br>
+</form>
+<form action="<?=$EST['admin']?>" method=post>
+	<?php echo YOMI_TICKET_TAG; ?>
+	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=mode value="config">
+	<li><font size="+1">【 <b>環境設定</b> 】</font><input type=submit value="GO"><br>
+　このサーチエンジンに関する環境設定をします。<br>
+　<font color=red>初回設置時には必ずこのメニューを実行してパスワードを設定してください。</font><br><br>
+</form>
+<form action="<?=$EST['admin']?>" method=post>
+	<?php echo YOMI_TICKET_TAG; ?>
+	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=mode value="config_kt">
+	<li><font size="+1">【 <b>カテゴリ設定</b> 】</font><input type=submit value="GO"><br>
+　[使用可能コマンド]
+	<ul>
+	<li>カテゴリの修正・削除
+	<li>カテゴリの新規作成
+	<li>カテゴリの説明文設定
+	</ul>
+</form>
+<form action="<?=$EST['admin']?>" method=post>
+	<?php echo YOMI_TICKET_TAG; ?>
+	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=mode value="look_mes">
+	<li><font size="+1">【 <b>登録者のメッセージを見る</b> 】</font><input type=submit value="GO"><br>
+　環境設定で登録者のメッセージを保存する設定にした場合、このメニューから見ることができます。<br><br>
+</form>
+<form action="<?=$EST['admin']?>" method=post>
+	<?php echo YOMI_TICKET_TAG; ?>
+	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=mode value="log_kt_change">
+	<li><font size="+1">【 <b>ログデータの交換・移動・削除</b> 】</font><input type=submit value="GO"><br>
+　[使用可能コマンド]<br>
+<ul>
+<li>指定したカテゴリのデータを一括して削除
+<li>指定したカテゴリのデータを別のカテゴリに移動
+<li>指定したカテゴリのデータを別のカテゴリのデータと交換
+</ul><br>
+</form>
+<form action="<?=$EST['admin']?>" method=post>
+	<?php echo YOMI_TICKET_TAG; ?>
+	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=mode value="log_repair">
+	<li><font size="+1">【 <b>ログ（登録データ）のバックアップ・復元</b> 】</font><input type=submit value="GO"><br>
+　バックアップファイルに記録されたデータを元にデータを復元します。<br>
+　本体データベースの中のデータが破損したり、<br>
+　おかしくなってしまったときに実行してください。<br>
+　<font color="red">※一度復元したら元のデータは二度と戻らないので注意してから復元してください。</font><br><br>
+</form>
+<form action="<?=$EST['admin']?>" method=post>
+	<?php echo YOMI_TICKET_TAG; ?>
+	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=mode value="rank_cfg">
+	<li><font size="+1">【 <b>人気ランキングの設定</b> 】</font><input type=submit value="GO"><br>
+　[使用可能コマンド]<br>
+<ul>
+<li>人気ランキング(OUT)に関する各種設定
+<li>アクセスランキング(IN)に関する各種設定
+</ul><br>
+</form>
+<form action="<?=$EST['admin']?>" method=post>
+	<?php echo YOMI_TICKET_TAG; ?>
+	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=mode value="key_cfg">
+	<li><font size="+1">【 <b>キーワードランキングの設定</b> 】</font><input type=submit value="GO"><br>
+　キーワードランキングは検索された言葉のうち管理人が設定したデータのみをランキングに反映させることができます。
+<br>
+　[使用可能コマンド]<br>
+<ul>
+<li>キーワードランキングに関する各種設定
+<li>表示するキーワードを設定/解除
+</ul><br>
+</form>
+<form action="<?=$EST['admin']?>" method=post>
+	<?php echo YOMI_TICKET_TAG; ?>
+	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=mode value="log_conv">
+	<li><font size="+1">【 <b>各種ログ変換</b> 】</font><input type=submit value="GO"><br>
+　Yomi-Search(Perl)のログをデータベースに追加します。<br>
+　[使用可能コマンドの例]<br>
+<ul>
+<li>Ver4形式のログデータをデータベースに追加
+<li>カテゴリ・ソート変換(各カテゴリをアイウエオ順に並び替える) 
+</ul><br>
+</form>
+<form action="<?=$EST['admin']?>" method=post>
+	<?php echo YOMI_TICKET_TAG; ?>
+	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=mode value="dl_check">
+	<li><font size="+1">【 <b>デッドリンクチェック</b> 】</font><input type=submit value="GO"><br>
+　登録データのデッドリンク(リンク切れ)チェックを行います。<br>
+　※訪問者からの登録データに関する通知もここで見ることができます。
+<br><br>
+</form>
+<form action="<?=$EST['admin']?>" method=post>
+	<?php echo YOMI_TICKET_TAG; ?>
+	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=mode value="ver_info">
+	<li><font size="+1">【 <b>バージョン情報</b> 】</font><input type=submit value="GO"><br>
+　Yomi-Searchのバージョン/固有の追加機能などを表示します。<br>
+<br><br>
+</form>
+</ol>
+<hr noshade color=#aaaaaa>
+<br><a name="dairi"></a>
+	<font size="+1">(1)【 <b>管理人による新規登録</b> 】</font>[<a href="#top">Topに戻る</a>]<br>
+　管理人が登録者のかわりに登録する時や、管理人権限で登録する時などに使用します。<br>
+　　[管理人権限での登録]
+		<ul>
+		<li>登録時にマークを付加が可能になる
+		<li>入力文字制限を受けない
+		<li>改行を無効に設定している場合でも改行が可能になる
+		</ul>
+<a name="cookie"></a>
+	<font size="+1">(2)【 <b>クッキーによる登録内容変更画面への直接認証</b> 】</font>[<a href="#top">Topに戻る</a>]<br>
+	<ul>
+	「<b>設定</b>」にしておくと、一度管理人権限でパスワード認証をした後は<br>
+	パスワード認証画面を通すことなく修正画面にジャンプすることができます。<br>
+	もちろん、この設定にしても他の訪問者はパスワード認証画面で<br>認証してからでなければ修正画面に行くことはできません。
+	</ul>
+<br>
+<hr noshade color=#aaaaaa>
+<?php
+if(!$Eadd_below_mode){echo $Eadd_data_below;}
+cp_cr();
+?>
+<?php
+if (isset($link) && $link) {
+	@mysql_close($link);
+}
+exit;
+?>

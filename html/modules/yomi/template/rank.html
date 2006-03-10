@@ -1,0 +1,346 @@
+<?php
+$CK_data=get_cookie();
+
+if (isset($CK_data[6])) $EST['kt_child_show']=$CK_data[6];
+
+if (empty($_GET['page'])) $_GET['page'] = 1;
+if (empty($_GET['kt'])) $_GET['kt'] = "";
+
+if($_GET['mode'] == "rank"){$Stitle="人気ランキング";}
+elseif($_GET['mode'] == "rank_bf"){$Stitle="前回の人気ランキング";}
+else{$Stitle="人気ランキング(累計)";}
+if($_GET['kt']){$Stitle.=" - " . $ganes[$_GET['kt']];}
+
+if (isset($_GET['child_show'])) {
+	$EST['kt_child_show'] = $_GET['child_show'];
+	$g_prm_child = "&child_show=".$_GET['child_show'];
+	$CK_data[6]=$_GET['child_show'];
+	set_cookie($CK_data);
+} else {
+	$g_prm_child = "";
+}
+if ($_GET['kt'])
+{
+	$child_count = Child_count($_GET['kt']);
+	if ($EST['kt_child_show']){
+		$kt_sql = "&".$_GET['kt'];
+		if ($child_count > 0) {
+			$Stitle .= " 以下を集計";
+		} else {
+			$Stitle .= " のみ集計";
+		}
+	} else {
+		$kt_sql = "&".$_GET['kt']."&";
+		
+	}
+}
+else
+{
+	$Stitle .= " 全体";
+}
+
+//xoops2 タイトル設定
+global $xoopsModule,$xoopsTpl;
+if (is_object($xoopsTpl))
+{
+	$xoops_pagetitle = $xoopsModule->name();
+	$xoops_pagetitle = "$Stitle-$xoops_pagetitle";
+	$xoopsTpl->assign("xoops_pagetitle",$xoops_pagetitle);
+}
+
+$Eref=urlencode($_SERVER['HTTP_REFERER']);
+//$i=1;$rank_z=1;$rank=1;
+
+$log_lines=array();
+$pre_pt = 0;
+//$pre_rank = 1;
+//$Clog = $_GET['cl'];
+$Clog = 0;
+$pre_rank=$pre_rank_z = ($_GET['page']-1)*$EST['hyouji']+1;
+
+
+$end_no=$EST['hyouji'];
+$str_no=$_GET['page']*$EST['hyouji']-$EST['hyouji'];
+
+$time=time();
+if($_GET['mode'] == "rank"){
+	$start=$time-$EST['rank_kikan']*86400;
+	$end=$time;
+	$last_mod=date("Y/m/d H:i", $start)."　-　".date("Y/m/d H:i", $end);
+}
+elseif($_GET['mode'] == "rank_bf"){
+	$start=$time-$EST['rank_kikan']*172800;
+	$end=$time-$EST['rank_kikan']*86400+1;
+	$last_mod=date("Y/m/d H:i", $start)."　-　".date("Y/m/d H:i", $end);
+}
+else {
+	$start=0;
+	$end=$time;
+	$last_mod="　-　".date("Y/m/d H:i", $end);
+}
+
+if ($_GET['kt']){
+	$query="SELECT r.id, COUNT(r.id) AS pt, l.category, l.id 
+	FROM $EST[sqltb]rank r, $EST[sqltb]log l 
+	WHERE l.id = r.id and r.time BETWEEN $start AND $end and l.category LIKE '%$kt_sql%' 
+	GROUP BY r.id 
+	ORDER BY pt DESC";
+} else {
+	$query="SELECT id,COUNT(*) AS pt FROM $EST[sqltb]rank WHERE time BETWEEN $start AND $end GROUP BY id ORDER BY pt DESC";
+
+}
+
+if (!$Clog) {
+	$result = $xoopsDB->query($query." LIMIT ".$EST['rank_best']) or die("Query failed rank109 $query");
+	$Clog = mysql_num_rows($result);
+}
+
+$query .= " LIMIT $str_no , $end_no";
+
+$result = $xoopsDB->query($query) or die("Query failed rank109 $query");
+while($Rank = mysql_fetch_assoc($result)){
+	$query="SELECT * FROM $EST[sqltb]log WHERE id='$Rank[id]' LIMIT 1";
+	$result2 = $xoopsDB->query($query) or die("Query failed rank120 $query");
+	$Slog = mysql_fetch_row($result2);
+	if($Slog[0]){
+		$Slog['pt'] = $Rank['pt'];
+		array_push($log_lines,$Slog);
+	}
+}
+
+#ナビゲーションバーを表示
+$navi = "";
+$kt=explode("_",$_GET['kt']); array_pop($kt);
+$temp_kt = "";
+foreach ($kt as $tmp){
+	$temp_kt .= $tmp;
+	$navi .= "<a href=\"$Ekt$temp_kt\">$ganes[$temp_kt]</a> &gt; ";
+	$temp_kt .="_";
+}
+
+?>
+
+<link rel="stylesheet" href="<?=$EST['html_path_url']?>style.css" type="text/css">
+<script type="text/javascript">
+<!--
+function ch_type(sel){
+// onchangeでウィンドウを開く方法を選択
+var form=document.form1;
+var open_type=sel.options[sel.selectedIndex].value;
+if(open_type==1){form.target="_blank";}
+else{form.target="";}
+}
+//-->
+</script>
+
+<a name=top></a>
+<!-- メニューバー -->
+<div align=right><font id=small>
+<?php
+menu_bar();
+?>
+</font></div>
+<hr>
+<!-- ナビゲーションバー -->
+<?=YOMI_HOME_URL?> &gt; <?=$navi?> 
+<?php
+if($_GET['kt']){echo "<a href=\"$Ekt$_GET[kt]$Eend\">".$ganes[$_GET['kt']]."</a> &gt; ";}
+?>
+
+<table width=100%><tr><td id="title-bar">
+<b><?=$Stitle?></b>
+</td></tr></table>
+
+<div style="text-align:center;">
+<div style="margin-left:auto;margin-right:auto;">
+<?php
+#ヘッダスペース
+head_sp();
+?>
+</div>
+</div>
+
+<?php
+##ページ説明を表示
+gane_guide();
+echo $KTEX[$_GET['mode']];
+unset($KTEX);
+
+if($_GET['mode'] == "rank"){echo " - <a href=\"$EST[cgi_path_url]$EST[rank]?mode=rank_bf&kt=$_GET[kt]$g_prm_child\">前回の人気ランキング</a> - <a href=\"$EST[cgi_path_url]$EST[rank]?mode=rank_rui&kt=$_GET[kt]$g_prm_child\">人気ランキング(累計)</a>";}
+elseif($_GET['mode'] == "rank_bf"){echo " - <a href=\"$EST[cgi_path_url]$EST[rank]?mode=rank&kt=$_GET[kt]$g_prm_child\">現在の人気ランキング</a> - <a href=\"$EST[cgi_path_url]$EST[rank]?mode=rank_rui&kt=$_GET[kt]$g_prm_child\">人気ランキング(累計)</a>";}
+else{print " - <a href=\"$EST[cgi_path_url]$EST[rank]?mode=rank&kt=$_GET[kt]$g_prm_child\">現在の人気ランキング</a> - <a href=\"$EST[cgi_path_url]$EST[rank]?mode=rank_bf&kt=$_GET[kt]$g_prm_child\">前回の人気ランキング</a>";}
+if ($_GET['kt'] && $child_count)
+{
+	if ($EST['kt_child_show']){
+		echo " - <a href=\"$EST[cgi_path_url]$EST[rank]?&mode=$_GET[mode]&kt=$_GET[kt]&child_show=0\">下層カテゴリデータは集計しない。</a>";
+	} else {
+		echo " - <a href=\"$EST[cgi_path_url]$EST[rank]?&mode=$_GET[mode]&kt=$_GET[kt]&child_show=1\">下層カテゴリデータも集計する。</a>";
+	}
+}
+
+gane_st(); #カテゴリ属性をロード
+##下層カテゴリ
+if($_GET['kt']){
+	$child_count=PRbelow_kt(
+		$_GET['kt'],
+		'0', #← 1=登録数表示/0=登録数非表示
+		'4'  #← カテゴリの表示列数
+	);
+}
+##検索フォーム
+make_serach_box();
+
+if($Clog){
+	?>
+<!-- データがある場合 -->
+<hr>
+<!-- 表示方法選択フォーム -->
+<?php
+	##一括削除用のフォーム出力(上)
+	if($CK_data[3] || $is_admin == 1){
+		?>
+	<form action="<?=$EST['cgi_path_url']?>regist_ys.php" method=post>
+		<?php echo YOMI_TICKET_TAG; ?>
+		<input type=hidden name=mode value="act_del">
+		<input type=hidden name=del_mode value="multi">
+		<input type=hidden name=changer value="admin">
+<?php
+	}
+?>
+<!-- マークコメント/登録数表示/目次表示(上) -->
+<img src="<?=$EST['img_path_url']?>m1.gif" align=bottom>
+は<?=$EST['name_m1']?>、 <img src="<?=$EST['img_path_url']?>m2.gif" align=bottom>
+は<?=$EST['name_m2']?>です。 <font id=kanri><b>この色</b></font>の文は管理人のコメントです。<br>
+※リンク先が無くなっている等の問題がある場合にはタイトル横の [<b>管理者に通知</b>] リンクを押してください
+<br><br>
+<div align=left><i>集計期間：<?=$last_mod?></i></div>
+<br>
+<?php
+	//$tmp = array($_GET['page'],$Clog,$EST['hyouji'],"{$g_prm_child}&mode=$_GET[mode]&cl=$Clog&kt=$_GET[kt]",$EST['rank']);
+	$tmp = array($_GET['page'],$Clog,$EST['hyouji'],"{$g_prm_child}&mode=$_GET[mode]&kt=$_GET[kt]",$EST['rank']);
+	$PRmokuji=mokuji($tmp);
+	?>
+<?=$PRmokuji?>
+<ul>
+<?php
+	EST_reg();
+	if($_GET['page'] == "1"){$pre_rank=1;}
+	$rank=$pre_rank;
+	foreach ($log_lines as $Slog){
+		$pt=$Slog['pt'];
+		if($pt != $pre_pt){$rank=$pre_rank_z;}
+		#$jump_url=$EST['cgi_path_url']."jump.php?id=$Slog[0]";
+		$jump_url=$Slog[2]; #ランキング画面からもアクセスを集計する場合は上の行の先頭の「#」を取り除き、この行の先頭に「#」を追加する
+		?>
+<!-- ログ表示 -->
+<div style="text-align:center;">
+<table id=log>
+<tr id=log-0>
+<td>
+<font size="+1"><b>第<?=$rank?>位</b></font> -&gt; <i><?=$pt?>pt</i>
+</td>
+</tr>
+<tr id=log-1>
+	<td class="yomi"><a href="<?=$jump_url?>" target="_blank" style="text-decoration:none" title="新しいウィンドウで開く">■</a> <a href="<?=$jump_url?>" title="このウィンドウで開く&#13;&#10;左の■は別ウィンドウ"><font size="+1"><b><?=$Slog[1]?></b></font></a> 
+<?php
+		put_icon(); #<!-- ←アイコンを付加 -->
+		?>
+ <br><div align="right"><font size="-1">更新日：<?=date("Y/m/d (D) h:i",$Slog[11])?></font></div>
+<?php
+		if($CK_data[3] || $is_admin == 1){
+			?>
+<br>
+[<input type=checkbox name="del[]" value="<?=$Slog[0]?>"> 削除チェック]
+<?php
+		}
+		if($Slog[12]){
+			?>
+<br><a href="<?=$jump_url?>" target="_blank">
+<img src="<?=$Slog[12]?>" alt="<?=$Slog[1]?>" width=<?=$EST_reg['Mbana_w']?> height=<?=$EST_reg['Mbana_h']?>></a>
+<?php
+		}
+		?>
+</td>
+</tr>
+<?php
+		if(!$ganes[$_GET['kt']] || $EST['kt_child_show']){
+			?>
+<tr id=log-2>
+<td>
+<?php
+			$kt=explode("&",$Slog[10]);
+			foreach($kt as $tmp){
+				if($ganes[$tmp]){
+					echo "[<a href=\"$Ekt$tmp$Eend\">";
+					#print $ganes[$tmp]; #カテゴリ名を短縮カテゴリ名で表示
+					print full_kt($tmp); #カテゴリ名をフルカテゴリ名で表示
+					print "</a>] ";
+				}
+			}
+			?>
+</td>
+</tr>
+<?php
+		}
+		?>
+<tr id=log-3>
+	<td class="yomi"><?=$Slog[6]?></td>
+</tr>
+<?php
+		if($Slog[7]){
+			?>
+<tr id=log-4>
+	<td class="yomi"><font id=kanri><?=$Slog[7]?></font></td>
+</tr>
+<?php
+		}
+		?>
+<tr id=log-5>
+	<td style="text-align:center;"><font size="-1">評価: <?=round($Slog[18],2)?> (投票数 <?=$Slog[19]?> )</font></td>
+</tr>
+<tr id=log-6>
+	<td class="yomi" style="text-align:center;"><font size="-1">[<a href="ratelink.php?lid=<?=$Slog[0]?>">このサイトを評価する</a>] [<a href="<?=$EST[cgi_path_url]?>regist_ys.php?mode=enter&id=<?=$Slog[0]?>" target="">修正・削除</a>] [<a href="<?=$EST['cgi_path_url']?>regist_ys.php?mode=no_link&id=<?=$Slog[0]?>&pre=on&title=<?=rawurlencode($Slog[1])?>">管理者に通知</a>] [<a target="_top" href="mailto:?subject=<?=rawurlencode(mb_convert_encoding(sprintf(_MD_INTRESTLINK,$xoopsConfig['sitename']),"SJIS","AUTO"))?>&body=<?=rawurlencode(mb_convert_encoding(sprintf(_MD_INTLINKFOUND,$xoopsConfig['sitename'])."\r\n[".$Slog[1]."]\r\n".XOOPS_URL."/modules/yomi/single_link.php?item_id=".$Slog[0],"SJIS","AUTO"))?>"><?=_MD_TELLAFRIEND?></a>] [<a href="single_link.php?item_id=<?=$Slog[0]?>">コメント(<?=$Slog[20]?>)</a>] </font></td>
+</tr>
+</table></div>
+<br />
+<!-- /ログ表示 -->
+<?php
+		$pre_rank_z++;
+		$pre_pt=$pt;
+	}
+	?>
+</ul>
+<!-- 目次表示(下) -->
+<?=$PRmokuji?>
+<!--/データがある場合-->
+<?php
+	##一括削除用のフォーム出力(下)
+	if($CK_data[3] || $is_admin == 1){
+		?>
+<center>
+<input type=submit value="一括削除実行">
+</center>
+</form>
+<?php
+	}
+}
+else{
+	if(!$_GET['kt']){echo "<p align=center>ランキングのデータを集計中です</p><br>";}
+	else{echo "<p align=center>このカテゴリのサイトはランクインしていません</p><br>";}
+}
+?>
+<hr>
+<?php
+gane_st();
+PR_other_kt();
+#フッタスペース
+foot_sp();
+include("footer.php");
+?>
+
+<?php
+if (isset($link) && $link) {
+	@mysql_close($link);
+}
+exit;
+?>

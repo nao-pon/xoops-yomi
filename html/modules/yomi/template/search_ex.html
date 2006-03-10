@@ -1,0 +1,215 @@
+<?php
+#クッキーの処理
+$CK_data=get_cookie();
+$ck_lines=explode(",",$CK_data[5]);
+$ck_0_0=" checked";$ck_0_1=""; #[0]
+if($ck_lines[0] == "o"){$ck_0_0="";$ck_0_1=" checked";}
+$ck_1=""; #[1]
+if($ck_lines[1]){$ck_1=" checked";}
+$ck_2_3=""; #[2]&[3]
+if($ck_lines[2] && $ck_lines[3]){$ck_2_3="<option value=\"$ck_lines[2]\" selected>$ck_lines[3]";}
+$ck_4=" checked"; #[4]
+if($ck_lines[4]){$ck_4="";}
+$ck_5_6=""; #[5]&[6]
+if($ck_lines[5] && $ck_lines[6]){$ck_5_6="<option value=\"$ck_lines[5]\" selected>$ck_lines[6]";}
+$ck_7_0=" checked";$ck_7_1=""; #[7]
+if($ck_lines[7]){$ck_7_0="";$ck_7_1=" checked";}
+$ck_8_9=""; #[8]&[9]
+if($ck_lines[8] && $ck_lines[9]){$ck_8_9="<option value=\"$ck_lines[8]\" selected>$ck_lines[9]";}
+$ck_10=""; #[10]
+if($ck_lines[10]){$ck_10=$ck_lines[10];}
+$ck_11_0=" checked";$ck_11_1=""; #[11]
+if($ck_lines[11]){$ck_11_0="";$ck_11_1=" checked";}
+if(count($ck_lines)>=0){$ck_ck=" checked";}
+if($_GET['window'] == "_blank"){$PR_open_type_select_0=""; $PR_open_type_select_1=" selected";}
+else{$PR_open_type_select_0=" selected"; $PR_open_type_select_1="";}
+?>
+
+<link rel="stylesheet" href="<?=$EST['html_path_url']?>style.css" type="text/css">
+<script type="text/javascript">
+<!--
+function ch_type(sel){
+// onchangeでウィンドウを開く方法を選択
+var open_type=sel.options[sel.selectedIndex].value;
+if(open_type==1){document.form1.target="_blank";}
+else{document.form1.target="";}
+}
+//-->
+</script>
+
+<a name=top></a>
+<!-- メニューバー -->
+<div align=right><font id=small>
+<?php
+menu_bar();
+?>
+</font></div>
+<hr>
+<?=YOMI_HOME_URL?> >
+<?php
+#ヘッダスペース
+head_sp();
+?>
+<table width=100%><tr><td id="title-bar">
+<a name="ex"><b>詳細検索</b></a>
+</td></tr></table>
+<ul>
+<form action="<?=$EST['search']?>" method=get target="<?=$_GET['window']?>" name="form1">
+	<?php echo YOMI_TICKET_TAG; ?>
+	<input type=hidden name=mode value=search>
+	<input type=text name=word size=30> <input type=submit value=" 検 索 "> <input type=reset value="リセット">
+	<br>
+	<a href="#ex_method">検索条件</a>：
+	<select name="method">
+		<option value="and"<?=$ck_0_0?>>すべての語を含む
+		<option value="or"<?=$ck_0_1?>>いずれかの語を含む
+	</select>
+	<br>
+	<a href="#ex_str">検索式を使用</a>：<input type=checkbox name=use_str value="on"<?=$ck_1?>>
+	<br>
+		<a href="#ex_engine">検索エンジン</a>：<select name="engine">
+<?php
+search_form();
+?>
+	<?=$ck_2_3?>
+	</select> <input type=checkbox name=www value=on<?=$ck_4?>>www.
+<br>
+	<a href="#ex_kt">カテゴリ指定</a>：
+	<select name=search_kt>
+		<option value="" selected>指定しない
+		<?=$ck_5_6?>
+<?php
+while(list($kt,)=each($ganes)){
+	print "<option value=\"$kt\">" . full_kt($kt);
+}
+?>
+	</select><br>　
+	<input type=radio name="search_kt_ex" value=""<?=$ck_7_0?>>指定カテゴリのみ | <input type=radio name="search_kt_ex" value="-b_all"<?=$ck_7_1?>>指定カテゴリ以下
+	<br>
+	<a href="#ex_day">日付指定</a>：
+	<select name="search_day">
+		<option value="" selected>指定しない
+		<?=$ck_8_9?>
+		<option value="today">本日
+		<option value="1-0">1日以内
+		<option value="3-0">3日以内
+		<option value="7-0">7日以内
+		<option value="14-0">14日以内
+		<option value="30-0">30日以内
+	</select> | コマンド入力 <input type=text name=search_day_ex value="<?=$ck_10?>">
+	<br>
+	<a href="#ex_kt_search">カテゴリ名検索</a>：<input type=radio name=kt_search value=on<?=$ck_11_0?>>する | <input type=radio name=kt_search value=off<?=$ck_11_1?>>しない
+	<br>
+	<a href="#ex_open_type">検索結果画面の開き方</a>：
+	<select name=open_type onchange=ch_type(this)>
+		<option value="0"$PR_open_type_select_0>次ページで開く
+		<option value="1"$PR_open_type_select_1>別窓で開く
+	</select>
+	<br>
+	<a href="#ex_set_option">検索オプションを保存</a>：<input type=checkbox name=set_option value=on<?=$ck_ck?>>
+</form>
+</ul>
+<table width=100%><tr><td id="title-bar">
+<b>一括検索</b>
+</td></tr></table>
+<ul>
+<form action="<?=$EST['search']?>" method="get" target="<?=$_GET['window']?>">
+	<?php echo YOMI_TICKET_TAG; ?>
+	<input type=hidden name=mode value=meta>
+	<input type=hidden name=t_mode value=meta_page>
+	<input type=text name=word size=30>
+	<input type=submit value="一括検索"> <input type=reset value="リセット"><br>
+	<font id=small>検索条件：</font><select name="method">
+		<option value="and">すべてのワードを含む
+		<option value="or">いずれかのワードを含む
+	</select><br>
+	<font id=small>表示件数：</font><select name="hyouji">
+		<option value="25">25件表示
+		<option value="50">50件表示
+		<option value="75">75件表示
+		<option value="100">100件表示
+	</select><br>
+	<font id=small>ページの開き方：</font><select name="target">
+		<option value="_blank">リンク先を新しいページで開く
+		<option value="">リンク先を次のページにする
+	</select><br>
+</form>
+</ul>
+<table width=100%><tr><td id="title-bar">
+<b>ヘルプ</b>
+</td></tr></table>
+<br>
+<font size="+1">【詳細検索の説明】</font>
+<ul>
+	<li><a name="ex_method"><a href="#ex"><b>検索条件</b></a></a><br>
+	キーワードを複数指定したい場合に有効です<br>
+	キーワードはスペース(空白文字)で区切って複数指定することができます<br>
+	<b>[すべての語を含む]</b> ・・・指定したすべてのキーワードを含むデータのみ検索します<br>
+	<b>[いずれかの語を含む]</b> ・・・指定したキーワードが一つでも入っているデータを検索します
+	<br><br>
+	<li><a name="ex_str"><a href="#ex"><b>検索式を使用</b></a></a><br>
+	このチェックを入れるとキーワードを検索式として検索することができます<br>
+	<b>[使用可能なオプション]</b><br>
+	<b>and</b> ・・・このオプションに続くキーワードを<b>含む</b>データを検索します(AND条件)<br>
+	<b>or</b> ・・・このオプションに続くキーワードを<b>含む</b>データを検索します(OR条件)<br>
+	<b>not</b> ・・・このオプションに続くキーワードを<b>含まない</b>データを検索します<br><br>
+	たとえば「ホーム」というキーワードを含んで「ホームページ」というキーワードが含まれないデータを検索する場合は、<br>　
+	<b>ホーム not ホームページ</b><br>
+	とキーワード欄に記入してください。
+	<br><br>
+	<li><a name="ex_engine"><a href="#ex"><b>検索エンジン</b></a></a><br>
+	使用する検索エンジンを指定します。<br>
+	<b><?=$EST[search_name]?></b>以外の検索エンジンではその他の条件を指定できない場合があります
+	<br><br>
+	<li><a name="ex_kt"><a href="#ex"><b>カテゴリ指定</b></a></a><br>
+	検索するカテゴリを限定することができます。<br>
+	<b>指定しない</b>を選択した場合にはすべてのカテゴリから検索します。<br>
+	<b>[オプション]</b><br>
+	<b>指定カテゴリのみ</b> ・・・選択したカテゴリのみを検索対象とします<br>
+	<b>指定カテゴリ以下</b> ・・・選択したカテゴリとその下の階層にあるカテゴリを検索対象とします
+	<br><br>
+	<li><a name="ex_day"><a href="#ex"><b>日付指定</b></a></a><br>
+	データの登録日/更新日を検索対象に指定することができます<br>
+	<b>[コマンドの説明]</b><br>
+	<b>today-x</b> ・・・本日を基準に日付を指定するコマンドです<br>　
+	(例1)本日登録/更新されたのデータを検索する場合<br>　
+	<b>today</b>　とコマンド欄に入力する。<br>　
+	(例2)10日前に登録/更新されたデータを検索する場合<br>　
+	<b>today-10</b>　とコマンド欄に入力する。<br>
+	<b>year/month/day</b> ・・・西暦で日付を指定するコマンドです<br>　
+	(例1)2000年5月15日に登録/更新されたデータを検索する場合<br>　
+	<b>2000/05/15</b>　とコマンド欄に入力する。<br>　
+	(例2)1999年10月25日に登録/更新されたデータを検索する場合<br>　
+	<b>1999/10/25</b>　とコマンド欄に入力する。<br>
+	<b>[start_day]-[end_day]</b> ・・・本日を基準に指定した期間中のデータを検索するコマンドです<br>　
+	(例1)30日前〜本日までの間に登録/更新されたデータを検索する場合<br>　
+	<b>30-0</b>　とコマンド欄に入力する。<br>　
+	(例2)100日前〜50日前までに登録/更新されたデータを検索する場合<br>　
+	<b>100-50</b>　とコマンド欄に入力する。
+	<br><br>
+	<li><a name="ex_kt_search"><a href="#ex"><b>カテゴリ名検索</b></a></a><br>
+	キーワードでカテゴリを検索することができます<br>
+	「しない」にチェックするとカテゴリを検索しません<br>
+	<br>
+	<li><a name="ex_open_type"><a href="#ex"><b>検索結果画面の開き方</b></a></a><br>
+	検索結果画面の開き方を選択することができます<br>
+	ブラウザの設定でJavaScriptを使用しない設定にしている場合には動作しません<br>
+	検索オプションとしては保存されません<br>
+	<br>
+	<li><a name="ex_set_option"><a href="#ex"><b>検索オプションを保存</b></a></a><br>
+	この項目にチェックを入れると詳細画面での検索時に前回検索時に使用したオプションをあらかじめ選択された状態にすることができます<br>
+	<br><br><a href="#top">▲ページ先頭に戻る</a>
+</ul>
+<hr>
+<?php
+#フッタスペース
+foot_sp();
+include("footer.php");
+?>
+
+<?php
+if (isset($link) && $link) {
+	@mysql_close($link);
+}
+exit;
+?>

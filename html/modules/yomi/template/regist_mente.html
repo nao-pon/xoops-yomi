@@ -1,0 +1,188 @@
+<?php
+$time=time();
+$start=$time-$EST['rank_kikan']*86400;
+$end=$time;
+$query="SELECT COUNT(*) FROM $EST[sqltb]rank WHERE time BETWEEN $start AND $end AND id='$Pdata[0]'";
+$result = $xoopsDB->query($query) or die("Query failed mente8 $query");
+$count=mysql_fetch_row($result);
+$Pdata[pt0] = $count[0];
+$query="SELECT COUNT(*) FROM $EST[sqltb]rank WHERE id='$Pdata[0]'";
+$result = $xoopsDB->query($query) or die("Query failed mente12 $query");
+$count=mysql_fetch_row($result);
+$Pdata[pt1] = $count[0];
+$query="SELECT COUNT(*) FROM $EST[sqltb]rev WHERE time BETWEEN $start AND $end AND id='$Pdata[0]'";
+$result = $xoopsDB->query($query) or die("Query failed mente16 $query");
+$count=mysql_fetch_row($result);
+$Pdata[pt2] = $count[0];
+$query="SELECT COUNT(*) FROM $EST[sqltb]rev WHERE id='$Pdata[0]'";
+$result = $xoopsDB->query($query) or die("Query failed mente20 $query");
+$count=mysql_fetch_row($result);
+$Pdata[pt3] = $count[0];
+?>
+
+<link rel="stylesheet" href="<?=$EST['html_path_url']?>style.css" type="text/css">
+<a name=top></a>
+<!-- メニューバー -->
+<div align=right><font id=small>
+<?php
+menu_bar();
+?>
+</font></div>
+<hr>
+<?=YOMI_HOME_URL?> > <table width=100%><tr><td id="title-bar">
+<b>登録データの修正</b>
+</td></tr></table>
+<?php
+if($EST['rev_fl']){
+	?>
+<ul>
+<br>
+<font size="+1">★現在アクセスランキングを開催しています</font><br>
+以下のURLにリンクを張っていただくとランキングに集計されます。<br>
+【あなた専用のURL】<br>
+<input type=text size=90 value="<?=$EST['cgi_path_url'].$EST[rank]?>?mode=r_link&id=<?=$Pdata[0]?>" readonly><br>
+あなたのサイトの訪問者の方が上記のURLへのリンクをクリックすると、<br>
+当サイトの<a href="<?=$EST['rev_url']?>" target="_blank">トップページ</a>に転送され、アクセスランキングのポイントが加算されます。<br>
+※ただし、一定時間内の同じ訪問者の方からのアクセスは1ポイントとします
+<br><br>
+あなたのサイトへのアクセス数=&gt;<a href="<?=$EST['cgi_path_url'].$EST['rank']?>?mode=rank" target="_blank">現在</a>: <b><?=$Pdata[pt0]?></b>pt / <a href="<?=$EST['cgi_path_url'].$EST['rank']?>?mode=rank_rui" target="_blank">累計</a>: <b><?=$Pdata[pt1]?></b>pt<br>
+あなたのサイトからのアクセス数=&gt;<a href="<?=$EST['cgi_path_url'].$EST['rank']?>?mode=rev" target="_blank">現在</a>: <b><?=$Pdata[pt2]?></b>pt / <a href="<?=$EST['cgi_path_url'].$EST['rank']?>?mode=rev_rui" target="_blank">累計</a>: <b><?=$Pdata[pt3]?></b>pt
+<br><br>
+</ul>
+<hr>
+<?php
+}
+?>
+<br>
+	<form action="regist_ys.php" method=post>
+		<?php echo YOMI_TICKET_TAG; ?>
+		<input type=hidden name=mode value=act_mente>
+		<input type=hidden name=Smode_name value=mente>
+		<input type=hidden name=changer value="">
+		<input type=hidden name=id value=<?=$Pdata[0]?>>
+		<input type=hidden name=pass value="<?=$_POST['pass']?>">
+		<input type=hidden name=bkt value="<?=$Pdata[10]?>">
+		<input type=hidden name=pre_mark value="<?=$Pdata[3]?>">
+		<input type=hidden name=Fuid value="<?=$x_uid?>">
+<ol>
+	※文字数の換算方法は「半角<b>2</b>文字=全角<b>1</b>文字」です。<br>
+	※半角カナは文字化けの原因になりますので使用しないでください。<br><br>
+	▼項目名の横に<font color=red>☆</font>が付いている項目は<font color=red>記入必須項目</font>です。<br>
+<?php
+if ($x_uid) {
+?>
+<!--お名前-->
+	<br />
+	<li>【お名前】<font color=red><?=$EST_reg['Fname']?></font>
+		<input type=hidden name=Fname value="<?=$xoopsUser->uname()?>">
+		<ul><?=$xoopsUser->uname()?></ul><br>
+<!--メールアドレス-->
+	<li>【メールアドレス】<font color=red><?=$EST_reg['Femail']?></font>
+		<input type=hidden name=Femail value="<?=$xoopsUser->email()?>">
+		<ul><?=$xoopsUser->email()?></ul><br>
+<?php
+} else {
+?>
+<!--お名前-->
+	<li>【お名前】<font color=red><?=$EST_reg['Fname']?></font>
+		<ul>※ハンドルネームも可です<br>
+		※全角<b><?=$EST_reg['Mname']?></b>文字以内<br>
+		<input type=text name=Fname value="<?=$Pdata[8]?>" size=25<?=$readonly?>></ul><br>
+<!--メールアドレス-->
+	<li>【メールアドレス】<font color=red><?=$EST_reg[Femail]?></font>
+		<ul>※半角英数字<b><?=$EST_reg['Memail']?></b>文字以内<br>
+		<input type=text name=Femail value="<?=$Pdata[9]?>" size=25<?=$readonly?>></ul><br>
+<?php
+}
+?>
+<!--パスワード-->
+		<input type=hidden name=Fpass value="<?=$Pdata[5]?>" size=10>
+		<input type=hidden name=Fpass2 value="<?=$Pdata[5]?>" size=10>
+<!--ホームページアドレス-->
+	<li>【ホームページアドレス】<font color=red><?=$EST_reg[Furl]?></font>
+		<ul>※半角英数字<b><?=$EST_reg['Murl']?></b>文字以内<br>
+		<input type=text name=Furl value="<?=$Pdata[2]?>" size=70></ul><br>
+<?php
+if($EST_reg[bana_url]){
+	?>
+<!--タイトルバナーのURL-->
+	<li>【タイトルバナーのURL】<font color=red><?=$EST_reg['Fbana_url']?></font>
+		<ul>※バナー(画像)のURLの最後が「.gif」「.jpg」「.png」のいずれかで終わるようにしてください。
+		<br>※表示されるサイズは 横<b><?=$EST_reg['Mbana_w']?></b>×縦<b><?=$EST_reg['Mbana_h']?></b>(ピクセル)</b> です。 
+		<br>※半角英数字<b><?=$EST_reg['Mbana_url']?></b>文字以内
+		<br><input type=text name=Fbana_url value="<?=$Pdata[12]?>" size=60>
+		</ul><br>
+<?php
+}
+?>
+<!--ホームページのタイトル-->
+	<li>【ホームページのタイトル】<font color=red><?=$EST_reg['Ftitle']?></font>
+		<ul>※全角<b><?=$EST_reg['Mtitle']?></b>文字以内<br>
+		<input type=text name=Ftitle value="<?=$Pdata[1]?>" size=50></ul><br>
+<!--ホームページの紹介文-->
+	<li>【ホームページの紹介文】<font color=red><?=$EST_reg['Fsyoukai']?></font>
+		<ul>※HTMLタグは使えません<br>
+		※全角<b><?=$EST_reg['Msyoukai']?></b>文字以内<br>
+		<textarea wrap="soft" name=Fsyoukai cols=50 rows=3><?=$Pdata[6]?></textarea></ul><br>
+<!--登録するカテゴリ-->
+	<li>【登録するカテゴリ】<font color=red>☆</font>
+<?php
+PR_kt($Pdata[10]);
+?>
+<!--キーワード-->
+	<li>【キーワード】<font color=red><?=$EST_reg[Fkey]?></font>
+		<ul>※あなたのホームページに関係が深いキーワードを入力してください<br>
+		※複数ある場合にはキーワードを半角スペースで区切ってください<br>
+		※全角<b><?=$EST_reg[Mkey]?></b>文字以内<br>
+		<input type=text name=Fkey value="<?=$Pdata[15]?>" size=60></ul><br>
+<!--ここまで-->
+	<br><br>
+		<input type=submit value="&nbsp; 変更する &nbsp;"> <input type=reset value="リセット">
+</ol>
+	</form>
+<hr>
+<?php
+if (!$x_uid) {
+?>
+<ul>
+<font size="+1">【パスワードの変更】</font>
+<form action="<?=$EST['cgi_path']?>regist_ys.php" method=post>
+	<?php echo YOMI_TICKET_TAG; ?>
+	<input type=hidden name="mode" value="act_repass">
+	<input type=hidden name="repass_mode" value="change_pass">
+	<input type=hidden name="changer" value="<?=$_POST['changer']?>">
+	<input type=hidden name="pass" value="<?=$_POST['pass']?>">
+	<input type=hidden name="id" value="<?=$Pdata[0]?>">
+	新しいパスワード：<input type=text name=new_pass size=12>
+	<input type=submit value="パスワード変更">
+</form>
+</ul>
+<hr>
+<?php
+}
+?>
+<a name=del></a>
+<form action="regist_ys.php" method=post>
+	<?php echo YOMI_TICKET_TAG; ?>
+	<input type=hidden name=mode value="act_del">
+	<input type=hidden name=del_mode value="single">
+	<ul><div align=left><font size="+1">【登録データの削除】</font></div>
+<br>
+<input type=hidden name=changer value="">
+<input type=hidden name=pass value="<?=$_POST['pass']?>">
+<input type=hidden name=id value="<?=$_POST['id']?>">
+<input type=hidden name=Fuid value="<?=$x_uid?>">
+削除確認チェック→<input type=checkbox name=del_check value=on><br>
+<input type=submit value="このデータを削除する">
+</form></ul>
+<hr>
+<?php
+include("footer.php");
+?>
+
+<?php
+if (isset($link) && $link) {
+	@mysql_close($link);
+}
+exit;
+?>

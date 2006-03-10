@@ -1,0 +1,196 @@
+
+<link rel="stylesheet" href="<?=$EST['html_path_url']?>style.css" type="text/css">
+<script type="text/javascript">
+<!--
+function ch_type(sel){
+// onchangeでウィンドウを開く方法を選択
+var form=document.form1;
+var open_type=sel.options[sel.selectedIndex].value;
+if(open_type==1){form.target="_blank";}
+else{form.target="";}
+}
+//-->
+</script>
+
+<a name=top></a>
+<center>
+	<font color=#7D80D7 face="Impact" size=7>
+	<b><?=$EST['search_name']?></b>
+	</font>
+</center>
+<hr>
+<?php
+if($EST['count']){ ##アクセスカウンタの表示設定
+	require 'pl/count/count_ys.php';
+	index_count();
+	?><center><?=$PRcount?></center>
+<?php
+}
+?><center>
+<table><tr><td align=center>
+<form action="<?=$EST['search']?>" method=get target="" name="form1">
+▼ホームページ検索 [<a href="<?=$EST['search']?>">More</a>]
+[<a href="<?=$EST['search']?>?window=_blank">New Window</a>]<br>
+	<input type=hidden name=mode value=search>
+	<input type=hidden name=page value=1>
+	<input type=hidden name=sort value=<?=$EST['defo_hyouji']?>>
+	<input type=text name=word size=20>
+	<select name=engine>
+<?php
+search_form();
+?>
+	</select>
+	<select name=method>
+		<option value="and" selected>AND
+		<option value="or">OR
+	</select>
+	<select name=open_type onchange=ch_type(this)>
+		<option value="0"selected>次ページで
+		<option value="1">別窓で
+	</select>
+	 <input type=submit value=" 検 索 "> <input type=reset value="リセット">
+<?php
+if($EST['keyrank']){ #おすすめ検索ワード
+	require $EST['log_path']."keyrank_ys.php";
+	$i = 1;
+	//$link = mysql_connect($EST['host'], $EST['sqlid'], $EST['sqlpass']) or die("Could not connect");
+	//mysql_select_db($EST['sqldb']) or die("Could not select database");
+	foreach($open_key as $key=>$val) {
+		$query="SELECT COUNT(*) FROM ".$EST['sqltb']."key WHERE word='$key'";
+		//$result = mysql_query($query) or die("Query failed $query");
+		$result = $xoopsDB->query($query) or die("Query failed $query");
+		$pt = mysql_fetch_row($result);
+		$point[$key] = $pt[0];
+	}
+	//mysql_close($link);
+	if(isset($point)) {
+		arsort($point);
+		echo "<br>【 <a href=\"".$EST['rank']."?mode=keyrank\">おすすめ検索ワード</a> =&gt; ";
+		foreach($point as $word=>$val) {
+			$word = rtrim ($word);
+			$word_en = urlencode($word);
+			echo "<input type=checkbox name=word$i value=\"$word\"><a href=\"".$EST['search']."?mode=search&word=$word_en&sort=".$EST['defo_hyouji']."&engine=pre&method=and\">";
+			if($open_key["$word"] == "1" || !$open_key["$word"]){echo $word;}
+			else{$open_key["$word"] = rtrim ($open_key["$word"]); echo $open_key["$word"];}
+			echo "</a> ";
+			if($i >= 4) {break;} #デフォルトでは上位4ワードまで表示
+			$i++;
+		}
+		echo "】<input type=hidden name=kn value=$i>";
+	}
+}
+?></td></tr>
+</table>
+</form>
+<?php
+#ヘッダスペース
+head_sp();
+?>
+<hr>
+</center>
+<br><center>
+<table style="width:90%;padding:7px;" cellpadding=7><tr><td valign=top style="width:100%;">
+<table align="right" style="width:100%;padding:7px;" cellpadding=7>
+<?php
+$i=0;$st_flag=0;$cld_fl=0;
+$table_kt=$table_cols = 2;//カテゴリの表示列数
+gane_st(); #カテゴリ属性をロード
+ksort($ganes, SORT_STRING);
+reset($ganes);
+while (list($Gnos, $value) = each($ganes)) {
+	$Gno = (explode("_",$Gnos));
+	if (count($Gno) == 1) { ###最上層カテゴリの場合
+		if($st_flag && $cld_fl){echo "<a href=\"".yomi_makelink($bf_kt_no)."$Eend\">...</a>";}
+		else{$st_flag=1;}
+		$cld_fl=0;
+		if ($table_kt == $table_cols && $i==1) {
+			echo "\n</td></tr>";
+		}
+		if($i==0){$i=1;}
+		if ($table_kt == $table_cols) {
+			echo "<tr valign=top>";
+			$table_kt = 1;
+		}
+		else { $table_kt++; }
+		if ($table_kt != 1) {
+			echo "\n</td>";
+		}
+		echo "\n\n";
+		?><td width="50%" class="yomi"><a href="<?=yomi_makelink($Gnos).$Eend?>"><b><font size="+1"><?=$value?></font></b></a><br>
+<?php
+		$bf_kt_no=$Gnos;
+	}
+	else { ####サブカテゴリの場合
+		if(isset($gane_top[$Gnos])){
+			$cld_fl=1;
+			//list($Gname) = explode(":",$Gname);
+			echo "\n<font id=small><a href=\"".yomi_makelink($Gnos)."$Eend\">$value</a></font>, ";
+		}
+	}
+}
+unset($gane_top); unset($gane_UR); #カテゴリ属性をアンロード
+if($cld_fl){echo "<a href=\"".yomi_makelink($bf_kt_no)."$Eend\">...</a>";}
+?></td></tr>
+</table>
+</td>
+<td valign=top>
+<table align="left" border style="width:auto;" cellpadding=10>
+	<tr>
+	<td class="yomi" style="padding:10px;" nowrap>
+<center><font size="+1"><b>【 メニュー 】</b></font><br></center>
+<ol class="yomi">
+<li class="yomi-dec"><a href="<?=yomi_makelink('new')?>"><?=$EST['name_new']?></a><br><br>
+<li class="yomi-dec"><a href="<?=yomi_makelink('renew')?>"><?=$EST['name_renew']?></a><br><br>
+<?php
+#<!--
+if($EST['rank_fl']){echo '<li class="yomi-dec"><a href="'.$EST['rank'].'">'.$EST['name_rank'].'</a><br><br>';}
+if($EST['rev_fl']){echo '<li class="yomi-dec"><a href="'.$EST['rank'].'?mode=rev">'.$EST['name_rev'].'</a><br><br>';}
+if($EST['keyrank']){echo '<li class="yomi-dec"><a href="'.$EST['rank'].'?mode=keyrank">キーワードランキング</a><br><br>';}
+#-->
+?><li class="yomi-dec"><a href="<?=yomi_makelink('m1')?>"><?=$EST['name_m1']?></a><br><br>
+<li class="yomi-dec"><a href="<?=yomi_makelink('m2')?>"><?=$EST['name_m2']?></a><br><br>
+<li class="yomi-dec"><a href="<?=$EST['script']?>?mode=random">ランダムジャンプ</a>
+</ol>
+<hr>
+<ul class="yomi">
+<li><a href="<?=$EST['cgi_path_url']?>sitemap.php">カテゴリマップ</a><br><br>
+<li><a href="<?=$EST['cgi_path_url']?>regist_ys.php?mode=help">ヘルプ</a><br><br>
+<li><a href="<?=$EST['cgi_path_url']?>regist_ys.php?mode=new">新規登録</a><br><br>
+<li><a href="<?=$EST['cgi_path_url']?>regist_ys.php?mode=enter">更新・削除</a><br><br>
+</ul>
+<center>(全登録数：<?=$Cpre_gane?>サイト)</center>
+	</td>
+	</tr>
+</table>
+</td>
+</tr>
+</table>
+</center>
+<hr>
+<?php
+#フッタスペース
+foot_sp();
+?>
+<?php
+if ($is_admin == 1){
+?>
+<div style="text-align:center;">
+<form action="<?=$EST['admin']?>" method=post>
+	<input type=hidden name=mode value="kanri">
+	<!--<input type=password name=pass size=10>-->
+	<?php echo YOMI_TICKET_TAG; ?>
+	<input type=submit value="管理室">
+</form></div>
+<?php
+}
+?>
+<?php
+include("footer.php"); #　pl/temp.php内の著作権表示ルーチン
+?>
+
+<?php
+if (isset($link) && $link) {
+	@mysql_close($link);
+}
+exit;
+?>

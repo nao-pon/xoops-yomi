@@ -1,0 +1,38 @@
+<link rel="stylesheet" href="<?=$EST['html_path_url']?>style.css" type="text/css">
+
+<a name=top></a>
+<!-- メニューバー -->
+<div align=right><font id=small>
+<?php
+menu_bar();
+?>
+</font></div>
+<hr noshade color=#aaaaaa>
+<br><br><br>
+<center>
+<table border=3 width="450" cellpadding=1>
+<tr><td cellpadding=2 width="100%">
+<br>
+<center><font size="+2">【ログイン画面】</font>
+<br>
+<form action="<?=$EST['admin']?>" method=post>
+	<?php echo YOMI_TICKET_TAG; ?>
+  <input type=hidden name=mode value="kanri">
+  <input type=password name=pass size=8>
+  <input type=submit value="ログイン">
+</form>
+<br>
+【 <?=YOMI_HOME_URL?>に戻る 】</center> <br>
+</td></tr>
+</table>
+</center>
+<?php
+cp_cr();
+?>
+
+<?php
+if (isset($link) && $link) {
+	@mysql_close($link);
+}
+exit;
+?>

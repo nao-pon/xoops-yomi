@@ -1,0 +1,122 @@
+<link rel="stylesheet" href="<?=$EST['html_path_url']?>style.css" type="text/css">
+
+<a name=top></a>
+<!-- メニューバー -->
+<div align=right><font id=small>
+<?php
+menu_bar();
+?>
+</font></div>
+<hr>
+<table width="100%"><tr><td id="title-bar">
+<b>新規登録完了</b>
+</td></tr></table>
+<?php
+if($EST['rev_fl']){
+	?>
+<ul>
+<br>
+<font size="+1">★現在アクセスランキングを開催しています</font><br>
+以下のURLにリンクを張っていただくとランキングに集計されます。<br>
+【あなた専用のURL】<br>
+<input type=text size=90 value="<?=$EST['cgi_path_url'].$EST['rank']?>?mode=r_link&id=<?=$Slog[0]?>" readonly><br>
+あなたのサイトの訪問者の方が上記のURLへのリンクをクリックすると、<br>
+当サイトの<a href="<?=$EST['home']?>" target="_blank">トップページ</a>に転送され、アクセスランキングのポイントが加算されます。<br>
+※ただし、一定時間内の同じ訪問者の方からのアクセスは1ポイントとします<br>
+※アクセス用のURLは登録内容変更画面からも確認できます
+<br><br>
+</ul>
+<hr>
+<?php
+}
+?>
+<ol>
+	▼新規登録が以下のとおり完了しましたのでご確認ください<br><br>
+<!--ID-->
+	<li>【ID】<br>
+		<ul><?=$Slog[0]?></ul><br>
+<!--お名前-->
+	<li>【お名前】<br>
+		<ul><?=$Slog[8]?></ul><br>
+<!--メールアドレス-->
+	<li>【メールアドレス】<br>
+		<ul><?=$Slog[9]?></ul><br>
+<!--パスワード-->
+	<li>【パスワード】<br>
+		<ul><?=$Spass?></ul><br>
+<!--ホームページアドレス-->
+	<li>【ホームページアドレス】<br>
+		<ul><a href="<?=$Slog[2]?>"><?=$Slog[2]?></a>　[<a href="<?=$Slog[2]?>" target="_blank">確認</a>]
+		</ul><br>
+<?php
+if($EST_reg[bana_url]){
+	?>
+<!--タイトルバナーのURL-->
+	<li>【タイトルバナーのURL】
+		<ul><a href="<?=$Slog[12]?>"><?=$Slog[12]?></a>　[<a href="<?=$Slog[12]?>" target="_blank">確認</a>]
+		</ul><br>
+<?php
+}
+?>
+<!--ホームページのタイトル-->
+	<li>【ホームページのタイトル】
+		<ul><?=$Slog[1]?></ul><br>
+<!--ホームページの紹介文-->
+	<li>【ホームページの紹介文】
+		<ul>
+		<table width="100%" border=0><tr><td><?=$Slog[6]?></td></tr></table>
+		</ul><br>
+<!--登録するカテゴリ-->
+	<li>【登録するカテゴリ】
+		<ul>
+<?php
+PR_preview_kt2();
+?>
+</ul><br>
+<!--キーワード-->
+	<li>【キーワード】
+		<ul><?=$Slog[15]?></ul><br>
+<?php
+if($EST_reg['add_kt'] && $_POST['in_mode'] != "mente"){
+	?>
+<!--追加して欲しいカテゴリ-->
+	<li>【追加して欲しいカテゴリ】
+		<ul><?=$_POST['Fadd_kt']?>
+		</ul><br>
+<?php
+}
+if($EST_reg['to_admin'] && $_POST['in_mode'] != "mente"){
+	$_POST[Fto_admin]=str_replace("&lt;br&gt;", "<br>", $_POST['Fto_admin']);
+	?>
+<!--管理人へのメッセージ-->
+	<li>【管理人へのメッセージ】
+		<ul>
+		<table width="100%" border=0><tr><td><?=$_POST['Fto_admin']?></td></tr></table>
+		</ul>
+<?php
+}
+if($EST_reg['sougo'] && $_POST['in_mode'] != "mente"){
+	if($_POST['Fsougo']){$PRsougo="相互リンクする";}
+	else{$PRsougo="相互リンクしない";}
+	?>
+<!--相互リンク連絡項目-->
+	<br><li>【相互リンクの有無】
+		<ul><?=$PRsougo?></ul>
+<?php
+}
+?>
+<!--ここまで-->
+	<br><br>
+		【　<?=YOMI_HOME_URL?>に戻る　】
+</ol></form>
+<hr>
+<?php
+include("footer.php");
+?>
+
+<?php
+if (isset($link) && $link) {
+	@mysql_close($link);
+}
+exit;
+?>
