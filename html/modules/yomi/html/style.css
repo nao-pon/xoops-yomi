@@ -1,7 +1,7 @@
 hr{ color:#aaaaaa; }
 img{ border:0; }
 td.yomi{ text-align:left; padding:7px; }
-td.yomi-s{ text-align:left; padding:2px; font-size:12pt;}
+td.yomi-s{ text-align:left; padding:2px; font-size:11pt;}
 tr.yomi{ text-align:left; padding:7px; }
 ol.yomi{ margin: 2px; padding: 10px; list-style: decimal inside; text-align: left;}
 ul.yomi{ margin: 2px; padding: 10px; list-style: decimal inside; text-align: left;}
@@ -10,14 +10,14 @@ table.yomi-body{background-color: #ffffff; width: 100%;}
 
 #mid{ font-size:11pt; }
 #small{ font-size:10pt; }
-#kanri{ color:#ff9999; } /* 管理人コメントの色 */
+#kanri{ color:#ff9999; } /* ????????? */
 #log{ width:90%; border-style:solid; border-color:#9999CC; margin:auto;}
-#log-0{ background-color:#FFCC66; } /* ランキング順位 */
-#log-1{ background-color:#CCCCFF; } /* タイトル */
-#log-2{ background-color:#F0F0F0; } /* カテゴリ */
-#log-3{ background-color:#FFFFFF; } /* 紹介文 */
-#log-4{ background-color:#FFFFFF; } /* 管理人コメント */
-#log-5{ background-color:#F0F0F0; } /* 投票結果欄 */
-#log-6{ background-color:#CCCCFF; } /* ファンクション欄 */
-#title-bar{ background-color:#A7C2DD; color:#000000; font-size:13pt; } /* タイトルバー */
-#mid-bar{ background-color:#DDDDDD; } /* 中段バー */
+#log-0{ background-color:#FFCC66; } /* ???????*/
+#log-1{ background-color:#CCCCFF; } /* ???? */
+#log-2{ background-color:#F0F0F0; } /* ???? */
+#log-3{ background-color:#FFFFFF; } /* ???*/
+#log-4{ background-color:#FFFFFF; } /* ??????? */
+#log-5{ background-color:#F0F0F0; } /* ????? */
+#log-6{ background-color:#CCCCFF; } /* ???????? */
+#title-bar{ background-color:#A7C2DD; color:#000000; font-size:13pt; } /* ?????? */
+#mid-bar{ background-color:#DDDDDD; } /* ???? */
