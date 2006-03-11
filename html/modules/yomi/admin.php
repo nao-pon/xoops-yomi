@@ -21,6 +21,11 @@ if(ini_get("magic_quotes_gpc"))
 }
 $_POST = array_map("yomi_cr_replace",$_POST);
 
+// $_POST を初期化
+foreach(array("mode","mente_mode","kt_new","search_form") as $key)
+{
+	$_POST[$key] = (empty($_POST[$key]))? "" : $_POST[$key];
+}
 
 // For XOOPS
 include("admin_header.php");
