@@ -17,6 +17,27 @@ if($_GET['search_day']){
 ##ファイルの読み込み＆該当データ総数を得る
 $Clog=open_for_search($_GET['search_kt'],$_GET['search_day'],$_GET['sort']);
 
+$log_lines = array_splice($write,($_GET['page']-1)*$EST['hyouji'],$EST['hyouji']);
+unset($write);
+##↑で@writeを破棄
+
+// ヘッダスペース抑止カテゴリの判定
+EST_reg();
+$_no_ad_space = false;
+foreach($log_lines as $Slog)
+{
+	$kt = explode("&",$Slog[10]);
+	foreach ($kt as $tmp)
+	{
+		if($ganes[$tmp])
+		{
+			$_no_ad_space = (preg_match("/\.$/",$ganes[$tmp]));	
+		}
+		if ($_no_ad_space) break;
+	}
+	if ($_no_ad_space) break;
+}
+
 if($_GET['item_id']){
 	//$Stitle="検索結果";
 	$Stitle = $write[0][1];
@@ -63,7 +84,7 @@ menu_bar();
 <div style="text-align:center;">
 <div style="margin-left:auto;margin-right:auto;">
 <?php
-head_sp();
+if (!$_no_ad_space){head_sp();}
 ?>
 </div>
 </div>
@@ -191,24 +212,6 @@ if($Clog){
 <?=$PRmokuji?>
 <ul>
 <?php
-	EST_reg();
-	##&open_for_searchで得たハッシュ/@writeを元にデータを表示@log_linesに入れる
-	#$arg1=>ページ番号(1〜)
-	$j = 1;
-	$log_lines=array();
-	$end_no=$_GET['page']*$EST['hyouji'];
-	$str_no=$end_no-$EST['hyouji']+1;
-	if($write) {
-		foreach ($write as $tmp){
-			if($str_no <= $j && $j <= $end_no){
-				array_push($log_lines,$tmp);
-			}
-			elseif($end_no<$j){break;}
-			$j++;
-		}
-	}
-	unset($write);
-	##↑で@writeを破棄
 	foreach ($log_lines as $Slog){ #検索データを表示
 		if($EST['rank_fl']){
 			//$jump_url=$Slog[2];
