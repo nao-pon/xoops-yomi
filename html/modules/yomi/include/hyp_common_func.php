@@ -124,7 +124,9 @@ EOF;
 				{
 					$add_port = ":$port";
 				}
-
+				
+				$errNo = 0;
+				$errStr = "";
 				$files = @fsockopen($host, $port , $errNo , $errStr, 10);
 
 				@fputs($files, "POST /$uri HTTP/1.0\r\n" );
@@ -157,6 +159,7 @@ EOF;
 		$ret = "";
 		$q_word = str_replace(" ","|",preg_quote(join(' ',$words),"/"));
 		
+		$match = array();
 		if (preg_match("/$q_word/i",$text,$match))
 		{
 			$ret = ltrim(preg_replace('/\s+/', ' ', $text));
@@ -198,6 +201,7 @@ EOF;
 			'iso-2022-jp' => 'JIS',
 			'utf-8' => 'UTF-8',
 		);
+		$match = array();
 		if (preg_match("/<meta[^>]*content=(?:\"|')[^\"'>]*charset=([^\"'>]+)(?:\"|')[^>]*>/is",$html,$match))
 		{
 			$encode = strtolower($match[1]);
@@ -218,7 +222,7 @@ EOF;
 
 	// サムネイル画像を作成。
 	// 成功ならサムネイルのファイルのパス、不成功なら元ファイルパスを返す
-	function make_thumb($o_file, $s_file, $max_width, $max_height, $zoom_limit="5,90",$refresh=FALSE)
+	function make_thumb($o_file, $s_file, $max_width, $max_height, $zoom_limit="5,90", $refresh=FALSE, $quality = 75)
 	{
 		//GD のバージョンを取得
 		static $gd_ver = null;
@@ -283,7 +287,7 @@ EOF;
 					touch($s_file);
 					if ($s_ext == "jpg")
 					{
-						imagejpeg($dst_im,$s_file);
+						imagejpeg($dst_im,$s_file,$quality);
 					}
 					else
 					{
@@ -304,7 +308,7 @@ EOF;
 				$dst_im = $imagecreate($width,$height);
 				$imageresize ($dst_im,$src_im,0,0,0,0,$width,$height,$org_w,$org_h);
 				touch($s_file);
-				imagejpeg($dst_im,$s_file);
+				imagejpeg($dst_im,$s_file,$quality);
 				$o_file = $s_file;
 				break;
 			case "3": //png形式
@@ -339,7 +343,7 @@ EOF;
 				touch($s_file);
 				if ($s_ext == "jpg")
 				{
-					imagejpeg($dst_im,$s_file);
+					imagejpeg($dst_im,$s_file,$quality);
 				}
 				else
 				{
@@ -368,6 +372,7 @@ EOF;
 		// Use the gd_info() function if possible.
 		if (function_exists('gd_info')) {
 			$ver_info = gd_info();
+			$match = array();
 			preg_match('/\d/', $ver_info['GD Version'], $match);
 			$gd_ver = $match[0];
 			return $match[0];
@@ -393,6 +398,61 @@ EOF;
 		return $match[0];
 	}
 	
+	// イメージを回転
+	function rotateImage($src, $count = 1, $quality = 95)
+	{
+		if (!file_exists($src)) {
+			return false;
+		}
+
+		list($w, $h) = getimagesize($src);
+		
+		if (!$w || !$h) return false;
+
+		if (($in = imageCreateFromJpeg($src)) === false) {
+			return false;
+		}
+
+		$angle = 360 - ((($count > 0 && $count < 4) ? $count : 0 ) * 90);
+
+		if ($w == $h || $angle == 180) {
+			$out = imageRotate($in, $angle, 0);
+		} elseif ($angle == 90 || $angle == 270) {
+			$size = ($w > $h ? $w : $h);
+			
+			$portrait = ($h > $w)? true : false; 
+			
+			// Create a square image the size of the largest side of our src image
+			if (($tmp = imageCreateTrueColor($size, $size)) == false) {
+				//echo "Failed create square trueColor<br>";
+				return false;
+			}
+
+			// Exchange sides
+			if (($out = imageCreateTrueColor($h, $w)) == false) {
+				//echo "Failed create trueColor<br>";
+				return false;
+			}
+
+			// Now copy our src image to tmp where we will rotate and then copy that to $out
+			imageCopy($tmp, $in, 0, 0, 0, 0, $w, $h);
+			$tmp2 = imageRotate($tmp, $angle, 0);
+
+			// Now copy tmp2 to $out;
+			imageCopy($out, $tmp2, 0, 0, (($angle == 270 && !$portrait) ? abs($w - $h) : 0), (($angle == 90 && $portrait) ? abs($w - $h) : 0), $h, $w);
+			imageDestroy($tmp);
+			imageDestroy($tmp2);
+		} elseif ($angle == 360) {
+			imageDestroy($in);
+			return true;
+		}
+
+		imageJpeg($out, $src, $quality);
+		imageDestroy($in);
+		imageDestroy($out);
+		return true;
+	}
+
 	// 2ch BBQ あらしお断りシステム にリスティングされているかチェック
 	function IsBBQListed($safe_reg = '/^$/', $msg = false, $ip = NULL)
 	{
@@ -569,6 +629,8 @@ class Hyp_HTTP_Request
 		while( !$fp && $connect_try_count < $this->connect_try )
 		{
 			@set_time_limit($this->connect_timeout + $max_execution_time);
+			$errno = 0;
+			$errstr = "";
 			$fp = fsockopen(
 				$via_proxy ? $this->proxy_host : $arr['host'],
 				$via_proxy ? $this->proxy_port : $arr['port'],
@@ -634,6 +696,7 @@ class Hyp_HTTP_Request
 		{
 			case 302: // Moved Temporarily
 			case 301: // Moved Permanently
+				$matches = array();
 				if (preg_match('/^Location: (.+)$/m',$resp[0],$matches)
 					and --$this->redirect_max > 0)
 				{
@@ -673,6 +736,7 @@ class Hyp_HTTP_Request
 		
 		foreach ($this->no_proxy as $network)
 		{
+			$matches = array();
 			if ($valid and preg_match($ip_pattern,$network,$matches))
 			{
 				$l_net = ip2long($matches[1]);
