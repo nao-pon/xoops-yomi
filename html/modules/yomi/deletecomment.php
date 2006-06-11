@@ -4,13 +4,9 @@ include("../../mainfile.php");
 $prms = array('comment_id','mode','order','ok');
 foreach ($prms as $prm)
 {
-	if (isset($vars[$prm]))
+	if (isset($_GET[$prm]))
 	{
-		if ($prm == 'item_id')
-		{
-			$vars[$prm] = intval($vars[$prm]);
-		}
-		$$prm = $vars[$prm];
+		$$prm = $_GET[$prm];
 	}
 	else
 	{
