@@ -47,7 +47,7 @@ if ( !empty($ok) ) {
 		list($numrows)=$xoopsDB->fetchRow($xoopsDB->query("select count(*) from ".$xoopsDB->prefix("yomi_comments")." where item_id = $item_id"));
 		$xoopsDB->queryF("update ".$xoopsDB->prefix("yomi_log")." set comments=$numrows where id=$item_id ");
 	}
-	redirect_header("single_link?item_id=".$item_id."&amp;order=".$order."&amp;mode=".$mode."",2,_PL_COMMENTSDEL);
+	redirect_header("single_link.php?item_id=".$item_id."&amp;order=".$order."&amp;mode=".$mode."",2,_PL_COMMENTSDEL);
 	exit();
 } else {
 	include(XOOPS_ROOT_PATH."/header.php");
