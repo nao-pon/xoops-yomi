@@ -1,63 +1,3 @@
-<?php
-if($_GET['search_day']){
-	if(preg_match("/^today-?(\d*)$/", $_GET['search_day'], $match)){ #today-x
-		if($match[1]>10000){$match[1]=0;}
-		if($match[1]>0){$search_day="★".$match[1]."日前に更新されたサイト<br>";}
-		else{$search_day="★本日に更新されたサイト<br>";}
-	}
-	elseif(preg_match("/^(\d+)\-(\d+)$/", $_GET['search_day'], $match)){ #[str_day]-[end_day]
-		if($match[2]>0){$search_day="★".$match[1]."日前〜".$match[2]."日前に更新されたサイト<br>";}
-		else{$search_day="★".$match[1]."日以内に更新されたサイト<br>";}
-	}
-	elseif(preg_match("/^(\d+)\/(\d+)\/(\d+)$/", $_GET['search_day'], $match)){ #year/mon/day
-		$search_day="★".$_GET['search_day']." に更新されたサイト<br>";
-	}
-
-}
-##ファイルの読み込み＆該当データ総数を得る
-$Clog=open_for_search($_GET['search_kt'],$_GET['search_day'],$_GET['sort']);
-
-$log_lines = array_splice($write,($_GET['page']-1)*$EST['hyouji'],$EST['hyouji']);
-unset($write);
-##↑で@writeを破棄
-
-// ヘッダスペース抑止カテゴリの判定
-EST_reg();
-$_no_ad_space = false;
-foreach($log_lines as $Slog)
-{
-	$kt = explode("&",$Slog[10]);
-	foreach ($kt as $tmp)
-	{
-		if($ganes[$tmp])
-		{
-			$_no_ad_space = (preg_match("/\.$/",$ganes[$tmp]));	
-		}
-		if ($_no_ad_space) break;
-	}
-	if ($_no_ad_space) break;
-}
-
-if($_GET['item_id']){
-	//$Stitle="検索結果";
-	$Stitle = $write[0][1];
-}elseif($_GET['use_str'] == "on"){
-	$Stitle="検索結果(検索式：$_GET[word])";
-}
-else{
-	if(!$_GET['method']){$_GET['method']="and";}
-	$Stitle="検索結果(検索ワード：$_GET[word] / 検索条件：$_GET[method])";
-}
-	//xoops2 タイトル設定
-	global $xoopsModule,$xoopsTpl;
-	if (is_object($xoopsTpl))
-	{
-		$xoops_pagetitle = $xoopsModule->name();
-		$xoops_pagetitle = "$Stitle-$xoops_pagetitle";
-		$xoopsTpl->assign("xoops_pagetitle",$xoops_pagetitle);
-	}
-?>
-
 <link rel="stylesheet" href="<?=$EST['html_path_url']?>style.css" type="text/css">
 <script type="text/javascript">
 <!--
@@ -322,12 +262,4 @@ if(($CK_data[3] || $is_admin == 1) && !($EST['html'] && $ganes[$LC_kt]) && ($Clo
 PR_other_kt();
 #フッタスペース
 foot_sp();
-include("footer.php");
-?>
-
-<?php
-if (isset($link) && $link) {
-	@mysql_close($link);
-}
-exit;
 ?>
