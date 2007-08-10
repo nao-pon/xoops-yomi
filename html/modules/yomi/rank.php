@@ -43,28 +43,33 @@ if (isset($_GET['mode'])) {
 
 	#(1.1)アクセスジャンプ処理(&r_link)
 	elseif($_GET['mode'] == "r_link"){
-		if($EST[rev_fl]){
+		if($EST['rev_fl']){
 			$_GET['id']=preg_replace("/\D/", "", $_GET['id']);
 			if($_GET['id']){
-				$query="SELECT id FROM $EST[sqltb]log WHERE id='$_GET[id]'";
+				$query="SELECT id, url FROM {$EST['sqltb']}log WHERE id='{$_GET['id']}'";
 				$result=$xoopsDB->query($query) or die("Query failed rank54 $query");
-				$tmp = mysql_fetch_row($result);
-				if ($tmp) { //IDが存在する場合のみ処理する
-					$time=time();
-					$_GET['id']=str_replace("\n", "", $_GET['id']);
-					$query="SELECT id FROM $EST[sqltb]rev WHERE id='$_GET[id]' AND ip='$_SERVER[REMOTE_ADDR]' AND time > ".($time-$EST[rank_time]*3600);
-					$result=$xoopsDB->query($query) or die("Query failed rank54 $query");
-					$tmp = mysql_fetch_row($result);
-					if(!$tmp) {
-						$query="INSERT INTO $EST[sqltb]rev (id,time,ip) VALUES ('$_GET[id]', '$time' ,'$_SERVER[REMOTE_ADDR]')";
-						$result=$xoopsDB->queryF($query) or die("Query failed rank58 $query");
+				if ($result) { //IDが存在する場合のみ処理する
+					list($id, $url) = mysql_fetch_row($result);
+					// $_SERVER['HTTP_REFERER']チェック
+					if ($ref = @$_SERVER['HTTP_REFERER']) {
+						$ref = preg_replace('#^(https?://[^/]+).*$#', '$1', $ref);
+						if (strpos($url, $ref) === 0) {
+							$time=time();
+							$_GET['id']=str_replace("\n", "", $_GET['id']);
+							$query="SELECT id FROM {$EST['sqltb']}rev WHERE id='{$_GET['id']}' AND ip='{$_SERVER['REMOTE_ADDR']}' AND time > ".($time-$EST['rank_time']*3600);
+							$result=$xoopsDB->query($query) or die("Query failed rank54 $query");
+							$tmp = mysql_fetch_row($result);
+							if(!$tmp) {
+								$query="INSERT INTO {$EST['sqltb']}rev (id,time,ip) VALUES ('{$_GET['id']}', '$time' ,'{$_SERVER['REMOTE_ADDR']}')";
+								$result=$xoopsDB->queryF($query) or die("Query failed rank58 $query");
+							}
+						}
 					}
-					//mysql_close($link);
 				}
 			}
 		}
 		//$EST[location]=0; #refreshジャンプにする
-		location($EST[rev_url]);
+		location($EST['rev_url']);
 	}
 
 	#(2)キーワードランキング表示画面(&PR_keyrank)
