@@ -2,13 +2,15 @@
 // init.php
 // by nao-pon http://hypweb.net/
 
-error_reporting(E_ERROR);
+//error_reporting(E_ERROR);
 
-require_once 'pl/cfg.php';
-require_once 'pl/temp.php';
+global $ganes, $gane_top, $EST;
+
+require_once dirname(__FILE__).'/pl/cfg.php';
+require_once dirname(__FILE__).'/pl/temp.php';
 
 #バージョン情報
-include ("version.php");
+include dirname(__FILE__).'/version.php';
 $ver = $_md_yomi_info['ver'];
 $x_ver = $_md_yomi_info['x_ver'];
 
@@ -21,7 +23,7 @@ else
 	define('YOMI_HOME_URL','<a href="'.XOOPS_URL.'/'.$EST['shorturl'].'/">'._MD_YOMI_TOP.'</a>');
 
 #データ形式のフィールド数
-$Efld=16;  #0~15まで
+$Efld=16;  #0〜15まで
 
 #CGI/HTMLリンク先表示の設定
 if (empty($EST['shorturl']))
