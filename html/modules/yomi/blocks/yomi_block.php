@@ -1,13 +1,11 @@
 <?php
 function b_yomi_show ($options)
 {
-	global $ganes, $gane_top, $EST;
+	//global $ganes, $gane_top, $EST;
 	
 	if (is_readable(XOOPS_ROOT_PATH.'/modules/yomi/shorturl.php'))
 		include XOOPS_ROOT_PATH.'/modules/yomi/shorturl.php';
 	
-	//include_once XOOPS_ROOT_PATH.'/modules/yomi/pl/cfg.php';
-	//include_once XOOPS_ROOT_PATH.'/modules/yomi/pl/temp.php';
 	include XOOPS_ROOT_PATH.'/modules/yomi/init.php';
 	
 	$EST['script'] = $EST['cgi_path_url'] . $EST['script'];
