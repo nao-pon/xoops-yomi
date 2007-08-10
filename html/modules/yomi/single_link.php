@@ -12,13 +12,57 @@ $_GET = array_map("htmlspecialchars", $_GET);
 if(!$_GET[page]){$_GET[page]=1;}
 
 #(1)検索結果表示画面(search)
-	#入力値の整形
-	if(!$_GET['item_id']){$_GET['item_id']=$_POST['item_id'];}
-	if(preg_match("/\D/", $_GET['item_id']) || (!$_GET['item_id'])){mes("指定値が不正です","ページ指定エラー","java");}
-	$item_id = $_GET['item_id'];
-	#結果表示
-	require "$EST[temp_path]search.html";
-	exit;
+#入力値の整形
+if(!$_GET['item_id']){$_GET['item_id']=$_POST['item_id'];}
+if(preg_match("/\D/", $_GET['item_id']) || (!$_GET['item_id'])){mes("指定値が不正です","ページ指定エラー","java");}
+$item_id = $_GET['item_id'];
+
+#結果表示
+
+##ファイルの読み込み＆該当データ総数を得る
+$Clog=open_for_search($_GET['search_kt'],$_GET['search_day'],$_GET['sort']);
+
+$log_lines = array_splice($write,($_GET['page']-1)*$EST['hyouji'],$EST['hyouji']);
+unset($write);
+##↑で@writeを破棄
+
+// ヘッダスペース抑止カテゴリの判定
+EST_reg();
+$_no_ad_space = false;
+foreach($log_lines as $Slog)
+{
+	$kt = explode("&",$Slog[10]);
+	foreach ($kt as $tmp)
+	{
+		if($ganes[$tmp])
+		{
+			$_no_ad_space = (preg_match("/\.$/",$ganes[$tmp]));	
+		}
+		if ($_no_ad_space) break;
+	}
+	if ($_no_ad_space) break;
+}
+
+$Stitle = $Slog[1];
+
+//xoops2 タイトル設定
+global $xoopsModule,$xoopsTpl;
+if (is_object($xoopsTpl))
+{
+	$xoops_pagetitle = $xoopsModule->name();
+	$xoops_pagetitle = "$Stitle-$xoops_pagetitle";
+	$xoopsTpl->assign("xoops_pagetitle",$xoops_pagetitle);
+}
+
+require $EST['temp_path']."search.html";
+
+include("footer.php");
+
+if (isset($link) && $link) {
+	@mysql_close($link);
+}
+
+exit;
 
 
 function open_for_search($target_kt, $target_day, $sort){
