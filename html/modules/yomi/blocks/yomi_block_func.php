@@ -1,7 +1,7 @@
 <?php
 if( ! class_exists( 'HypCommonFunc' ) )
 {
-	include_once(XOOPS_ROOT_PATH."/modules/yomi/include/hyp_common_func.php");
+	include_once(XOOPS_ROOT_PATH."/modules/yomi/include/hyp_common/hyp_common_func.php");
 }
 function b_yomi_show_items($Slog,$title_m,$message_m,$w_m,$h_m)
 {
