@@ -1,21 +1,25 @@
 <?php
-// Yomi-Serch[XOOPSî≈] ëçìoò^åèêîèoóÕÉXÉNÉäÉvÉg
+// Yomi-Serch[XOOPS»«] ¡Ì≈–œø∑ÔøÙΩ–Œœ•π•Ø•Í•◊•»
 //              by nao-pon (http://hypweb.net/)
 //
-// égópï˚ñ@
-// HTMLÇ©ÇÁJavaScriptÇ∆ÇµÇƒåƒÇ—èoÇµÇ‹Ç∑ÅB
+// ª»Õ— ˝À°
+// HTML§´§ÈJavaScript§»§∑§∆∏∆§”Ω–§∑§ﬁ§π°£
 // 
-// égópó·
-// ëçìoò^:<script language="JavaScript" src="http://XOOPSÇÃÉãÅ[Ég/modules/yomi/count.js.php"></script>ÉTÉCÉg
+// ª»Õ—Œ„
+// ¡Ì≈–œø:<script language="JavaScript" src="http://XOOPS§Œ•Î°º•»/modules/yomi/count.js.php"></script>•µ•§•»
 
+define('_LEGACY_PREVENT_LOAD_CORE_', TRUE); // for XOOPS Cube Legacy
+$xoopsOption['nocommon'] = 1;
+require '../../mainfile.php';
 require 'pl/cfg.php';
 
-$db = mysql_connect($EST['host'],$EST['sqlid'],$EST['sqlpass']);
-mysql_select_db($EST['sqldb'],$db);
-$query = "SELECT COUNT(*) FROM ".$EST['sqltb']."log";
+$db = mysql_connect(XOOPS_DB_HOST, XOOPS_DB_USER, XOOPS_DB_PASS) or die(mysql_error());
+mysql_select_db(XOOPS_DB_NAME,$db);
+
+$query = "SELECT COUNT(*) FROM `".$EST['sqltb']."log`";
 //echo $query;
-$result = mysql_query($query) or die("Query failed $query");
-list($count) = mysql_fetch_row($result); #ëçìoò^êî
+$result = mysql_query($query) or die(mysql_error());
+list($count) = mysql_fetch_row($result); #¡Ì≈–œøøÙ
 
 echo "document.open();
 document.write(\"{$count}\");
