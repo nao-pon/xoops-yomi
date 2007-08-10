@@ -5,11 +5,11 @@ $out = <<<EOM
 <?php
 #一般の共通設定
 \$EST=array(
-'host'=>'$EST[host]', #MySQLのホスト名
-'sqlid'=>'$EST[sqlid]',#MySQLのユーザ名
-'sqldb'=>'$EST[sqldb]',#MySQLのデータベース名
-'sqlpass'=>'$EST[sqlpass]', #MySQLのパスワード
-'sqltb'=>'$EST[sqltb]', #テーブルのプレフィックス
+'host'=>XOOPS_DB_HOST, #MySQLのホスト名
+'sqlid'=>XOOPS_DB_USER,#MySQLのユーザ名
+'sqldb'=>XOOPS_DB_NAME,#MySQLのデータベース名
+'sqlpass'=>XOOPS_DB_PASS, #MySQLのパスワード
+'sqltb'=>XOOPS_DB_PREFIX.'_yomi_', #テーブルのプレフィックス
 'pass'=>'$EST[pass]', #管理用パスワード(WEB上で設定後は暗号化されます)
 'home'=>'$EST[home]', #サーチエンジンのトップへのパスorURL
 'script'=>'$EST[script]', #yomi.phpのファイル名
