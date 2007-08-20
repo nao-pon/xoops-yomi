@@ -968,14 +968,15 @@ elseif($_POST['mode'] == "cfg_make_kt"){
 				if($_POST["ref_$key"]){$gane_ref[$key]=$_POST["ref_$key"];}
 				elseif($gane_ref[$key]===""){unset ($gane_ref[$key]);}
 			}
-			ksort ($ganes,SORT_STRING);
-			ksort ($gane_top,SORT_STRING);
-			ksort ($gane_UR,SORT_STRING);
-			sort ($gane_other);
 			#ふりがなの設定
 			$EST_furi[$key]=$_POST["furi_$key"]; #$EST_furi[$key]=~s/'/’/g;
 		}
+		ksort ($ganes,SORT_STRING);
+		ksort ($gane_top,SORT_STRING);
+		ksort ($gane_UR,SORT_STRING);
+		sort ($gane_other);
 	}
+
 	if($_POST['mente_mode'] == "new"){
 		#新規追加分を定義
 		if($_POST['kt_new']){
@@ -1003,6 +1004,7 @@ elseif($_POST['mode'] == "cfg_make_kt"){
 	fclose($fp);
 	
 	ksort ($ganes,SORT_STRING);
+
 	cfg_set(0,1,0);
 	exit;
 }
