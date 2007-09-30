@@ -3,7 +3,6 @@ include("header.php");
 require 'pl/temp.php';
 include_once(XOOPS_ROOT_PATH."/class/xoopscomments.php");
 
-// パラメータを変数にセット
 $vars = array_merge($_POST,$_GET);
 $prms = array('item_id','comment_id','mode','order','ok');
 foreach ($prms as $prm)

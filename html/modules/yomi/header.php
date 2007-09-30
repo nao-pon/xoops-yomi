@@ -47,7 +47,7 @@ if ( $xoopsUser ) {
 	$x_uid = $xoopsUser->uid();
 }
 
-// サニタイズ
+//
 if (isset($_GET['id'])) $_GET['id'] = intval($_GET['id']);
 if (isset($_GET['kt'])) $_GET['kt'] = preg_replace("/[^0-9_]+/","",$_GET['kt']);
 

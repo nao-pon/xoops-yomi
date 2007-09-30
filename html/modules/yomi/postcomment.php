@@ -5,7 +5,7 @@ $xoopsOption['show_rblock'] =0;
 include_once(XOOPS_ROOT_PATH."/class/xoopsformloader.php");
 
 global $xoopsUser,$xoopsDB;
-// パラメータを変数にセット
+
 $vars = array_merge($_POST,$_GET);
 $prms = array('item_id','comment_id','mode','order','ok','subject','icon','message','nosmiley','pid','preview','post');
 foreach ($prms as $prm)

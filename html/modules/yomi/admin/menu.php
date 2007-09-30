@@ -5,4 +5,3 @@ $adminmenu[] = array( 'title' => _MI_YOMI_ADMENU ,
 $adminmenu[] = array( 'title' => _MI_YOMI_MYBLOCKSADMIN ,
                      'link' => "admin/myblocksadmin.php" ) ;
 ?>
-

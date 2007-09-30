@@ -1,5 +1,5 @@
 <?php
-// $Id: data.inc.php,v 1.1 2007/08/10 06:47:58 nao-pon Exp $
+// $Id: data.inc.php,v 1.2 2007/09/30 01:08:38 nao-pon Exp $
 
 // 2005-10-10 K.OHWADA
 // category
