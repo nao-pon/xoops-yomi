@@ -986,7 +986,7 @@ function join_fld($arg=""){
 	else{$Slog[3]=$Spre_log[3];} #登録者の変更
 	##更新日(4)
 	#日時の取得
-	if ($_POST['Fhold_timestamp']=="on"){
+	if ($Smode_name == "mente" && $_POST['Fhold_timestamp']=="on"){
 		$Slog[4]=$Spre_log[4];
 	} else {
 		$Slog[4]=get_time(0,1);
@@ -1053,7 +1053,7 @@ function join_fld($arg=""){
 	}
 	##登録日時(16) by nao-pon
 	if($Smode_name == "mente"){$Slog[16] = $Spre_log[16];} #内容変更時
-	else{$Slog[16] = $times;} #新規登録時
+	else{$Slog[16] = time();} #新規登録時
 	##XOOPSユーザID
 	$Slog[17]=$_POST['Fuid'];
 	
