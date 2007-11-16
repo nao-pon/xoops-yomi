@@ -935,10 +935,11 @@ elseif($_POST['mode'] == "cfg_make_kt"){
 	require "pl/other_cfg.php";
 	if($_POST['mente_mode'] == "mente"){
 		$gane_other=array();
+		$gane_del = array();
 		foreach ($ganes as $key=>$val){ #カテゴリ設定(%ganes)を更新
 			if($_POST["d_$key"])
 			{ #削除
-				unset ($ganes[$key]);
+				$gane_del[] = $key;
 				unset ($EST_furi[$key]);
 				if (isset($gane_top[$key])) unset ($gane_top[$key]);
 				if (isset($gane_UR[$key])) unset ($gane_UR[$key]);
@@ -956,6 +957,7 @@ elseif($_POST['mode'] == "cfg_make_kt"){
 				
 				$_key = array_search($key,$gane_other);
 				if ($_key !== false) array_splice($gane_other,$_key);
+				continue;
 			}
 			elseif(isset ($_POST["kt_$key"]))
 			{ #カテゴリがあれば
@@ -971,6 +973,13 @@ elseif($_POST['mode'] == "cfg_make_kt"){
 			#ふりがなの設定
 			$EST_furi[$key]=$_POST["furi_$key"]; #$EST_furi[$key]=~s/'/’/g;
 		}
+		
+		if ($gane_del) {
+			foreach ($gane_del as $key) {
+				unset($ganes[$key]);
+			}
+		}
+		
 		ksort ($ganes,SORT_STRING);
 		ksort ($gane_top,SORT_STRING);
 		ksort ($gane_UR,SORT_STRING);
