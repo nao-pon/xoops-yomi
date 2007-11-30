@@ -137,8 +137,7 @@ if($_GET['mode'] == "search"){ #検索結果表示画面
 		set_word();
 	}
 	#検索構文の解析
-	$w_line=str_replace("　", " ", $_GET['word']);
-	$_GET['word']=$w_line;
+	$_GET['word'] = $w_line = mb_convert_kana($_GET['word'], 's');
 	if($_GET['use_str'] == "on"){ #検索式を使う
 		$words=explode(" ",$w_line);
 		$w_fl="and";
