@@ -51,7 +51,7 @@ function b_yomi_show ($options)
 			$bf_kt_no=$Gnos;
 		}
 		else { ####サブカテゴリの場合
-			if(isset($gane_top[$Gnos])){
+			if(!empty($gane_top[$Gnos])){
 				$cld_fl=1;
 				//list($Gname) = explode(":",$Gname);
 				$block['content'] .= "<a href=\"".yomi_makelink($Gnos)."\">$value</a>, ";
