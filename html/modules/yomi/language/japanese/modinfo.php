@@ -2,6 +2,7 @@
 define("_MI_YOMI_NAME","Yomiサーチ");
 define("_MI_YOMI_ADMENU","管理室");
 define("_MI_YOMI_MYBLOCKSADMIN","ブロック・グループ管理");
+if (!defined('_MD_A_MYMENU_MYBLOCKSADMIN')) define('_MD_A_MYMENU_MYBLOCKSADMIN', _MI_YOMI_MYBLOCKSADMIN);
 define("_MI_YOMI_REG", "登録する");
 define("_MI_YOMI_EDIT", "更新する");
 define("_MI_YOMI_NEW", "新着サイト");

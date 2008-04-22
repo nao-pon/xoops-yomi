@@ -1,5 +1,11 @@
 <?php
-	if( ! defined( 'XOOPS_ROOT_PATH' ) ) exit ;
+
+if( ! defined( 'XOOPS_ROOT_PATH' ) ) exit ;
+
+if( empty( $mydirname ) ) $mydirname = basename(dirname(dirname(__FILE__))) ;
+
+if( ! defined( 'XOOPS_ORETEKI' ) ) {
+	// Skip for ORETEKI XOOPS
 
 	if( ! isset( $module ) || ! is_object( $module ) ) $module = $xoopsModule ;
 	else if( ! is_object( $xoopsModule ) ) die( '$xoopsModule is not set' )  ;
@@ -14,10 +20,44 @@
 
 //	array_push( $adminmenu , array( 'title' => _PREFERENCES , 'link' => '../system/admin.php?fct=preferences&op=showmod&mod=' . $module->getvar('mid') ) ) ;
 	$menuitem_dirname = $module->getvar('dirname') ;
-	if( $module->getvar('hasconfig') ) array_push( $adminmenu , array( 'title' => _PREFERENCES , 'link' => 'admin/admin.php?fct=preferences&op=showmod&mod=' . $module->getvar('mid') ) ) ;
 
-	echo "<div width='95%' align='center'>\n" ;
-	$menuitem_count = 0 ;
+	if( defined( 'XOOPS_TRUST_PATH' ) ) {
+
+		// with XOOPS_TRUST_PATH and altsys
+/*
+		if( file_exists( XOOPS_TRUST_PATH.'/libs/altsys/mytplsadmin.php' ) ) {
+			// mytplsadmin (TODO check if this module has tplfile)
+			$title = defined( '_MD_A_MYMENU_MYTPLSADMIN' ) ? _MD_A_MYMENU_MYTPLSADMIN : 'tplsadmin' ;
+			array_push( $adminmenu , array( 'title' => $title , 'link' => 'admin/index.php?mode=admin&lib=altsys&page=mytplsadmin' ) ) ;
+		}
+*/
+		if( file_exists( XOOPS_TRUST_PATH.'/libs/altsys/myblocksadmin.php' ) ) {
+			// myblocksadmin
+			$title = defined( '_MD_A_MYMENU_MYBLOCKSADMIN' ) ? _MD_A_MYMENU_MYBLOCKSADMIN : 'blocksadmin' ;
+			array_push( $adminmenu , array( 'title' => $title , 'link' => 'admin/index.php?mode=admin&lib=altsys&page=myblocksadmin' ) ) ;
+		}
+
+		// preferences
+		$config_handler =& xoops_gethandler('config');
+		if( count( $config_handler->getConfigs( new Criteria( 'conf_modid' , $module->mid() ) ) ) > 0 ) {
+			if( file_exists( XOOPS_TRUST_PATH.'/libs/altsys/mypreferences.php' ) ) {
+				// mypreferences
+				$title = defined( '_MD_A_MYMENU_MYPREFERENCES' ) ? _MD_A_MYMENU_MYPREFERENCES : _PREFERENCES ;
+				array_push( $adminmenu , array( 'title' => $title , 'link' => 'admin/index.php?mode=admin&lib=altsys&page=mypreferences' ) ) ;
+			} else {
+				// system->preferences
+				array_push( $adminmenu , array( 'title' => _PREFERENCES , 'link' => XOOPS_URL.'/modules/system/admin.php?fct=preferences&op=showmod&mod='.$module->mid() ) ) ;
+			}
+		}
+
+	} else if( defined( 'XOOPS_CUBE_LEGACY' ) ) {
+		// Cube Legacy without altsys
+		if( $module->getvar('hasconfig') ) array_push( $adminmenu , array( 'title' => _PREFERENCES , 'link' => XOOPS_URL.'/modules/legacy/admin/index.php?action=PreferenceEdit&confmod_id=' . $module->getvar('mid') ) ) ;
+	} else {
+		// conventinal X2
+		if( $module->getvar('hasconfig') ) array_push( $adminmenu , array( 'title' => _PREFERENCES , 'link' => XOOPS_URL.'/modules/system/admin.php?fct=preferences&op=showmod&mod=' . $module->getvar('mid') ) ) ;
+	}
+
 	$mymenu_uri = empty( $mymenu_fake_uri ) ? $_SERVER['REQUEST_URI'] : $mymenu_fake_uri ;
 	$mymenu_link = substr( strstr( $mymenu_uri , '/admin/' ) , 1 ) ;
 
@@ -34,18 +74,25 @@
 		foreach( array_keys( $adminmenu ) as $i ) {
 			if( stristr( $mymenu_uri , $adminmenu[$i]['link'] ) ) {
 				$adminmenu[$i]['color'] = '#FFCCCC' ;
+				break ;
 			}
 		}
 	}
 
-	// display
-	foreach( $adminmenu as $menuitem ) {
-		echo "<a href='".XOOPS_URL."/modules/$menuitem_dirname/{$menuitem['link']}' style='background-color:{$menuitem['color']};font:normal normal bold 9pt/12pt;'>{$menuitem['title']}</a> &nbsp; \n" ;
-
-		if( ++ $menuitem_count >= 4 ) {
-			echo "</div>\n<div width='95%' align='center'>\n" ;
-			$menuitem_count = 0 ;
+	// link conversion from relative to absolute
+	foreach( array_keys( $adminmenu ) as $i ) {
+		if( stristr( $adminmenu[$i]['link'] , XOOPS_URL ) === false ) {
+			$adminmenu[$i]['link'] = XOOPS_URL."/modules/$mydirname/" . $adminmenu[$i]['link'] ;
 		}
 	}
-	echo "</div>\n" ;
+
+	// display
+	echo "<div style='text-align:left;width:98%;'>" ;
+	foreach( $adminmenu as $menuitem ) {
+		echo "<div style='float:left;height:1.5em;'><nobr><a href='".htmlspecialchars($menuitem['link'],ENT_QUOTES)."' style='background-color:{$menuitem['color']};font:normal normal bold 9pt/12pt;'>".htmlspecialchars($menuitem['title'],ENT_QUOTES)."</a> | </nobr></div>\n" ;
+	}
+	echo "</div>\n<hr style='clear:left;display:block;' />\n" ;
+
+}
+
 ?>
