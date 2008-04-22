@@ -1,7 +1,7 @@
-<link rel="stylesheet" href="<?=$EST['html_path_url']?>style.css" type="text/css">
+<link rel="stylesheet" href="<?php echo $EST['html_path_url']?>style.css" type="text/css">
 
 <a name=top></a>
-<form action="<?=$EST['admin']?>" method=post>
+<form action="<?php echo $EST['admin']?>" method=post>
 <?php echo YOMI_TICKET_TAG; ?>
 <!-- メニューバー -->
 <div align=right><font id=small>
@@ -10,11 +10,11 @@ menu_bar();
 ?>
 </font></div>
 <hr noshade color=#aaaaaa>
-<?=YOMI_HOME_URL?> &gt;
+<?php echo YOMI_HOME_URL?> &gt;
 <table width=100%><tr><td id="title-bar">
 <font color=#000000><b>各種ログ変換</b></font>
 </td></tr></table>
-	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=pass value="<?php echo $_POST['pass']?>">
 	<input type=hidden name=mode value="kanri">
 	<input type=submit value="管理室に戻る">
 <br>
@@ -26,9 +26,9 @@ $jyuni=1;$jyuni_z=1;
 ?>
 <a name="v4todb"></a>
 <table style="width:100%"><tr><td>
-<form action="<?=$EST['admin']?>" method=post target="xoops_yomi_log_conv">
+<form action="<?php echo $EST['admin']?>" method=post target="xoops_yomi_log_conv">
 	<?php echo YOMI_TICKET_TAG; ?>
-	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=pass value="<?php echo $_POST['pass']?>">
 	<input type=hidden name=mode value="log_conv_act">
 	<input type=hidden name=log_mode value="v4todb">
 <a name="config">[<a href="#top">トップに戻る</a>]</a>
@@ -50,9 +50,9 @@ $jyuni=1;$jyuni_z=1;
 </td></tr></table>
 <hr noshade color=#aaaaaa>
 <a name="kt_sort_conv"></a>
-<form action="<?=$EST['admin']?>" method=post>
+<form action="<?php echo $EST['admin']?>" method=post>
 	<?php echo YOMI_TICKET_TAG; ?>
-	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=pass value="<?php echo $_POST['pass']?>">
 	<input type=hidden name=mode value="log_conv_kt_sort">
 <a name="config">[<a href="#top">トップに戻る</a>]</a>
 <ul>

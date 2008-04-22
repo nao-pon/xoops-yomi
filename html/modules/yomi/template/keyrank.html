@@ -2,7 +2,7 @@
 require "$EST[log_path]keyrank_ys.php";
 ?>
 
-<link rel="stylesheet" href="<?=$EST['html_path_url']?>style.css" type="text/css">
+<link rel="stylesheet" href="<?php echo $EST['html_path_url']?>style.css" type="text/css">
 <script type="text/javascript">
 <!--
 function ch_type(sel){
@@ -34,7 +34,7 @@ head_sp();
 </div>
 
 <!-- ナビゲーションバー -->
-<?=YOMI_HOME_URL?> &gt; 
+<?php echo YOMI_HOME_URL?> &gt; 
 <table width="100%"><tr><td id="title-bar">
 <b>キーワードランキング</b>
 </td></tr></table>
@@ -47,7 +47,7 @@ $last_mod=date("Y/m/d(D) H:i", $time);
 make_serach_box();
 ?>
 <ul>
-▼検索キーワードランキングの<b>ベスト<?=$EST['keyrank_hyouji']?>位</b>まで表示しています。 <i>最終更新：<?=$last_mod?></i><br>
+▼検索キーワードランキングの<b>ベスト<?php echo $EST['keyrank_hyouji']?>位</b>まで表示しています。 <i>最終更新：<?php echo $last_mod?></i><br>
 <br>
 <table style="width:100%;padding:10px;" cellpadding=10><tr>
 <td valign=top>
@@ -87,14 +87,14 @@ function PR_keyrank_data($keyrank_fl){
 				$en_keyword=urlencode($PR_key);
 				if($bf_c != $pt){$jyuni=$jyuni_z;}
 				?>
-<tr><td class="yomi-s"><?=$jyuni?></td>
-<td class="yomi-s"><a href="<?=$EST['cgi_path_url'].$EST['search']?>?mode=search&word=<?=$en_keyword?>">
+<tr><td class="yomi-s"><?php echo $jyuni?></td>
+<td class="yomi-s"><a href="<?php echo $EST['cgi_path_url'].$EST['search']?>?mode=search&word=<?php echo $en_keyword?>">
 <?php
 				if($open_key[$keyword] == "1"){echo $PR_key;}
 				else{echo $open_key[$keyword];}
 				?>
-</a> -> <?=$pt?>pts.</td>
-<td class="yomi-s" style="text-align:center;"><a href="<?=$EST['cgi_path_url'].$EST['search']?>?mode=search&word=<?=$en_keyword?>" target="_blank">■</a></td></tr>
+</a> -> <?php echo $pt?>pts.</td>
+<td class="yomi-s" style="text-align:center;"><a href="<?php echo $EST['cgi_path_url'].$EST['search']?>?mode=search&word=<?php echo $en_keyword?>" target="_blank">■</a></td></tr>
 <?php
 				$jyuni_z++;
 				$bf_c=$pt;

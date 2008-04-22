@@ -3,10 +3,10 @@
 if(!isset($_POST['Fname'])){$_POST['Fname']="管理人代理登録";}
 if(!isset($_POST['Femail'])){$_POST['Femail']=$EST['admin_email'];}
 ?>
-<link rel="stylesheet" href="<?=$EST['html_path_url']?>style.css" type="text/css">
+<link rel="stylesheet" href="<?php echo $EST['html_path_url']?>style.css" type="text/css">
 
 <a name=top></a>
-<form action="<?=$EST['admin']?>" method=post>
+<form action="<?php echo $EST['admin']?>" method=post>
 <?php echo YOMI_TICKET_TAG; ?>
 <!-- メニューバー -->
 <div align=right><font id=small>
@@ -15,35 +15,35 @@ menu_bar();
 ?>
 </font></div>
 <hr>
-<?=YOMI_HOME_URL?> > <table width=100%><tr><td id="title-bar">
+<?php echo YOMI_HOME_URL?> > <table width=100%><tr><td id="title-bar">
 <b>新規ホームページ登録(管理者用)</b>
 </td></tr></table>
-	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=pass value="<?php echo $_POST['pass']?>">
 	<input type=hidden name=mode value="kanri">
 	<input type=submit value="管理室に戻る">
 <br>
 </form>
 	<form action="regist_ys.php" method=post>
 		<?php echo YOMI_TICKET_TAG; ?>
-		<input type=hidden name=mode value=<?=$Pmode?>>
-		<input type=hidden name=Smode_name value=<?=$Smode_name?>>
-		<input type=hidden name=changer value="<?=$_POST['changer']?>">
-		<input type=hidden name=no value=<?=$Pdata[0]?>>
-		<input type=hidden name=pass value="<?=$_POST['pass']?>">
-		<input type=hidden name=bkt value="<?=$Pdata[10]?>">
-		<input type=hidden name=pre_mark value="<?=$Pdata[3]?>">
-		<input type=hidden name=Fuid value="<?=$x_uid?>">
+		<input type=hidden name=mode value=<?php echo $Pmode?>>
+		<input type=hidden name=Smode_name value=<?php echo $Smode_name?>>
+		<input type=hidden name=changer value="<?php echo $_POST['changer']?>">
+		<input type=hidden name=no value=<?php echo $Pdata[0]?>>
+		<input type=hidden name=pass value="<?php echo $_POST['pass']?>">
+		<input type=hidden name=bkt value="<?php echo $Pdata[10]?>">
+		<input type=hidden name=pre_mark value="<?php echo $Pdata[3]?>">
+		<input type=hidden name=Fuid value="<?php echo $x_uid?>">
 <ol>
 	▼項目名の横に<font color=red>☆</font>が付いている項目は記入必須項目です<br><br>
 <!--お名前-->
 	<li>【お名前】<font color=red>☆</font><br>
 		<ul>※ハンドルネームも可です<br>
-		※全角<b><?=$EST_reg['Mname']?></b>文字以内<br>
-		<input type=text name=Fname value="<?=$_POST['Fname']?>" size=25></ul><br>
+		※全角<b><?php echo $EST_reg['Mname']?></b>文字以内<br>
+		<input type=text name=Fname value="<?php echo $_POST['Fname']?>" size=25></ul><br>
 <!--メールアドレス-->
 	<li>【メールアドレス】<font color=red>☆</font><br>
-		<ul>※半角英数字<b><?=$EST_reg['Memail']?></b>文字以内<br>
-		<input type=text name=Femail value="<?=$_POST['Femail']?>" size=25></ul><br>
+		<ul>※半角英数字<b><?php echo $EST_reg['Memail']?></b>文字以内<br>
+		<input type=text name=Femail value="<?php echo $_POST['Femail']?>" size=25></ul><br>
 <!--メール送信-->
 	<li>【メール送信】<font color=red>☆</font>
 		<ul>※元々しない設定になっている場合には「する」を選択しても送信されません<br>
@@ -59,8 +59,8 @@ if ($is_admin != 1){
 	<li>【パスワード】<font color=red>☆</font>
 		<ul>※このパスワードで今後、登録内容の修正ができます<br>
 		※半角英数字<b>8</b>文字以内<br>
-		<input type=password name=Fpass value="<?=$_POST['Fpass']?>" size=10><br>
-		<input type=password name=Fpass2 value="<?=$_POST['Fpass2']?>" size=10>(もう一度確認のため入力してください)
+		<input type=password name=Fpass value="<?php echo $_POST['Fpass']?>" size=10><br>
+		<input type=password name=Fpass2 value="<?php echo $_POST['Fpass2']?>" size=10>(もう一度確認のため入力してください)
 		</ul><br>
 <?php
 }
@@ -71,35 +71,35 @@ PR_mark();
 ?>
 <!--ホームページアドレス-->
 	<li>【ホームページアドレス】<font color=red>☆</font><br>
-		<ul>※半角英数字<b><?=$EST_reg['Murl']?></b>文字以内<br>
-		<input type=text name=Furl value="<?=$_POST['Furl']?>" size=70></ul><br>
+		<ul>※半角英数字<b><?php echo $EST_reg['Murl']?></b>文字以内<br>
+		<input type=text name=Furl value="<?php echo $_POST['Furl']?>" size=70></ul><br>
 <?php
 if($EST_reg['bana_url']){
 ?>
 <!--タイトルバナーのURL-->
 	<li>【タイトルバナーのURL】
 		<ul>※バナー(画像)のURLの最後が「.gif」「.jpg」「.png」のいずれかで終わるようにしてください。
-		<br>※表示されるサイズは 横<b><?=$EST_reg['Mbana_w']?></b>×縦<b><?=$EST_reg['Mbana_h']?></b>(ピクセル)</b> です。 
-		<br>※半角英数字<b><?=$EST_reg['Mbana_url']?></b>文字以内
-		<br><input type=text name=Fbana_url value="<?=$_POST['Fbana_url']?>" size=60>
+		<br>※表示されるサイズは 横<b><?php echo $EST_reg['Mbana_w']?></b>×縦<b><?php echo $EST_reg['Mbana_h']?></b>(ピクセル)</b> です。 
+		<br>※半角英数字<b><?php echo $EST_reg['Mbana_url']?></b>文字以内
+		<br><input type=text name=Fbana_url value="<?php echo $_POST['Fbana_url']?>" size=60>
 		</ul><br>
 <?php
 }
 ?>
 <!--ホームページのタイトル-->
 	<li>【ホームページのタイトル】<font color=red>☆</font>
-		<ul>※全角<b><?=$EST_reg['Mtitle']?></b>文字以内<br>
-		<input type=text name=Ftitle value="<?=$_POST['Ftitle']?>" size=50></ul><br>
+		<ul>※全角<b><?php echo $EST_reg['Mtitle']?></b>文字以内<br>
+		<input type=text name=Ftitle value="<?php echo $_POST['Ftitle']?>" size=50></ul><br>
 <!--ホームページの紹介文-->
 	<li>【ホームページの紹介文】<font color=red>☆</font>
 		<ul>※HTMLタグは使えません<br>
-		※全角<b><?=$EST_reg['Msyoukai']?></b>文字以内<br>
-		<textarea wrap="soft" name="Fsyoukai" cols=50 rows=3><?=$_POST['Fsyoukai']?></textarea></ul><br>
+		※全角<b><?php echo $EST_reg['Msyoukai']?></b>文字以内<br>
+		<textarea wrap="soft" name="Fsyoukai" cols=50 rows=3><?php echo $_POST['Fsyoukai']?></textarea></ul><br>
 <!--管理人のコメント-->
 	<li>【管理人のコメント】
 		<ul>※HTMLタグは使えません<br>
 		※全角<b>100</b>文字以内<br>
-		<textarea wrap="soft" name="Fkanricom" cols=50 rows=3><?=$_POST['Fkanricom']?></textarea></ul><br>
+		<textarea wrap="soft" name="Fkanricom" cols=50 rows=3><?php echo $_POST['Fkanricom']?></textarea></ul><br>
 <!--登録するカテゴリ-->
 	<li>【登録するカテゴリ】<font color=red>☆</font>
 <?php
@@ -109,8 +109,8 @@ PR_kt($Pdata[10]);
 	<li>【キーワード】
 		<ul>※あなたのホームページに関係が深いキーワードを入力してください<br>
 		※複数ある場合にはキーワードを半角スペースで区切ってください<br>
-		※全角<b><?=$EST_reg['Mkey']?></b>文字以内<br>
-		<input type=text name=Fkey value="<?=$Pdata[15]?>" size=60></ul><br>
+		※全角<b><?php echo $EST_reg['Mkey']?></b>文字以内<br>
+		<input type=text name=Fkey value="<?php echo $Pdata[15]?>" size=60></ul><br>
 <!--ここまで-->
 	<br><br>
 		<input type=submit value="&nbsp; 登録する &nbsp;"> <input type=reset value="リセット">

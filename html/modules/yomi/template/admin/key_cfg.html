@@ -4,10 +4,10 @@
 if($EST['keyrank']){$Ckeyrank_0=""; $Ckeyrank_1=" checked";}
 else{$Ckeyrank_0=" checked"; $Ckeyrank_1="";}
 ?>
-<link rel="stylesheet" href="<?=$EST['html_path_url']?>style.css" type="text/css">
+<link rel="stylesheet" href="<?php echo $EST['html_path_url']?>style.css" type="text/css">
 
 <a name=top></a>
-<form action="<?=$EST['admin']?>" method=post>
+<form action="<?php echo $EST['admin']?>" method=post>
 <?php echo YOMI_TICKET_TAG; ?>
 <!-- メニューバー -->
 <div align=right><font id=small>
@@ -16,11 +16,11 @@ menu_bar();
 ?>
 </font></div>
 <hr noshade color=#aaaaaa>
-<?=YOMI_HOME_URL?> &gt;
+<?php echo YOMI_HOME_URL?> &gt;
 <table width=100%><tr><td id="title-bar">
 <font color=#000000><b>キーワードランキングの設定</b></font>
 </td></tr></table>
-	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=pass value="<?php echo $_POST['pass']?>">
 	<input type=hidden name=mode value="kanri">
 	<input type=submit value="管理室に戻る">
 <br>
@@ -37,14 +37,14 @@ $jyuni=1;$jyuni_z=1;
 <br>
 <a name="hyouji">[<a href="#top">トップに戻る</a>]</a>
 <ul>
-<form action="<?=$EST['admin']?>" method=post>
+<form action="<?php echo $EST['admin']?>" method=post>
 	<?php echo YOMI_TICKET_TAG; ?>
-	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=pass value="<?php echo $_POST['pass']?>">
 	<input type=hidden name=mode value="key_cfg_act">
 	<font size="+1">【各キーワードの表示/非表示設定】</font><br><br>
 	<input type=submit value="変更する"> <input type=reset value="リセット">
 <br><br>
-※ポイントが<b><?=$EST['keyrank_min']?></b>未満の検索ワードは省略しています<br>
+※ポイントが<b><?php echo $EST['keyrank_min']?></b>未満の検索ワードは省略しています<br>
 ※検索ワードは英字は小文字に変換されていますので、<br>　
 ランキング中の表示名称を変えたいときは、「表示名称」に表示する言葉を記入してください。<br><br>
 ▼保留中の検索ワード<br>
@@ -61,17 +61,17 @@ while(list($key,$pt)=mysql_fetch_row($result)){
 		$PR_key_en=urlencode($PR_key);
 		if($pt<$EST[keyrank_min]){break;}
 		?>
-<tr><th><?=$pt?></th>
+<tr><th><?php echo $pt?></th>
 <th>
-<input type=checkbox name="open[]" value="<?=$skey?>">o
+<input type=checkbox name="open[]" value="<?php echo $skey?>">o
 </th>
 <th>
-<input type=checkbox name="bad[]" value="<?=$skey?>">x
+<input type=checkbox name="bad[]" value="<?php echo $skey?>">x
 </th>
 <th>
-<input type=checkbox name="delete[]" value="<?=$skey?>">-
+<input type=checkbox name="delete[]" value="<?php echo $skey?>">-
 </th>
-<td><a href="<?=$EST['search']?>?word=<?=$PR_key_en?>&mode=search" target="_blank"><?=htmlspecialchars($PR_key)?></a></td>
+<td><a href="<?php echo $EST['search']?>?word=<?php echo $PR_key_en?>&mode=search" target="_blank"><?php echo htmlspecialchars($PR_key)?></a></td>
 <?php
 		if($open_key[$key] != "1"){
 			$open_key[$key]=rtrim($open_key[$key]);
@@ -103,8 +103,8 @@ if($open_key) {
 			$PR_key=str_replace("’", "'", $PR_key);
 			$PR_key_en=urlencode($PR_key);
 			?>
-<tr><th><?=$point[$key]?></th><th><input type=checkbox name="del_oo_<?=$skey?>" value="on"></th>
-<td><a href="<?=$EST[search]?>?word=<?=$PR_key_en?>&mode=search" target="_blank"><?=htmlspecialchars($PR_key)?></a></td>
+<tr><th><?php echo $point[$key]?></th><th><input type=checkbox name="del_oo_<?php echo $skey?>" value="on"></th>
+<td><a href="<?php echo $EST[search]?>?word=<?php echo $PR_key_en?>&mode=search" target="_blank"><?php echo htmlspecialchars($PR_key)?></a></td>
 <?php
 			if($val != "1"){
 				$val=rtrim($val);
@@ -132,8 +132,8 @@ if($bad_key) {
 		$PR_key=str_replace("’", "'", $PR_key);
 		$PR_key_en=urlencode($PR_key);
 		?>
-<tr><th><input type=checkbox name="del_bb_<?=$key?>" value="on"></th>
-<td><a href="<?=$EST[search]?>?word=<?=$PR_key_en?>&mode=search" target="_blank"><?=$PR_key?></a></td></tr>
+<tr><th><input type=checkbox name="del_bb_<?php echo $key?>" value="on"></th>
+<td><a href="<?php echo $EST[search]?>?word=<?php echo $PR_key_en?>&mode=search" target="_blank"><?php echo $PR_key?></a></td></tr>
 <?php
 	}
 }
@@ -144,9 +144,9 @@ if($bad_key) {
 </ul>
 </form>
 <hr noshade color=#aaaaaa>
-<form action="<?=$EST['admin']?>" method=post>
+<form action="<?php echo $EST['admin']?>" method=post>
 	<?php echo YOMI_TICKET_TAG; ?>
-	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=pass value="<?php echo $_POST['pass']?>">
 	<input type=hidden name=mode value="key_cfg_del_word_act">
 <a name="del_word">[<a href="#top">トップに戻る</a>]</a>
 <ol>
@@ -159,20 +159,20 @@ if($bad_key) {
 </form>
 </ol>
 <hr noshade color=#aaaaaa>
-<form action="<?=$EST['admin']?>" method=post>
+<form action="<?php echo $EST['admin']?>" method=post>
 	<?php echo YOMI_TICKET_TAG; ?>
-	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=pass value="<?php echo $_POST['pass']?>">
 	<input type=hidden name=mode value="cfg_make">
 <a name="config">[<a href="#top">トップに戻る</a>]</a>
 <ol>
 <font size="+1">【キーワードランキングの環境設定】</font><br><br>
 <li>キーワードランキング→
-		<input type=radio name="keyrank" value="0"<?=$Ckeyrank_0?>>実施しない | 
-		<input type=radio name="keyrank" value="1"<?=$Ckeyrank_1?>>実施する
-<li>管理室で表示する最低数→<input type=text name=keyrank_min value="<?=$EST['keyrank_min']?>" size=2>
-<li>ランキングの集計期間→<input type=text name=keyrank_kikan value="<?=$EST['keyrank_kikan']?>" size=2>日ごとに集計する
-<li>ランキングの表示数→ベスト<input type=text name=keyrank_hyouji value="<?=$EST['keyrank_hyouji']?>" size=2>位まで表示する
-<li>一日ごとに指定数以下のデータは削除→検索数が<input type=text name=keyrank_cut value="<?=$EST['keyrank_cut']?>" size=2>以下なら削除する<br>
+		<input type=radio name="keyrank" value="0"<?php echo $Ckeyrank_0?>>実施しない | 
+		<input type=radio name="keyrank" value="1"<?php echo $Ckeyrank_1?>>実施する
+<li>管理室で表示する最低数→<input type=text name=keyrank_min value="<?php echo $EST['keyrank_min']?>" size=2>
+<li>ランキングの集計期間→<input type=text name=keyrank_kikan value="<?php echo $EST['keyrank_kikan']?>" size=2>日ごとに集計する
+<li>ランキングの表示数→ベスト<input type=text name=keyrank_hyouji value="<?php echo $EST['keyrank_hyouji']?>" size=2>位まで表示する
+<li>一日ごとに指定数以下のデータは削除→検索数が<input type=text name=keyrank_cut value="<?php echo $EST['keyrank_cut']?>" size=2>以下なら削除する<br>
 ※この設定はキーワードランキングのログサイズが大きくなり過ぎないようにするための設定です。
 	<br><br><input type=submit value="変更する"> <input type=reset value="リセット">
 </ol>

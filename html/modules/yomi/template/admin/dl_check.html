@@ -1,7 +1,7 @@
-<link rel="stylesheet" href="<?=$EST['html_path_url']?>style.css" type="text/css">
+<link rel="stylesheet" href="<?php echo $EST['html_path_url']?>style.css" type="text/css">
 
 <a name=top></a>
-<form action="<?=$EST['admin']?>" method=post>
+<form action="<?php echo $EST['admin']?>" method=post>
 <?php echo YOMI_TICKET_TAG; ?>
 <!-- メニューバー -->
 <div align=right><font id=small>
@@ -10,11 +10,11 @@ menu_bar();
 ?>
 </font></div>
 <hr noshade color=#aaaaaa>
-<?=YOMI_HOME_URL?> &gt;
+<?php echo YOMI_HOME_URL?> &gt;
 <table width=100%><tr><td id="title-bar">
 <font color=#000000><b>デッドリンクチェック</b></font>
 </td></tr></table>
-	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=pass value="<?php echo $_POST['pass']?>">
 	<input type=hidden name=mode value="kanri">
 	<input type=submit value="管理室に戻る">
 <br>
@@ -29,11 +29,11 @@ menu_bar();
 $jyuni=1;$jyuni_z=1;
 ?>
 <a name="user"></a>
-<form action="<?=$EST['cgi_path_url']?>regist_ys.php" method=post>
+<form action="<?php echo $EST['cgi_path_url']?>regist_ys.php" method=post>
 <?php echo YOMI_TICKET_TAG; ?>
 <a name="make">[<a href="#top">トップに戻る</a>]</a><br>
 <ul>
-	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=pass value="<?php echo $_POST['pass']?>">
 	<input type=hidden name=no_link value="on">
 	<input type=hidden name=mode value="act_del">
 	<input type=hidden name=del_mode value="multi">
@@ -67,24 +67,24 @@ if(isset($url)) {
 			?>
 <tr valign=top>
 <td>
-<input type=radio name="id_<?=$id?>" value="on" style="background-color:red;">x
+<input type=radio name="id_<?php echo $id?>" value="on" style="background-color:red;">x
 </td>
 <td>
-<input type=radio name="id_<?=$id?>" value="off" style="background-color:blue;">o
+<input type=radio name="id_<?php echo $id?>" value="off" style="background-color:blue;">o
 </td>
 <td>
-<input type=radio name="id_<?=$id?>" value=""  style="background-color:yellow;" checked>-
+<input type=radio name="id_<?php echo $id?>" value=""  style="background-color:yellow;" checked>-
 </td>
-<td align=center><?=$count["1_$id"]?></td>
-<td align=center><?=$count["2_$id"]?></td>
-<td align=center><?=$count["3_$id"]?></td>
-<td align=center><?=$count["4_$id"]?></td>
-<td align=center><?=$count["5_$id"]?></td>
+<td align=center><?php echo $count["1_$id"]?></td>
+<td align=center><?php echo $count["2_$id"]?></td>
+<td align=center><?php echo $count["3_$id"]?></td>
+<td align=center><?php echo $count["4_$id"]?></td>
+<td align=center><?php echo $count["5_$id"]?></td>
 <td>
-<a href="<?=$url[$id]?>" target="_blank">ジャンプ</a>
+<a href="<?php echo $url[$id]?>" target="_blank">ジャンプ</a>
 </td>
 <td align=center>
-<a href="regist_ys.php?pass=<?=$_POST['pass']?>&changer=admin&in_mode=mente&Smode_name=mente&id=<?=$id?>" target="_blank">編集</a>
+<a href="regist_ys.php?pass=<?php echo $_POST['pass']?>&changer=admin&in_mode=mente&Smode_name=mente&id=<?php echo $id?>" target="_blank">編集</a>
 </td>
 <td>
 <?php
@@ -120,9 +120,9 @@ if(isset($url)) {
 ?>
 <hr noshade color=#aaaaaa>
 <a name="user_cfg"></a>
-<form action="<?=$EST['admin']?>" method=post>
+<form action="<?php echo $EST['admin']?>" method=post>
 <?php echo YOMI_TICKET_TAG; ?>
-	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=pass value="<?php echo $_POST['pass']?>">
 	<input type=hidden name=mode value="cfg_make">
 <a name="config">[<a href="#top">トップに戻る</a>]</a>
 <ul>
@@ -130,13 +130,13 @@ if(isset($url)) {
 	<br>
 	<li><b>報告する最低値</b><br>
 	<ul>
-	<input type=text name=no_link_min value="<?=$EST['no_link_min']?>" size=4>
+	<input type=text name=no_link_min value="<?php echo $EST['no_link_min']?>" size=4>
 	</ul>
 	<li><b>通知を拒否するIPアドレス(の一部)リスト</b><br>
 	※複数指定する場合には半角カンマ( <b>,</b> )で区切ってください<br>
 	※ここで設定した文字列を含むIPアドレスからリンク切れの報告があっても報告リストには書き込まれなくなります<br>
 	<ul>
-	<input type=text name=no_link_ip value="<?=$EST['no_link_ip']?>" size=60>
+	<input type=text name=no_link_ip value="<?php echo $EST['no_link_ip']?>" size=60>
 	</ul>
 	<br>
 	<input type=submit value="変更する"> <input type=reset value="リセット">
@@ -144,9 +144,9 @@ if(isset($url)) {
 </form>
 <hr noshade color=#aaaaaa>
 <a name="dl"></a>
-<form action="<?=$EST['admin']?>?dummy=list.dat" method=post target="_blank">
+<form action="<?php echo $EST['admin']?>?dummy=list.dat" method=post target="_blank">
 <?php echo YOMI_TICKET_TAG; ?>
-	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=pass value="<?php echo $_POST['pass']?>">
 	<input type=hidden name=mode value="log_kt_change_act">
 	<input type=hidden name=log_mode value="del">
 <a name="del">[<a href="#top">トップに戻る</a>]</a>
@@ -156,16 +156,16 @@ if(isset($url)) {
 	※この機能を使用する場合にはWindows用ソフトの「<a href="http://www.nakka.com/" target="_blank">WWWC</a>」が必要です。
 	<br><br>
 	<input type=hidden name=mode value=dl_check_dl>
-	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=pass value="<?php echo $_POST['pass']?>">
 ★デッドリンクチェック用のリストファイルをダウンロード⇒
 	<input type=submit value="ダウンロード">
 </ul>
 </form>
 <hr noshade color=#aaaaaa>
 <a name="dl"></a>
-<form action="<?=$EST['admin']?>" method=post>
+<form action="<?php echo $EST['admin']?>" method=post>
 <?php echo YOMI_TICKET_TAG; ?>
-	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=pass value="<?php echo $_POST['pass']?>">
 	<input type=hidden name=mode value="dl_check_act">
 <a name="change">[<a href="#top">トップに戻る</a>]</a>
 <ul>

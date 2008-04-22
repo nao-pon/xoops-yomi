@@ -8,7 +8,7 @@ function PR_other_kt($path=""){
 	$Ekt_row=4;$tr_flag=0;$td_flag=1;
 	#$Ekt_row=>表示列数
 	if(count($gane_other)>=0){
-		?><a name=other></a>【その他のカテゴリ】<font id=small>[<a href="<?=$path?>#top">↑ページTOPへ</a>]</font><center><table style="width:90%" cellpadding=3 id=mid>
+		?><a name=other></a>【その他のカテゴリ】<font id=small>[<a href="<?php echo $path?>#top">↑ページTOPへ</a>]</font><center><table style="width:90%" cellpadding=3 id=mid>
 <?php
 		foreach ($gane_other as $PRkt_no){
 			if($td_flag==1){echo "<tr>";}
@@ -32,29 +32,29 @@ function put_icon(){
 	if($Slog[13] == 0 && $times - $Slog[11]<86400*$EST['new_time']){
 		##新着マーク
 		?>
-		<a href="<?=$EST['script']?>?mode=new">
-		<img src="<?=$EST['img_path_url']?>new.gif" alt="<?=$EST['name_new']?>" align=bottom></a>
+		<a href="<?php echo $EST['script']?>?mode=new">
+		<img src="<?php echo $EST['img_path_url']?>new.gif" alt="<?php echo $EST['name_new']?>" align=bottom></a>
 		<?php
 	}
 	elseif($times - $Slog[11]<86400*$EST['new_time']){
 	##更新マーク
 		?>
-		<a href="<?=$EST['script']?>?mode=renew">
-		<img src="<?=$EST['img_path_url']?>renew.gif" alt=<?=$EST['name_renew']?> align=bottom></a>
+		<a href="<?php echo $EST['script']?>?mode=renew">
+		<img src="<?php echo $EST['img_path_url']?>renew.gif" alt=<?php echo $EST['name_renew']?> align=bottom></a>
 		<?php
 	}
 	if($mark[0]){
 		##m1マーク(デフォルト：おすすめ)
 		?>
-		<a href="<?=$EST['script']?>?mode=m1">
-		<img src="<?=$EST['img_path_url']?>m1.gif" alt=<?=$EST['name_m1']?> align=bottom></a>
+		<a href="<?php echo $EST['script']?>?mode=m1">
+		<img src="<?php echo $EST['img_path_url']?>m1.gif" alt=<?php echo $EST['name_m1']?> align=bottom></a>
 		<?php
 	}
 	if($mark[1]){
 		##m2マーク(デフォルト：相互リンク)
 		?>
-		<a href="<?=$EST['script']?>?mode=m2">
-		<img src="<?=$EST['img_path_url']?>m2.gif" alt=<?=$EST['name_m2']?> align=bottom></a>
+		<a href="<?php echo $EST['script']?>?mode=m2">
+		<img src="<?php echo $EST['img_path_url']?>m2.gif" alt=<?php echo $EST['name_m2']?> align=bottom></a>
 		<?php
 	}
 }
@@ -181,7 +181,7 @@ function mokuji($arg){
 #管理者画面用著作権表示(削除・変更をしないでください。ただし、中寄せ・左寄せは可)
 function cp_cr(){
 	global $ver,$x_ver,$EST;
-	?><div style="text-align:right;font-size:11px"><a href="http://hypweb.net/" target="_blank">Yomi-Search [ XOOPS ] Ver. <?=$x_ver?></a><br />Based on - <a href="http://yomi.pekori.to/" target="_blank">Yomi-Search Ver<?=$ver?></a> - <a href="http://sql.s28.xrea.com:8080/" target="_blank">Powered by PHP</a></div>
+	?><div style="text-align:right;font-size:11px"><a href="http://hypweb.net/" target="_blank">Yomi-Search [ XOOPS ] Ver. <?php echo $x_ver?></a><br />Based on - <a href="http://yomi.pekori.to/" target="_blank">Yomi-Search Ver<?php echo $ver?></a> - <a href="http://sql.s28.xrea.com:8080/" target="_blank">Powered by PHP</a></div>
 	<?php
 	//For XOOPS
 	echo "</td></tr></table>";
@@ -260,7 +260,7 @@ function location($T_location){
 		exit;
 	}else{
 		?><html><head><title></title>
-<META HTTP-EQUIV="REFRESH" CONTENT="0;URL=<?=$T_location?>">
+<META HTTP-EQUIV="REFRESH" CONTENT="0;URL=<?php echo $T_location?>">
 </head><body>
 </body>
 </html>
@@ -340,13 +340,13 @@ function make_serach_box($Ssearch_kt = "")
 <table width="100%" cellpadding=8 cellspacing=0 border=0>
 <tr id="mid-bar">
 <td colspan=2>
-	<form action="<?=$EST['search']?>" method=get  target="" name="form1">
+	<form action="<?php echo $EST['search']?>" method=get  target="" name="form1">
 	<input type=hidden name=mode value=search>
 	<input type=hidden name=page value=1>
-	<input type=hidden name=sort value=<?=$EST['defo_hyouji']?>>
+	<input type=hidden name=sort value=<?php echo $EST['defo_hyouji']?>>
 	<font id=small>
-	[<a href="<?=$EST['search']?>">More</a>] 
-	[<a href="<?=$EST['search']?>?window=_blank">New Window</a>]
+	[<a href="<?php echo $EST['search']?>">More</a>] 
+	[<a href="<?php echo $EST['search']?>?window=_blank">New Window</a>]
 	</font>
 	<br />
 	<input type=text name=word value="" size="20"> <input type=submit value=" 検 索 "> <input type=reset value="リセット">
@@ -355,8 +355,8 @@ function make_serach_box($Ssearch_kt = "")
 if($Ssearch_kt && isset($ganes[$_GET['kt']])){
 	?>
 	<select name=search_kt>
-		<option value="<?=$Ssearch_kt?>-b_all" selected>このカテゴリ以下から検索
-		<option value="<?=$Ssearch_kt?>">このカテゴリから検索
+		<option value="<?php echo $Ssearch_kt?>-b_all" selected>このカテゴリ以下から検索
+		<option value="<?php echo $Ssearch_kt?>">このカテゴリから検索
 		<option value="">全検索
 	</select>
 <?php
@@ -381,14 +381,14 @@ search_form();
 <tr><td></form>
 	 <font id=small>
 	 [<a href="#other">他のカテゴリ</a>] 
-	 [<a href="<?=$EST['cgi_path_url']?>sitemap.php">サイトマップ</a>]
+	 [<a href="<?php echo $EST['cgi_path_url']?>sitemap.php">サイトマップ</a>]
 	 </font>
 </td><td align=right>	<font id=small>
-	[<a href="<?=$EST['cgi_path_url']?>regist_ys.php?mode=help">ヘルプ</a>] 
+	[<a href="<?php echo $EST['cgi_path_url']?>regist_ys.php?mode=help">ヘルプ</a>] 
 <?php
-if(!isset($gane_UR[$_GET['kt']]) && $_GET['mode'] == "kt"){
+if(empty($gane_UR[$_GET['kt']]) && $_GET['mode'] == "kt"){
 	?>
-	[<a href="<?=$EST['cgi_path_url']?>regist_ys.php?mode=regist&kt=<?=$_GET['kt']?>">このカテゴリに新規登録</a>]
+	[<a href="<?php echo $EST['cgi_path_url']?>regist_ys.php?mode=regist&kt=<?php echo $_GET['kt']?>">このカテゴリに新規登録</a>]
 <?php
 }
 ?>

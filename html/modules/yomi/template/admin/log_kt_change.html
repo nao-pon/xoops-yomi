@@ -1,7 +1,7 @@
-<link rel="stylesheet" href="<?=$EST['html_path_url']?>style.css" type="text/css">
+<link rel="stylesheet" href="<?php echo $EST['html_path_url']?>style.css" type="text/css">
 
 <a name=top></a>
-<form action="<?=$EST['admin']?>" method=post>
+<form action="<?php echo $EST['admin']?>" method=post>
 <?php echo YOMI_TICKET_TAG; ?>
 <!-- メニューバー -->
 <div align=right><font id=small>
@@ -10,11 +10,11 @@ menu_bar();
 ?>
 </font></div>
 <hr noshade color=#aaaaaa>
-<?=YOMI_HOME_URL?> &gt;
+<?php echo YOMI_HOME_URL?> &gt;
 <table width=100%><tr><td id="title-bar">
 <font color=#000000><b>ログデータの交換・移動・削除</b></font>
 </td></tr></table>
-	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=pass value="<?php echo $_POST['pass']?>">
 	<input type=hidden name=mode value="kanri">
 	<input type=submit value="管理室に戻る">
 <br>
@@ -31,11 +31,11 @@ foreach($ganes as $key=>$val){
 $jyuni=1;$jyuni_z=1;
 ?>
 <a name="change"></a>
-<form action="<?=$EST['admin']?>" method=post>
+<form action="<?php echo $EST['admin']?>" method=post>
 <?php echo YOMI_TICKET_TAG; ?>
 <a name="make">[<a href="#top">トップに戻る</a>]</a><br>
 <ul>
-	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=pass value="<?php echo $_POST['pass']?>">
 	<input type=hidden name=mode value="log_kt_change_act">
 	<input type=hidden name=log_mode value="change">
 	<font size="+1">【ログデータの交換】</font><br>
@@ -44,13 +44,13 @@ $jyuni=1;$jyuni_z=1;
 	[交換するカテゴリ(1)]
 	<select name="change_kt1">
 	<option value="" selected> -- 選択してください --
-	<?=$PR_kt_list?>
+	<?php echo $PR_kt_list?>
 	</select>
 	<br>
 	[交換するカテゴリ(2)]
 	<select name="change_kt2">
 	<option value="" selected> -- 選択してください --
-	<?=$PR_kt_list?>
+	<?php echo $PR_kt_list?>
 	</select>
 	<br>
 	<input type=checkbox name=check value="on">←確認チェック
@@ -60,9 +60,9 @@ $jyuni=1;$jyuni_z=1;
 </ul>
 <hr noshade color=#aaaaaa>
 <a name="move"></a>
-<form action="<?=$EST['admin']?>" method=post>
+<form action="<?php echo $EST['admin']?>" method=post>
 	<?php echo YOMI_TICKET_TAG; ?>
-	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=pass value="<?php echo $_POST['pass']?>">
 	<input type=hidden name=mode value="log_kt_change_act">
 	<input type=hidden name=log_mode value="move">
 <a name="config">[<a href="#top">トップに戻る</a>]</a>
@@ -73,13 +73,13 @@ $jyuni=1;$jyuni_z=1;
 	[移動元のカテゴリ]
 	<select name="bf_move_kt">
 	<option value="" selected> -- 選択してください --
-	<?=$PR_kt_list?>
+	<?php echo $PR_kt_list?>
 	</select><font color=red>(※移動実行後に空のカテゴリになります)</font>
 	<br>
 	[移動先のカテゴリ]
 	<select name="af_move_kt">
 	<option value="" selected> -- 選択してください --
-	<?=$PR_kt_list?>
+	<?php echo $PR_kt_list?>
 	</select>
 	<br>
 	<input type=checkbox name=check value="on">←確認チェック
@@ -89,9 +89,9 @@ $jyuni=1;$jyuni_z=1;
 </form>
 <hr noshade color=#aaaaaa>
 <a name="v3tov4"></a>
-<form action="<?=$EST['admin']?>" method=post>
+<form action="<?php echo $EST['admin']?>" method=post>
 	<?php echo YOMI_TICKET_TAG; ?>
-	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=pass value="<?php echo $_POST['pass']?>">
 	<input type=hidden name=mode value="log_kt_change_act">
 	<input type=hidden name=log_mode value="del">
 <a name="del">[<a href="#top">トップに戻る</a>]</a>
@@ -103,7 +103,7 @@ $jyuni=1;$jyuni_z=1;
 	[削除するカテゴリ]
 	<select name="del_kt">
 	<option value="" selected> -- 選択してください --
-	<?=$PR_kt_list?>
+	<?php echo $PR_kt_list?>
 	</select>
 	<br>
 	<input type=checkbox name=check value="on">←確認チェック

@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="<?=$EST['html_path_url']?>style.css" type="text/css">
+<link rel="stylesheet" href="<?php echo $EST['html_path_url']?>style.css" type="text/css">
 
 <a name=top></a>
 <!-- メニューバー -->
@@ -15,14 +15,14 @@ menu_bar();
 <br>
 <center><font size="+2">【ログイン画面】</font>
 <br>
-<form action="<?=$EST['admin']?>" method=post>
+<form action="<?php echo $EST['admin']?>" method=post>
 	<?php echo YOMI_TICKET_TAG; ?>
   <input type=hidden name=mode value="kanri">
   <input type=password name=pass size=8>
   <input type=submit value="ログイン">
 </form>
 <br>
-【 <?=YOMI_HOME_URL?>に戻る 】</center> <br>
+【 <?php echo YOMI_HOME_URL?>に戻る 】</center> <br>
 </td></tr>
 </table>
 </center>

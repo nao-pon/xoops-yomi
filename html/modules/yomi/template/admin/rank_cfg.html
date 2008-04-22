@@ -7,10 +7,10 @@ else{$Crank_fl_0=" checked"; $Crank_fl_1="";}
 if($EST['rev_fl']){$Crev_fl_0=""; $Crev_fl_1=" checked";}
 else{$Crev_fl_0=" checked"; $Crev_fl_1="";}
 ?>
-<link rel="stylesheet" href="<?=$EST['html_path_url']?>style.css" type="text/css">
+<link rel="stylesheet" href="<?php echo $EST['html_path_url']?>style.css" type="text/css">
 
 <a name=top></a>
-<form action="<?=$EST['admin']?>" method=post>
+<form action="<?php echo $EST['admin']?>" method=post>
 <?php echo YOMI_TICKET_TAG; ?>
 <!-- есе╦ехб╝е╨б╝ -->
 <div align=right><font id=small>
@@ -19,11 +19,11 @@ menu_bar();
 ?>
 </font></div>
 <hr noshade color=#aaaaaa>
-<?=YOMI_HOME_URL?> &gt;
+<?php echo YOMI_HOME_URL?> &gt;
 <table width=100%><tr><td id="title-bar">
 <font color=#000000><b>┐═╡дещеєенеєе░бжевепе╗е╣ещеєенеєе░д╬└▀─ъ</b></font>
 </td></tr></table>
-	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=pass value="<?php echo $_POST['pass']?>">
 	<input type=hidden name=mode value="kanri">
 	<input type=submit value="┤╔═¤╝╝д╦╠сды">
 <br>
@@ -34,9 +34,9 @@ menu_bar();
 <?php
 if(!$EST['rank_fl']){echo "<font color=red>ви╕╜║▀бв┐═╡дещеєенеєе░д╧╝┬╗▄д╖д╩дд└▀─ъд╦д╩д├д╞ддд▐д╣</font><br>";}
 ?>
-<form action="<?=$EST['admin']?>" method=post>
+<form action="<?php echo $EST['admin']?>" method=post>
 	<?php echo YOMI_TICKET_TAG; ?>
-	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=pass value="<?php echo $_POST['pass']?>">
 	<input type=hidden name=mode value="cfg_make">
 <a name="config">[<a href="#top">е╚е├е╫д╦╠сды</a>]</a>
 <ol>
@@ -45,23 +45,23 @@ if(!$EST['rank_fl']){echo "<font color=red>ви╕╜║▀бв┐═╡дещеєенеєе░д╧╝┬╗▄д╖д╩дд└▀─
 вид│д╬е┌б╝е╕д╪д╬еъеєепд╧б╓<b>rank.php</b>б╫д╟д╣
 <br><br>
 <li>┐═╡дещеєенеєе░вк
-		<input type=radio name="rank_fl" value="0"<?=$Crank_fl_0?>>╝┬╗▄д╖д╩дд | 
-		<input type=radio name="rank_fl" value="1"<?=$Crank_fl_1?>>╝┬╗▄д╣ды<br><br>
-<li>ещеєепедеєд╡д╗ды║╟─уевепе╗е╣┐Ївк<input type=text name=rank_min value="<?=$EST['rank_min']?>" size=2><br><br>
-<li>ещеєенеєе░д╬╜╕╖╫┤№┤╓вк<input type=text name=rank_kikan value="<?=$EST['rank_kikan']?>" size=3>╞№д┤д╚д╦╜╕╖╫д╣ды<br><br>
+		<input type=radio name="rank_fl" value="0"<?php echo $Crank_fl_0?>>╝┬╗▄д╖д╩дд | 
+		<input type=radio name="rank_fl" value="1"<?php echo $Crank_fl_1?>>╝┬╗▄д╣ды<br><br>
+<li>ещеєепедеєд╡д╗ды║╟─уевепе╗е╣┐Ївк<input type=text name=rank_min value="<?php echo $EST['rank_min']?>" size=2><br><br>
+<li>ещеєенеєе░д╬╜╕╖╫┤№┤╓вк<input type=text name=rank_kikan value="<?php echo $EST['rank_kikan']?>" size=3>╞№д┤д╚д╦╜╕╖╫д╣ды<br><br>
 <li>ещеєенеєе░д╬╣╣┐╖╔╤┼┘(╗■┤╓)<br>
 ви▓┐╗■┤╓д┤д╚д╦ещеєенеєе░дЄ╣╣┐╖д╣дыдлдЄ╖шдсд▐д╣<br>
 вид│д╬╗■┤╓╞тд╦╞▒░ьIPдлдщ╞▒░ье╟б╝е┐д╦2▓є░╩╛хевепе╗е╣дмдвд├д╞дт1евепе╗е╣д╚д╖д╞╜╕╖╫д╖д▐д╣
 <br>
-вк<input type=text name=rank_time value="<?=$EST['rank_time']?>" size=3>╗■┤╓д┤д╚д╦╣╣┐╖д╣ды<br><br>
-<li>ещеєенеєе░е╟б╝е┐д╬║╟┬ч╩▌╗¤╖я┐Ївке┘е╣е╚<input type=text name=rank_best value="<?=$EST['rank_best']?>" size=4>░╠д▐д╟╩▌┬╕д╣ды<br><br>
+вк<input type=text name=rank_time value="<?php echo $EST['rank_time']?>" size=3>╗■┤╓д┤д╚д╦╣╣┐╖д╣ды<br><br>
+<li>ещеєенеєе░е╟б╝е┐д╬║╟┬ч╩▌╗¤╖я┐Ївке┘е╣е╚<input type=text name=rank_best value="<?php echo $EST['rank_best']?>" size=4>░╠д▐д╟╩▌┬╕д╣ды<br><br>
 <li>╜╕╖╫┬╨╛▌д╬URLд╬░ь╔Ї<br>
 ви(╬у)└▀├╓д╣дыURLдм <b>http://www.xxx.zzz/~test/yomi.php</b> д╩дщ <b>www.xxx.zzz/~test</b> д╚╡н╞■д╖д╞дпд└д╡дд<br>
 ви│░╔Їдлдщд╬╔╘└╡д╩евепе╗е╣дЄещеєенеєе░╜╕╖╫┬╨╛▌длдщ╝шдъ╜№дпд┐дсд╬╡б╟╜д╟д╣<br>
 ви╩г┐Ї╗╪─ъд╣ды╛ь╣чд╦д╧╚╛│╤елеєе▐( <b>,</b> )д╟╢ш└┌д├д╞дпд└д╡дд
 ви╔м═╫╠╡дд╛ь╣чд╦д╧╠д╡н╞■д╟дт▓─
 <br>
-вк<input type=text name=rank_ref value="<?=$EST['rank_ref']?>" size=40>
+вк<input type=text name=rank_ref value="<?php echo $EST['rank_ref']?>" size=40>
 	<br><br><input type=submit value="╩╤╣╣д╣ды"> <input type=reset value="еъе╗е├е╚">
 </ol>
 </form>
@@ -69,9 +69,9 @@ if(!$EST['rank_fl']){echo "<font color=red>ви╕╜║▀бв┐═╡дещеєенеєе░д╧╝┬╗▄д╖д╩дд└▀─
 <?php
 if(!$EST['rank_fl']){echo "<font color=red>ви╕╜║▀бв┐═╡дещеєенеєе░д╧╝┬╗▄д╖д╩дд└▀─ъд╦д╩д├д╞ддд▐д╣</font><br>";}
 ?>
-<form action="<?=$EST['admin']?>" method=post>
+<form action="<?php echo $EST['admin']?>" method=post>
 	<?php echo YOMI_TICKET_TAG; ?>
-	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=pass value="<?php echo $_POST['pass']?>">
 	<input type=hidden name=mode value="cfg_make">
 <a name="config_rev">[<a href="#top">е╚е├е╫д╦╠сды</a>]</a>
 <ol>
@@ -80,19 +80,19 @@ if(!$EST['rank_fl']){echo "<font color=red>ви╕╜║▀бв┐═╡дещеєенеєе░д╧╝┬╗▄д╖д╩дд└▀─
 вид│д╬е┌б╝е╕д╪д╬еъеєепд╧б╓<b>rank.php?mode=rev</b>б╫д╟д╣
 <br><br>
 <li>евепе╗е╣ещеєенеєе░вк
-		<input type=radio name="rev_fl" value="0"<?=$Crev_fl_0?>>╝┬╗▄д╖д╩дд | 
-		<input type=radio name="rev_fl" value="1"<?=$Crev_fl_1?>>╝┬╗▄д╣ды<br><br>
-<li>ещеєепедеєд╡д╗ды║╟─уевепе╗е╣┐Ївк<input type=text name=rev_min value="<?=$EST['rev_min']?>" size=2><br><br>
-<li>ещеєенеєе░д╬╜╕╖╫┤№┤╓вк<input type=text name=rev_kikan value="<?=$EST['rev_kikan']?>" size=3>╞№д┤д╚д╦╜╕╖╫д╣ды<br><br>
+		<input type=radio name="rev_fl" value="0"<?php echo $Crev_fl_0?>>╝┬╗▄д╖д╩дд | 
+		<input type=radio name="rev_fl" value="1"<?php echo $Crev_fl_1?>>╝┬╗▄д╣ды<br><br>
+<li>ещеєепедеєд╡д╗ды║╟─уевепе╗е╣┐Ївк<input type=text name=rev_min value="<?php echo $EST['rev_min']?>" size=2><br><br>
+<li>ещеєенеєе░д╬╜╕╖╫┤№┤╓вк<input type=text name=rev_kikan value="<?php echo $EST['rev_kikan']?>" size=3>╞№д┤д╚д╦╜╕╖╫д╣ды<br><br>
 <li>ещеєенеєе░д╬╣╣┐╖╔╤┼┘(╗■┤╓)<br>
 ви▓┐╗■┤╓д┤д╚д╦ещеєенеєе░дЄ╣╣┐╖д╣дыдлдЄ╖шдсд▐д╣<br>
 ви╣╣┐╖╔╤┼┘д╧┐═╡дещеєенеєе░д╬└▀─ъд╚╞▒д╕└▀─ъд╦д╩дъд▐д╣бг
 <br><br>
-<li>ещеєенеєе░е╟б╝е┐д╬║╟┬ч╩▌╗¤╖я┐Ївке┘е╣е╚<input type=text name=rev_best value="<?=$EST['rev_best']?>" size=4>░╠д▐д╟╩▌┬╕д╣ды<br><br>
+<li>ещеєенеєе░е╟б╝е┐д╬║╟┬ч╩▌╗¤╖я┐Ївке┘е╣е╚<input type=text name=rev_best value="<?php echo $EST['rev_best']?>" size=4>░╠д▐д╟╩▌┬╕д╣ды<br><br>
 <li>ещеєенеєе░═╤URLд╬┼╛┴ў└ш<br>
 	<ol>
 	ви─╠╛яд╧е╡б╝е┴еиеєе╕еєд╬е╚е├е╫е┌б╝е╕дЄ╗╪─ъд╖д▐д╣<br>
-	<input type=text name=rev_url value="<?=$EST['rev_url']?>" size=50>
+	<input type=text name=rev_url value="<?php echo $EST['rev_url']?>" size=50>
 	</ol>
 	<br><br>
 	<br><br><input type=submit value="╩╤╣╣д╣ды"> <input type=reset value="еъе╗е├е╚">

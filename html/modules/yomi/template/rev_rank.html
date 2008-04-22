@@ -117,7 +117,7 @@ $tmp=array($_GET['page'],$Clog,$EST['hyouji'],"{$g_prm_child}&mode=$_GET[mode]&k
 $PRmokuji=mokuji($tmp);
 ?>
 
-<link rel="stylesheet" href="<?=$EST['html_path_url']?>style.css" type="text/css">
+<link rel="stylesheet" href="<?php echo $EST['html_path_url']?>style.css" type="text/css">
 <script type="text/javascript">
 <!--
 function ch_type(sel){
@@ -149,13 +149,13 @@ if (!$_no_ad_space){head_sp();}
 </div>
 
 <!-- ナビゲーションバー -->
-<?=YOMI_HOME_URL?> &gt; <?=$navi?> 
+<?php echo YOMI_HOME_URL?> &gt; <?php echo $navi?> 
 <?php
 if($_GET['kt']){echo "<a href=\"$Ekt$_GET[kt]$Eend\">".$ganes[$_GET['kt']]."</a> &gt; ";}
 ?>
 
 <table width=100%><tr><td id="title-bar">
-<b><?=$Stitle?></b>
+<b><?php echo $Stitle?></b>
 </td></tr></table>
 
 <?php
@@ -197,7 +197,7 @@ if($Clog){
 	##一括削除用のフォーム出力(上)
 	if($CK_data[3] || $is_admin == 1){
 		?>
-	<form action="<?=$EST['cgi_path_url']?>regist_ys.php" method=post>
+	<form action="<?php echo $EST['cgi_path_url']?>regist_ys.php" method=post>
 		<?php echo YOMI_TICKET_TAG; ?>
 		<input type=hidden name=mode value="act_del">
 		<input type=hidden name=del_mode value="multi">
@@ -206,14 +206,14 @@ if($Clog){
 	}
 ?>
 <!-- マークコメント/登録数表示/目次表示(上) -->
-<img src="<?=$EST['img_path_url']?>m1.gif" align=bottom>
-は<?=$EST['name_m1']?>、 <img src="<?=$EST['img_path_url']?>m2.gif" align=bottom>
-は<?=$EST['name_m2']?>です。 <font id=kanri><b>この色</b></font>の文は管理人のコメントです。<br>
+<img src="<?php echo $EST['img_path_url']?>m1.gif" align=bottom>
+は<?php echo $EST['name_m1']?>、 <img src="<?php echo $EST['img_path_url']?>m2.gif" align=bottom>
+は<?php echo $EST['name_m2']?>です。 <font id=kanri><b>この色</b></font>の文は管理人のコメントです。<br>
 ※リンク先が無くなっている等の問題がある場合にはタイトル横の [<b>管理者に通知</b>] リンクを押してください
 <br><br>
-<div align=left><i>集計期間：<?=$last_mod?></i></div>
+<div align=left><i>集計期間：<?php echo $last_mod?></i></div>
 <br>
-<?=$PRmokuji?>
+<?php echo $PRmokuji?>
 <ul>
 <?php
 	EST_reg();
@@ -230,26 +230,26 @@ if($Clog){
 <table border=3 cellpadding=7 id=log>
 <tr id=log-0>
 <td>
-<font size="+1"><b>第<?=$rank?>位</b></font> -&gt; <i><?=$pt?>pt</i>
+<font size="+1"><b>第<?php echo $rank?>位</b></font> -&gt; <i><?php echo $pt?>pt</i>
 </td>
 </tr>
 <tr id=log-1>
-	<td><a href="<?=$jump_url?>" target="_blank" style="text-decoration:none">■</a> <a href="<?=$jump_url?>"><font size="+1"><b><?=$Slog[1]?></b></font></a> 
+	<td><a href="<?php echo $jump_url?>" target="_blank" style="text-decoration:none">■</a> <a href="<?php echo $jump_url?>"><font size="+1"><b><?php echo $Slog[1]?></b></font></a> 
 <?php
 		put_icon(); #<!-- ←アイコンを付加 -->
 		?>
- <br><br><font size="-1">更新日：<?=date("Y/m/d (D) h:i",$Slog[11])?> [<a href="<?=$EST['cgi_path_url']?>regist_ys.php?mode=enter&id=<?=$Slog[0]?>" target="">修正・削除</a>]
- [<a href="<?=$EST['cgi_path_url']?>regist_ys.phpi?mode=no_link&id=<?=$Slog[0]?>&pre=on&ref=<?=$Eref?>&title=<?=rawurlencode($Slog[1])?>">管理者に通知</a>]
+ <br><br><font size="-1">更新日：<?php echo date("Y/m/d (D) h:i",$Slog[11])?> [<a href="<?php echo $EST['cgi_path_url']?>regist_ys.php?mode=enter&id=<?php echo $Slog[0]?>" target="">修正・削除</a>]
+ [<a href="<?php echo $EST['cgi_path_url']?>regist_ys.phpi?mode=no_link&id=<?php echo $Slog[0]?>&pre=on&ref=<?php echo $Eref?>&title=<?php echo rawurlencode($Slog[1])?>">管理者に通知</a>]
  </font>
 <?php
 		if($CK_data[3] || $is_admin == 1){
 			?>
-<br>[<input type=checkbox name="del[]" value="<?=$Slog[0]?>"> 削除チェック] 
+<br>[<input type=checkbox name="del[]" value="<?php echo $Slog[0]?>"> 削除チェック] 
 <?php
 		}
 		if($Slog[12]){
 			?>
-<br><img src="<?=$Slog[12]?>" width=<?=$EST_reg['Mbana_w']?> height=<?=$EST_reg['Mbana_h']?>>
+<br><img src="<?php echo $Slog[12]?>" width=<?php echo $EST_reg['Mbana_w']?> height=<?php echo $EST_reg['Mbana_h']?>>
 <?php
 		}
 		?>
@@ -277,13 +277,13 @@ if($Clog){
 		}
 		?>
 <tr id=log-3>
-	<td><?=$Slog[6]?></td>
+	<td><?php echo $Slog[6]?></td>
 </tr>
 <?php
 		if($Slog[7]){
 			?>
 <tr id=log-4>
-	<td><font id=kanri><?=$Slog[7]?></font></td>
+	<td><font id=kanri><?php echo $Slog[7]?></font></td>
 </tr>
 <?php
 		}
@@ -297,7 +297,7 @@ if($Clog){
 	?>
 </ul>
 <!-- 目次表示(下) -->
-<?=$PRmokuji?>
+<?php echo $PRmokuji?>
 <!--/データがある場合-->
 <?php
 	##一括削除用のフォーム出力(下)

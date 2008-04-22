@@ -740,18 +740,18 @@ function PR_kt($category=""){
 		echo "<ul>※<b>$EST_reg[kt_max]</b>個選択してください<br>";
 	}
 	?>
-		※各カテゴリの詳細は「<a href="<?=$EST['cgi_path_url']?>sitemap.php" target="_blank">カテゴリ一覧</a>」を参考にしてください<br>
+		※各カテゴリの詳細は「<a href="<?php echo $EST['cgi_path_url']?>sitemap.php" target="_blank">カテゴリ一覧</a>」を参考にしてください<br>
 <?php
 	gane_st(); #ジャンルステータスをロード
 	for ($kt_no=1; $kt_no <= $EST_reg['kt_max']; $kt_no++){
 		$PRselect=" selected";
 		?>
-		<!--<select name=Fkt<?=$kt_no?> size=7>-->
-		<select name=Fkt<?=$kt_no?> size=1>
+		<!--<select name=Fkt<?php echo $kt_no?> size=7>-->
+		<select name=Fkt<?php echo $kt_no?> size=1>
 <?php
 		if($Pkt[$kt_no]){echo '<option value="' . $Pkt[$kt_no] . "\"$PRselect>" . full_kt($Pkt[$kt_no]) . "\n"; $PRselect="";}
 		?>
-			<option value=""<?=$PRselect?>>--指定しない--
+			<option value=""<?php echo $PRselect?>>--指定しない--
 <?php
 		foreach ($ganes as $line=>$val){
 			if($_POST['changer'] == "admin" || !$gane_UR[$line]){
@@ -951,7 +951,7 @@ function PR_preview_kt2(){
 		$value = $_POST["Fkt$kt_no"];
 		echo full_kt($value);
 		?>
-<input type=hidden name=Fkt<?=$kt_no?> value="<?=$value?>">
+<input type=hidden name=Fkt<?php echo $kt_no?> value="<?php echo $value?>">
 <br>
 <?php
 	}

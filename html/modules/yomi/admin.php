@@ -659,8 +659,9 @@ elseif($_POST['mode'] == "log_repair_act"){
 		)";
 		$result=$xoopsDB->queryF($query) or die("Query failed admin411 $query");
 		$fp=fopen($_POST[file], "r");
-		while($line=fgets($fp, 4096)) {
-			$Slog=explode("\t", $line);
+		while($line=fgets($fp, 10240)) {
+			$Slog = explode("\t", $line);
+			$Slog = array_map('addslashes', $Slog);
 			$query = "INSERT INTO $EST[sqltb]log VALUES ('$Slog[0]', '$Slog[1]', '$Slog[2]', '$Slog[3]', '$Slog[4]', '$Slog[5]', '$Slog[6]', '$Slog[7]', '$Slog[8]', '$Slog[9]', '$Slog[10]', '$Slog[11]', '$Slog[12]', '$Slog[13]', '$Slog[14]', '$Slog[15]','$Slog[16]','$Slog[17]','$Slog[18]','$Slog[19]','$Slog[20]')";
 			$result=$xoopsDB->queryF($query);
 		}

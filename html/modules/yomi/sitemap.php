@@ -5,7 +5,7 @@ include("header.php");
 include('init.php');
 ?>
 <!-- あ -->
-<LINK rel="stylesheet" href="<?=$EST['html_path_url']?>style.css" type="text/css">
+<link rel="stylesheet" href="<?php echo $EST['html_path_url']?>style.css" type="text/css">
 <script language="javascript">
 <!--
 function ch_type(sel){
@@ -27,7 +27,7 @@ menu_bar();
 </font></div>
 <hr>
 <!-- ナビゲーションバー -->
-<?=YOMI_HOME_URL?> &gt; 
+<?php echo YOMI_HOME_URL?> &gt; 
 <table width=100%><tr><td id="title-bar">
 <b>サイトマップ</b>
 </td></tr></table>
@@ -40,11 +40,11 @@ head_sp();
 <table width="100%" cellpadding=8 cellspacing=0 border=0>
 <tr id="mid-bar">
 <td colspan=2>
-	<form action="<?=$EST['cgi_path_url'].$EST['search']?>" method=get  target="" name="form1">
+	<form action="<?php echo $EST['cgi_path_url'].$EST['search']?>" method=get  target="" name="form1">
 	<input type=hidden name=mode value=search>
 	<input type=hidden name=page value=1>
-	<input type=hidden name=sort value="<?=$_POST['sort']?>">
-	<input type=text name=word value="<?=$_POST['word']?>" size="20"><input type=submit value=" 検 索 "> <input type=reset value="リセット">
+	<input type=hidden name=sort value="<?php echo $_POST['sort']?>">
+	<input type=text name=word value="<?php echo $_POST['word']?>" size="20"><input type=submit value=" 検 索 "> <input type=reset value="リセット">
 	&nbsp;
 	<select name=method>
 		<option value="and" selected>すべての語を含む
@@ -60,16 +60,16 @@ search_form();
 		<option value="1">別窓で
 	</select>
 	<font id=small>
-	 [<a href="<?=$EST['cgi_path_url'].$EST['search']?>">More</a>]
-	 [<a href="<?=$EST['cgi_path_url'].$EST['search']?>?window=_blank">New Window</a>]
+	 [<a href="<?php echo $EST['cgi_path_url'].$EST['search']?>">More</a>]
+	 [<a href="<?php echo $EST['cgi_path_url'].$EST['search']?>?window=_blank">New Window</a>]
 	</font>
 	<input type=hidden name=hyouji value="30">
 </td>
 </tr>
 <tr><td></form>
 </td><td align=right>	<font id=small>
-	[<a href="<?=$EST['cgi_path_url']?>regist_ys.php?mode=help">ヘルプ</a>] 
-	[<a href="<?=$EST['cgi_path_url']?>regist_ys.php?mode=enter">修正・削除</a>] 
+	[<a href="<?php echo $EST['cgi_path_url']?>regist_ys.php?mode=help">ヘルプ</a>] 
+	[<a href="<?php echo $EST['cgi_path_url']?>regist_ys.php?mode=enter">修正・削除</a>] 
 </font></td></tr>
 </table>
 <ul>

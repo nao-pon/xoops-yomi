@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="<?=$EST['html_path_url']?>style.css" type="text/css">
+<link rel="stylesheet" href="<?php echo $EST['html_path_url']?>style.css" type="text/css">
 <a name=top></a>
 <!-- есе╦ехб╝е╨б╝ -->
 <div align=right><font id=small>
@@ -7,7 +7,7 @@ menu_bar();
 ?>
 </font></div>
 <hr noshade color=#aaaaaa>
-<?=YOMI_HOME_URL?> &gt;
+<?php echo YOMI_HOME_URL?> &gt;
 <table width=100%><tr><td id="title-bar">
 <font color=#000000><b>┤╔═¤╝╝</b></font>
 </td></tr></table>
@@ -20,11 +20,11 @@ $Ctemp=0;
 	fclose($fp);
 ?>
 <div align=center>
-<form action="<?=$EST['admin']?>" method=post>
+<form action="<?php echo $EST['admin']?>" method=post>
 	<?php echo YOMI_TICKET_TAG; ?>
-	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=pass value="<?php echo $_POST['pass']?>">
 	<select name=mode>
-		<option value="temp_to_regist" selected>01. ┼╨╧┐┬╘д┴(<?=$Ctemp?>╖я)
+		<option value="temp_to_regist" selected>01. ┼╨╧┐┬╘д┴(<?php echo $Ctemp?>╖я)
 		<option value="config">02. ┤─╢н└▀─ъ
 		<option value="config_kt">03. еле╞е┤еъ└▀─ъ
 		<option value="look_mes">04. ┼╨╧┐╝╘д╬есе├е╗б╝е╕дЄ╕лды
@@ -47,45 +47,45 @@ print "<font color=red>вид▐д║бвб╓02. ┤─╢н└▀─ъб╫дЄ┴кдєд╟е╤е╣еяб╝е╔д╬└▀─ъдЄ╣╘д├д╞д
 <hr noshade color=#aaaaaa>
 <form action="regist_ys.php" method=post>
 	<?php echo YOMI_TICKET_TAG; ?>
-	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=pass value="<?php echo $_POST['pass']?>">
 		<input type=hidden name=changer value="admin">
 		<input type=hidden name=in_mode value="new_dairi">
 (1)┤╔═¤┐═д╦дшды┐╖╡м┼╨╧┐бз
 	<input type=submit value="┼╨╧┐д╣ды"> [<a href="#dairi">help</a>]
 </form>
-<form action="<?=$EST['admin']?>" method=post>
+<form action="<?php echo $EST['admin']?>" method=post>
 	<?php echo YOMI_TICKET_TAG; ?>
 (2)епе├енб╝д╦дшды┼╨╧┐╞т═╞╩╤╣╣▓ш╠╠д╪д╬─╛└▄╟з╛┌бз
-	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=pass value="<?php echo $_POST['pass']?>">
 	<input type=hidden name=mode value="kanri">
 	<input type=submit name=set value="└▀─ъ"> 
 	<input type=submit name=set value="▓Є╜№">
-	 (╕╜║▀д╧б╓<b><?=$PRset?></b>б╫д╦└▀─ъд╡дьд╞ддд▐д╣) [<a href="#cookie">help</a>]
+	 (╕╜║▀д╧б╓<b><?php echo $PRset?></b>б╫д╦└▀─ъд╡дьд╞ддд▐д╣) [<a href="#cookie">help</a>]
 </form>
 <hr noshade color=#aaaaaa>
 <a name="menu">б·│╞есе╦ехб╝д╬└т╠└</a> [<a href="#top">Topд╦╠сды</a>]
 <ol>
-<form action="<?=$EST['admin']?>" method=post>
+<form action="<?php echo $EST['admin']?>" method=post>
 	<?php echo YOMI_TICKET_TAG; ?>
-	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=pass value="<?php echo $_POST['pass']?>">
 	<input type=hidden name=mode value="temp_to_regist">
-	<li><font size="+1">б┌ <b>┼╨╧┐┬╘д┴(<?=$Ctemp?>╖я)</b> б█</font><input type=submit value="GO"><br>
+	<li><font size="+1">б┌ <b>┼╨╧┐┬╘д┴(<?php echo $Ctemp?>╖я)</b> б█</font><input type=submit value="GO"><br>
 бб┼╨╧┐╝╘дм┼╨╧┐┐╜└┴├цд╬е╟б╝е┐дЄ┼╨╧┐д╣дыдлд╔дждлд╬╖ш─ъдЄд╖д▐д╣бг<br>
 бб( )╞тд╬┐Ї├═д╧┼╨╧┐┬╘д┴е╟б╝е┐д╬╖я┐Їбг▓╛┼╨╧┐етб╝е╔дЄ═н╕·д╦д╖д╞ддды╛ь╣чд╬д▀═н╕·д╟д╣бг<br>
-бб▓╛┼╨╧┐├цд╬е╟б╝е┐д╧б╓<?=$EST['temp_logfile']?>б╫д╦╡н╧┐д╡дьд╞ддд▐д╣бг
+бб▓╛┼╨╧┐├цд╬е╟б╝е┐д╧б╓<?php echo $EST['temp_logfile']?>б╫д╦╡н╧┐д╡дьд╞ддд▐д╣бг
 <br><br>
 </form>
-<form action="<?=$EST['admin']?>" method=post>
+<form action="<?php echo $EST['admin']?>" method=post>
 	<?php echo YOMI_TICKET_TAG; ?>
-	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=pass value="<?php echo $_POST['pass']?>">
 	<input type=hidden name=mode value="config">
 	<li><font size="+1">б┌ <b>┤─╢н└▀─ъ</b> б█</font><input type=submit value="GO"><br>
 ббд│д╬е╡б╝е┴еиеєе╕еєд╦┤╪д╣ды┤─╢н└▀─ъдЄд╖д▐д╣бг<br>
 бб<font color=red>╜щ▓є└▀├╓╗■д╦д╧╔мд║д│д╬есе╦ехб╝дЄ╝┬╣╘д╖д╞е╤е╣еяб╝е╔дЄ└▀─ъд╖д╞дпд└д╡ддбг</font><br><br>
 </form>
-<form action="<?=$EST['admin']?>" method=post>
+<form action="<?php echo $EST['admin']?>" method=post>
 	<?php echo YOMI_TICKET_TAG; ?>
-	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=pass value="<?php echo $_POST['pass']?>">
 	<input type=hidden name=mode value="config_kt">
 	<li><font size="+1">б┌ <b>еле╞е┤еъ└▀─ъ</b> б█</font><input type=submit value="GO"><br>
 бб[╗╚═╤▓─╟╜е│е▐еєе╔]
@@ -95,16 +95,16 @@ print "<font color=red>вид▐д║бвб╓02. ┤─╢н└▀─ъб╫дЄ┴кдєд╟е╤е╣еяб╝е╔д╬└▀─ъдЄ╣╘д├д╞д
 	<li>еле╞е┤еъд╬└т╠└╩╕└▀─ъ
 	</ul>
 </form>
-<form action="<?=$EST['admin']?>" method=post>
+<form action="<?php echo $EST['admin']?>" method=post>
 	<?php echo YOMI_TICKET_TAG; ?>
-	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=pass value="<?php echo $_POST['pass']?>">
 	<input type=hidden name=mode value="look_mes">
 	<li><font size="+1">б┌ <b>┼╨╧┐╝╘д╬есе├е╗б╝е╕дЄ╕лды</b> б█</font><input type=submit value="GO"><br>
 бб┤─╢н└▀─ъд╟┼╨╧┐╝╘д╬есе├е╗б╝е╕дЄ╩▌┬╕д╣ды└▀─ъд╦д╖д┐╛ь╣чбвд│д╬есе╦ехб╝длдщ╕лдыд│д╚дмд╟днд▐д╣бг<br><br>
 </form>
-<form action="<?=$EST['admin']?>" method=post>
+<form action="<?php echo $EST['admin']?>" method=post>
 	<?php echo YOMI_TICKET_TAG; ?>
-	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=pass value="<?php echo $_POST['pass']?>">
 	<input type=hidden name=mode value="log_kt_change">
 	<li><font size="+1">б┌ <b>еэе░е╟б╝е┐д╬╕Є┤╣бж░▄╞░бж║я╜№</b> б█</font><input type=submit value="GO"><br>
 бб[╗╚═╤▓─╟╜е│е▐еєе╔]<br>
@@ -114,9 +114,9 @@ print "<font color=red>вид▐д║бвб╓02. ┤─╢н└▀─ъб╫дЄ┴кдєд╟е╤е╣еяб╝е╔д╬└▀─ъдЄ╣╘д├д╞д
 <li>╗╪─ъд╖д┐еле╞е┤еъд╬е╟б╝е┐дЄ╩╠д╬еле╞е┤еъд╬е╟б╝е┐д╚╕Є┤╣
 </ul><br>
 </form>
-<form action="<?=$EST['admin']?>" method=post>
+<form action="<?php echo $EST['admin']?>" method=post>
 	<?php echo YOMI_TICKET_TAG; ?>
-	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=pass value="<?php echo $_POST['pass']?>">
 	<input type=hidden name=mode value="log_repair">
 	<li><font size="+1">б┌ <b>еэе░б╩┼╨╧┐е╟б╝е┐б╦д╬е╨е├епеве├е╫бж╔№╕╡</b> б█</font><input type=submit value="GO"><br>
 ббе╨е├епеве├е╫е╒ебедеыд╦╡н╧┐д╡дьд┐е╟б╝е┐дЄ╕╡д╦е╟б╝е┐дЄ╔№╕╡д╖д▐д╣бг<br>
@@ -124,9 +124,9 @@ print "<font color=red>вид▐д║бвб╓02. ┤─╢н└▀─ъб╫дЄ┴кдєд╟е╤е╣еяб╝е╔д╬└▀─ъдЄ╣╘д├д╞д
 ббдкдлд╖дпд╩д├д╞д╖д▐д├д┐д╚днд╦╝┬╣╘д╖д╞дпд└д╡ддбг<br>
 бб<font color="red">ви░ь┼┘╔№╕╡д╖д┐дщ╕╡д╬е╟б╝е┐д╧╞є┼┘д╚╠сдщд╩ддд╬д╟├э░╒д╖д╞длдщ╔№╕╡д╖д╞дпд└д╡ддбг</font><br><br>
 </form>
-<form action="<?=$EST['admin']?>" method=post>
+<form action="<?php echo $EST['admin']?>" method=post>
 	<?php echo YOMI_TICKET_TAG; ?>
-	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=pass value="<?php echo $_POST['pass']?>">
 	<input type=hidden name=mode value="rank_cfg">
 	<li><font size="+1">б┌ <b>┐═╡дещеєенеєе░д╬└▀─ъ</b> б█</font><input type=submit value="GO"><br>
 бб[╗╚═╤▓─╟╜е│е▐еєе╔]<br>
@@ -135,9 +135,9 @@ print "<font color=red>вид▐д║бвб╓02. ┤─╢н└▀─ъб╫дЄ┴кдєд╟е╤е╣еяб╝е╔д╬└▀─ъдЄ╣╘д├д╞д
 <li>евепе╗е╣ещеєенеєе░(IN)д╦┤╪д╣ды│╞╝я└▀─ъ
 </ul><br>
 </form>
-<form action="<?=$EST['admin']?>" method=post>
+<form action="<?php echo $EST['admin']?>" method=post>
 	<?php echo YOMI_TICKET_TAG; ?>
-	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=pass value="<?php echo $_POST['pass']?>">
 	<input type=hidden name=mode value="key_cfg">
 	<li><font size="+1">б┌ <b>енб╝еяб╝е╔ещеєенеєе░д╬└▀─ъ</b> б█</font><input type=submit value="GO"><br>
 ббенб╝еяб╝е╔ещеєенеєе░д╧╕б║ўд╡дьд┐╕└═╒д╬джд┴┤╔═¤┐═дм└▀─ъд╖д┐е╟б╝е┐д╬д▀дЄещеєенеєе░д╦╚┐▒╟д╡д╗дыд│д╚дмд╟днд▐д╣бг
@@ -148,9 +148,9 @@ print "<font color=red>вид▐д║бвб╓02. ┤─╢н└▀─ъб╫дЄ┴кдєд╟е╤е╣еяб╝е╔д╬└▀─ъдЄ╣╘д├д╞д
 <li>╔╜╝ид╣дыенб╝еяб╝е╔дЄ└▀─ъ/▓Є╜№
 </ul><br>
 </form>
-<form action="<?=$EST['admin']?>" method=post>
+<form action="<?php echo $EST['admin']?>" method=post>
 	<?php echo YOMI_TICKET_TAG; ?>
-	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=pass value="<?php echo $_POST['pass']?>">
 	<input type=hidden name=mode value="log_conv">
 	<li><font size="+1">б┌ <b>│╞╝яеэе░╩╤┤╣</b> б█</font><input type=submit value="GO"><br>
 ббYomi-Search(Perl)д╬еэе░дЄе╟б╝е┐е┘б╝е╣д╦─╔▓├д╖д▐д╣бг<br>
@@ -160,18 +160,18 @@ print "<font color=red>вид▐д║бвб╓02. ┤─╢н└▀─ъб╫дЄ┴кдєд╟е╤е╣еяб╝е╔д╬└▀─ъдЄ╣╘д├д╞д
 <li>еле╞е┤еъбже╜б╝е╚╩╤┤╣(│╞еле╞е┤еъдЄеведежеиек╜чд╦╩┬д╙┬╪диды) 
 </ul><br>
 </form>
-<form action="<?=$EST['admin']?>" method=post>
+<form action="<?php echo $EST['admin']?>" method=post>
 	<?php echo YOMI_TICKET_TAG; ?>
-	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=pass value="<?php echo $_POST['pass']?>">
 	<input type=hidden name=mode value="dl_check">
 	<li><font size="+1">б┌ <b>е╟е├е╔еъеєепе┴езе├еп</b> б█</font><input type=submit value="GO"><br>
 бб┼╨╧┐е╟б╝е┐д╬е╟е├е╔еъеєеп(еъеєеп└┌дь)е┴езе├епдЄ╣╘ддд▐д╣бг<br>
 ббви╦м╠ф╝╘длдщд╬┼╨╧┐е╟б╝е┐д╦┤╪д╣ды─╠├╬дтд│д│д╟╕лдыд│д╚дмд╟днд▐д╣бг
 <br><br>
 </form>
-<form action="<?=$EST['admin']?>" method=post>
+<form action="<?php echo $EST['admin']?>" method=post>
 	<?php echo YOMI_TICKET_TAG; ?>
-	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=pass value="<?php echo $_POST['pass']?>">
 	<input type=hidden name=mode value="ver_info">
 	<li><font size="+1">б┌ <b>е╨б╝е╕ечеє╛Ё╩є</b> б█</font><input type=submit value="GO"><br>
 ббYomi-Searchд╬е╨б╝е╕ечеє/╕╟═нд╬─╔▓├╡б╟╜д╩д╔дЄ╔╜╝ид╖д▐д╣бг<br>

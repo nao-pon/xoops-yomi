@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="<?=$EST['html_path_url']?>style.css" type="text/css">
+<link rel="stylesheet" href="<?php echo $EST['html_path_url']?>style.css" type="text/css">
 
 <a name=top></a>
 <!-- メニューバー -->
@@ -11,21 +11,21 @@ menu_bar();
 <form action="regist_ys.php" method=post>
 	<?php echo YOMI_TICKET_TAG; ?>
 	<input type=hidden name="in_mode" value="form">
-	<input type=hidden name="Fname" value="<?=$_POST['Fname']?>">
-	<input type=hidden name="Femail" value="<?=$_POST['Femail']?>">
-	<input type=hidden name="Fpass" value="<?=$_POST['Fpass']?>">
-	<input type=hidden name="Fpass2" value="<?=$_POST['Fpass2']?>">
-	<input type=hidden name="Furl" value="<?=$_POST['Furl']?>">
-	<input type=hidden name="Fbana_url" value="<?=$_POST['Fbana_url']?>">
-	<input type=hidden name="Ftitle" value="<?=$_POST['Ftitle']?>">
-	<input type=hidden name="Fsyoukai" value="<?=$_POST['Fsyoukai']?>">
+	<input type=hidden name="Fname" value="<?php echo $_POST['Fname']?>">
+	<input type=hidden name="Femail" value="<?php echo $_POST['Femail']?>">
+	<input type=hidden name="Fpass" value="<?php echo $_POST['Fpass']?>">
+	<input type=hidden name="Fpass2" value="<?php echo $_POST['Fpass2']?>">
+	<input type=hidden name="Furl" value="<?php echo $_POST['Furl']?>">
+	<input type=hidden name="Fbana_url" value="<?php echo $_POST['Fbana_url']?>">
+	<input type=hidden name="Ftitle" value="<?php echo $_POST['Ftitle']?>">
+	<input type=hidden name="Fsyoukai" value="<?php echo $_POST['Fsyoukai']?>">
 <?php
 PR_preview_kt1();
 ?>
-	<input type=hidden name="Fkey" value="<?=$_POST['Fkey']?>">
-	<input type=hidden name="Fsougo" value="<?=$_POST['Fsougo']?>">
-	<input type=hidden name="Fadd_kt" value="<?=$_POST['Fadd_kt']?>">
-	<input type=hidden name="Fto_admin" value="<?=$_POST['Fto_admin']?>">
+	<input type=hidden name="Fkey" value="<?php echo $_POST['Fkey']?>">
+	<input type=hidden name="Fsougo" value="<?php echo $_POST['Fsougo']?>">
+	<input type=hidden name="Fadd_kt" value="<?php echo $_POST['Fadd_kt']?>">
+	<input type=hidden name="Fto_admin" value="<?php echo $_POST['Fto_admin']?>">
 	<input type=submit value="登録画面に戻る">
 <table width="100%"><tr><td id="title-bar">
 <b>新規ホームページ登録(プレビュー画面)</b>
@@ -36,55 +36,55 @@ PR_preview_kt1();
 	<form action="regist_ys.php" method=post>
 		<?php echo YOMI_TICKET_TAG; ?>
 		<input type=hidden name=mode value=act_regist>
-		<input type=hidden name=Smode_name value=<?=$_POST['Smode_name']?>>
-		<input type=hidden name=changer value="<?=$_POST['changer']?>">
-		<input type=hidden name=pass value="<?=$_POST['pass']?>">
-		<input type=hidden name=Fuid value="<?=$x_uid?>">
+		<input type=hidden name=Smode_name value=<?php echo $_POST['Smode_name']?>>
+		<input type=hidden name=changer value="<?php echo $_POST['changer']?>">
+		<input type=hidden name=pass value="<?php echo $_POST['pass']?>">
+		<input type=hidden name=Fuid value="<?php echo $x_uid?>">
 <ol>
 	▼項目名の横に<font color=red>☆</font>が付いている項目は記入必須項目です<br><br>
 <!--お名前-->
-	<li>【お名前】<font color=red><?=$EST_reg['Fname']?></font>
-		<input type=hidden name=Fname value="<?=$_POST['Fname']?>">
-		<ul><?=$_POST['Fname']?></ul><br>
+	<li>【お名前】<font color=red><?php echo $EST_reg['Fname']?></font>
+		<input type=hidden name=Fname value="<?php echo $_POST['Fname']?>">
+		<ul><?php echo $_POST['Fname']?></ul><br>
 <!--メールアドレス-->
-	<li>【メールアドレス】<font color=red><?=$EST_reg['Femail']?></font>
-		<input type=hidden name=Femail value="<?=$_POST['Femail']?>">
-		<ul><?=$_POST['Femail']?></ul><br>
+	<li>【メールアドレス】<font color=red><?php echo $EST_reg['Femail']?></font>
+		<input type=hidden name=Femail value="<?php echo $_POST['Femail']?>">
+		<ul><?php echo $_POST['Femail']?></ul><br>
 <?php
 if (!$x_uid) {
 ?>
 <!--パスワード-->
 	<li>【パスワード】<font color=red>☆</font>
-		<input type=hidden name=Fpass value="<?=$_POST['Fpass']?>">
-		<input type=hidden name=Fpass2 value="<?=$_POST['Fpass2']?>">
-		<ul><?=$_POST['Fpass']?></ul><br>
+		<input type=hidden name=Fpass value="<?php echo $_POST['Fpass']?>">
+		<input type=hidden name=Fpass2 value="<?php echo $_POST['Fpass2']?>">
+		<ul><?php echo $_POST['Fpass']?></ul><br>
 <?php
 }
 ?>
 <!--ホームページアドレス-->
-	<li>【ホームページアドレス】<font color=red><?=$EST_reg['Furl']?></font>
-		<input type=hidden name=Furl value="<?=$_POST['Furl']?>">
-		<ul><a href="<?=$_POST['Furl']?>"><?=$_POST['Furl']?></a>　[<a href="<?=$_POST['Furl']?>" target="_blank">確認</a>]
+	<li>【ホームページアドレス】<font color=red><?php echo $EST_reg['Furl']?></font>
+		<input type=hidden name=Furl value="<?php echo $_POST['Furl']?>">
+		<ul><a href="<?php echo $_POST['Furl']?>"><?php echo $_POST['Furl']?></a>　[<a href="<?php echo $_POST['Furl']?>" target="_blank">確認</a>]
 		</ul><br>
 <?php
 if($EST_reg[bana_url]){
 ?>
 <!--タイトルバナーのURL-->
-	<li>【タイトルバナーのURL】<font color=red><?=$EST_reg['Fbana_url']?></font>
-		<input type=hidden name=Fbana_url value="<?=$_POST['Fbana_url']?>">
-		<ul><a href="<?=$_POST['Fbana_url']?>"><?=$_POST['Fbana_url']?></a>　[<a href="<?=$_POST['Fbana_url']?>" target="_blank">確認</a>]
+	<li>【タイトルバナーのURL】<font color=red><?php echo $EST_reg['Fbana_url']?></font>
+		<input type=hidden name=Fbana_url value="<?php echo $_POST['Fbana_url']?>">
+		<ul><a href="<?php echo $_POST['Fbana_url']?>"><?php echo $_POST['Fbana_url']?></a>　[<a href="<?php echo $_POST['Fbana_url']?>" target="_blank">確認</a>]
 		</ul><br>
 <?php
 }
 ?>
 <!--ホームページのタイトル-->
-	<li>【ホームページのタイトル】<font color=red><?=$EST_reg['Ftitle']?></font>
-		<input type=hidden name=Ftitle value="<?=$_POST['Ftitle']?>">
-		<ul><?=$_POST[Ftitle]?></ul><br>
+	<li>【ホームページのタイトル】<font color=red><?php echo $EST_reg['Ftitle']?></font>
+		<input type=hidden name=Ftitle value="<?php echo $_POST['Ftitle']?>">
+		<ul><?php echo $_POST[Ftitle]?></ul><br>
 <!--ホームページの紹介文-->
-	<li>【ホームページの紹介文】<font color=red><?=$EST_reg['Fsyoukai']?></font>
+	<li>【ホームページの紹介文】<font color=red><?php echo $EST_reg['Fsyoukai']?></font>
 		<ul>
-		<textarea wrap="soft" name=Fsyoukai cols=50 rows=3><?=$_POST['Fsyoukai']?></textarea>
+		<textarea wrap="soft" name=Fsyoukai cols=50 rows=3><?php echo $_POST['Fsyoukai']?></textarea>
 		</ul><br>
 <!--登録するカテゴリ-->
 	<li>【登録するカテゴリ】<font color=red>☆</font>
@@ -94,16 +94,16 @@ PR_preview_kt2();
 ?>
 </ul><br>
 <!--キーワード-->
-	<li>【キーワード】<font color=red><?=$EST_reg['Fkey']?></font>
-		<input type=hidden name=Fkey value="<?=$_POST['Fkey']?>">
-		<ul><?=$_POST[Fkey]?></ul><br>
+	<li>【キーワード】<font color=red><?php echo $EST_reg['Fkey']?></font>
+		<input type=hidden name=Fkey value="<?php echo $_POST['Fkey']?>">
+		<ul><?php echo $_POST[Fkey]?></ul><br>
 <?php
 if($EST_reg[add_kt]){
 ?>
 <!--追加して欲しいカテゴリ-->
-	<li>【追加して欲しいカテゴリ】<font color=red><?=$EST_reg['Fadd_kt']?></font>
-		<input type=hidden name=Fadd_kt value="<?=$_POST['Fadd_kt']?>">
-		<ul><?=$_POST['Fadd_kt']?>
+	<li>【追加して欲しいカテゴリ】<font color=red><?php echo $EST_reg['Fadd_kt']?></font>
+		<input type=hidden name=Fadd_kt value="<?php echo $_POST['Fadd_kt']?>">
+		<ul><?php echo $_POST['Fadd_kt']?>
 		</ul><br>
 <?php
 }
@@ -112,9 +112,9 @@ $_POST['Fto_admin']=str_replace("&lt;br&gt;", "\n", $_POST['Fto_admin']);
 $_POST['Fto_admin']=str_replace("<br>", "\n", $_POST['Fto_admin']);
 ?>
 <!--管理人へのメッセージ-->
-	<li>【管理人へのメッセージ】<font color=red><?=$EST_reg['Fto_admin']?></font>
+	<li>【管理人へのメッセージ】<font color=red><?php echo $EST_reg['Fto_admin']?></font>
 		<ul>
-		<textarea wrap="soft" name=Fto_admin cols=50 rows=3><?=$_POST['Fto_admin']?></textarea>
+		<textarea wrap="soft" name=Fto_admin cols=50 rows=3><?php echo $_POST['Fto_admin']?></textarea>
 		</ul>
 <?php
 }
@@ -124,8 +124,8 @@ if($EST_reg['sougo'] && $_POST['in_mode'] != "mente"){
 ?>
 <!--相互リンク連絡項目-->
 	<br><li>【相互リンクの有無】
-	<input type=hidden name=Fsougo value="<?=$_POST['Fsougo']?>">
-		<ul><?=$PRsougo?></ul>
+	<input type=hidden name=Fsougo value="<?php echo $_POST['Fsougo']?>">
+		<ul><?php echo $PRsougo?></ul>
 <?php
 }
 ?>

@@ -10,10 +10,10 @@ EST_reg();
 #[6]=>URL[2]
 #[7]=>タイトル[1]
 ?>
-<link rel="stylesheet" href="<?=$EST['html_path_url']?>style.css" type="text/css">
+<link rel="stylesheet" href="<?php echo $EST['html_path_url']?>style.css" type="text/css">
 
 <a name=top></a>
-<form action="<?=$EST['admin']?>" method=post>
+<form action="<?php echo $EST['admin']?>" method=post>
 <?php echo YOMI_TICKET_TAG; ?>
 <!-- メニューバー -->
 <div align=right><font id=small>
@@ -22,11 +22,11 @@ menu_bar();
 ?>
 </font></div>
 <hr noshade color=#aaaaaa>
-<?=YOMI_HOME_URL?> &gt;
+<?php echo YOMI_HOME_URL?> &gt;
 <table width=100%><tr><td id="title-bar">
 <font color=#000000><b>登録者のメッセージを見る</b></font>
 </td></tr></table>
-	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=pass value="<?php echo $_POST['pass']?>">
 	<input type=hidden name=mode value="kanri">
 	<input type=submit value="管理室に戻る">
 <br>
@@ -44,16 +44,16 @@ while($tmp=fgets($fp, 4096)){
 	$look_mes=explode("<>",$tmp);
 	?>
 <hr width="80%" align=left>
-[登録日]：<?=$look_mes[1]?> / [お名前]：<?=$look_mes[5]?> / [Email]:<a href="mailto:<?=$look_mes[4]?>"><?=$look_mes[4]?></a><br>
-[タイトル]：<?=$look_mes[7]?> / [URL]：<a href="<?=$look_mes[6]?>" target="_blank"><?=$look_mes[6]?></a><br>
-[<a href="<?=$EST['cgi_path_url']?>regist_ys.php?mode=enter&id=<?=$look_mes[0]?>" target="_blank">修正・削除</a>]<br>
+[登録日]：<?php echo $look_mes[1]?> / [お名前]：<?php echo $look_mes[5]?> / [Email]:<a href="mailto:<?php echo $look_mes[4]?>"><?php echo $look_mes[4]?></a><br>
+[タイトル]：<?php echo $look_mes[7]?> / [URL]：<a href="<?php echo $look_mes[6]?>" target="_blank"><?php echo $look_mes[6]?></a><br>
+[<a href="<?php echo $EST['cgi_path_url']?>regist_ys.php?mode=enter&id=<?php echo $look_mes[0]?>" target="_blank">修正・削除</a>]<br>
 <?php
-	if($look_mes[2]){echo "[新設希望カテゴリ]：<?=$look_mes[2]?><br>";}
+	if($look_mes[2]){echo "[新設希望カテゴリ]：<?php echo $look_mes[2]?><br>";}
 	if($look_mes[3]){
 		$look_mes[3]=str_replace("<br>", "\n", $look_mes[3]);
 		p?>
 [管理人へのメッセージ]<br>
-<textarea cols=70 rows=4><?=$look_mes[3]?></textarea>
+<textarea cols=70 rows=4><?php echo $look_mes[3]?></textarea>
 <?php
 	}
 }

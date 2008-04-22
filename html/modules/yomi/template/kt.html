@@ -191,7 +191,7 @@ else{$guide = $KTEX[$Spre_kt_file];}
 unset($KTEX);
 ?>
 
-<link rel="stylesheet" href="<?=$EST['html_path_url']?>style.css" type="text/css">
+<link rel="stylesheet" href="<?php echo $EST['html_path_url']?>style.css" type="text/css">
 <script type="text/javascript">
 <!--
 function ch_type(sel){
@@ -224,11 +224,11 @@ if (!$_no_ad_space){head_sp();}
 </div>
 
 <!-- ナビゲーションバー -->
-<?=YOMI_HOME_URL?> &gt; <?=$navi?> 
+<?php echo YOMI_HOME_URL?> &gt; <?php echo $navi?> 
 <table width=100%><tr><td id="title-bar">
-<b><?=$Stitle?></b>
+<b><?php echo $Stitle?></b>
 </td></tr></table>
-<?=$guide?>
+<?php echo $guide?>
 <?php
 gane_st(); #カテゴリ属性をロード
 ##下層カテゴリ
@@ -257,11 +257,11 @@ if(isset($Clog[$Ssearch_kt])){
 	}
 	if($_GET['mode'] == "kt"){
 		?>
-<div><form action="<?=$EST['script']?>" method="get">
+<div><form action="<?php echo $EST['script']?>" method="get">
 	<?php echo YOMI_TICKET_TAG; ?>
 	<input type=hidden name=page value="1">
-	<input type=hidden name=mode value="<?=$_GET['mode']?>">
-	<input type=hidden name=kt value="<?=$_GET['kt']?>">
+	<input type=hidden name=mode value="<?php echo $_GET['mode']?>">
+	<input type=hidden name=kt value="<?php echo $_GET['kt']?>">
 [現在の表示：<b>
 <?php
 		if ($g_prm_child) echo "<input type=hidden name=child_show value=\"".$EST['kt_child_show']."\">";
@@ -325,7 +325,7 @@ if(isset($Clog[$Ssearch_kt])){
 	##一括削除用のフォーム出力(上)
 	if($CK_data[3] || $is_admin == 1){
 		?>
-	<form action="<?=$EST['cgi_path_url']?>regist_ys.php" method=post>
+	<form action="<?php echo $EST['cgi_path_url']?>regist_ys.php" method=post>
 		<?php echo YOMI_TICKET_TAG; ?>
 		<input type=hidden name=mode value="act_del">
 		<input type=hidden name=del_mode value="multi">
@@ -334,16 +334,16 @@ if(isset($Clog[$Ssearch_kt])){
 	}
 	?>
 <!-- マークコメント/登録数表示/目次表示(上) -->
-<img src="<?=$EST['img_path_url']?>m1.gif" align=bottom>
-は<?=$EST['name_m1']?>、 <img src="<?=$EST['img_path_url']?>m2.gif" align=bottom>
-は<?=$EST['name_m2']?>です。 <font id=kanri><b>この色</b></font>の文は管理人のコメントです。<br>
+<img src="<?php echo $EST['img_path_url']?>m1.gif" align=bottom>
+は<?php echo $EST['name_m1']?>、 <img src="<?php echo $EST['img_path_url']?>m2.gif" align=bottom>
+は<?php echo $EST['name_m2']?>です。 <font id=kanri><b>この色</b></font>の文は管理人のコメントです。<br>
 ※リンク先が無くなっている等の問題がある場合にはタイトル横の [<b>管理者に通知</b>] リンクを押してください
 <br><br>
 <?php
 	$arg=array($_GET['page'],$Clog[$Ssearch_kt],$EST['hyouji'],"$g_prm_child&mode=".$_GET['mode']."&kt=".$_GET['kt']."&sort=".$_GET['sort'],$EST['script']);
 	$PRmokuji=mokuji($arg);
 	?>
-<?=$PRmokuji?>
+<?php echo $PRmokuji?>
 <ul>
 <?php
 	EST_reg();
@@ -360,26 +360,26 @@ if(isset($Clog[$Ssearch_kt])){
 <div style="text-align:center;">
 <table id=log>
 <tr id=log-1>
-	<td class="yomi"><a href="<?=$jump_url?>" target="_blank" style="text-decoration:none" title="新しいウィンドウで開く">■</a> <a href="<?=$jump_url?>" title="このウィンドウで開く&#13;&#10;左の■は別ウィンドウ"><font size="+1"><b><?=$Slog[1]?></b></font></a>
+	<td class="yomi"><a href="<?php echo $jump_url?>" target="_blank" style="text-decoration:none" title="新しいウィンドウで開く">■</a> <a href="<?php echo $jump_url?>" title="このウィンドウで開く&#13;&#10;左の■は別ウィンドウ"><font size="+1"><b><?php echo $Slog[1]?></b></font></a>
 <?php
 		put_icon(); #<!-- ←アイコンを付加 -->
 		?>
- <br><div align="right"><font size="-1">更新日：<?=date("Y/m/d (D) h:i",$Slog[11])?></font></div>
+ <br><div align="right"><font size="-1">更新日：<?php echo date("Y/m/d (D) h:i",$Slog[11])?></font></div>
 <?php
 		if($CK_data[3] || $is_admin == 1){
 			?>
-[<input type=checkbox name="del[]" value="<?=$Slog[0]?>"> 削除チェック] 
-アクセス数：<?=$Slog['count']?><br>
+[<input type=checkbox name="del[]" value="<?php echo $Slog[0]?>"> 削除チェック] 
+アクセス数：<?php echo $Slog['count']?><br>
 <?php
 		}
 		if($Slog[12]){
 			?>
-<a href="<?=$jump_url?>" target="_blank">
-<img src="<?=$Slog[12]?>" alt="<?=$Slog[1]?>" width=<?=$EST_reg['Mbana_w']?> height=<?=$EST_reg['Mbana_h']?>></a>
+<a href="<?php echo $jump_url?>" target="_blank">
+<img src="<?php echo $Slog[12]?>" alt="<?php echo $Slog[1]?>" width=<?php echo $EST_reg['Mbana_w']?> height=<?php echo $EST_reg['Mbana_h']?>></a>
 <?php
 		}
 		?>
-		&nbsp;<a href="<?=$jump_url?>" target="_blank"><?=$Slog[2]?></a>
+		&nbsp;<a href="<?php echo $jump_url?>" target="_blank"><?php echo $Slog[2]?></a>
 </td>
 </tr>
 <?php
@@ -404,22 +404,22 @@ if(isset($Clog[$Ssearch_kt])){
 		}
 		?>
 <tr id=log-3>
-	<td class="yomi"><?=nl2br($Slog[6])?></td>
+	<td class="yomi"><?php echo nl2br($Slog[6])?></td>
 </tr>
 <?php
 		if($Slog[7]){
 			?>
 <tr id=log-4>
-	<td class="yomi"><font id=kanri><?=nl2br($Slog[7])?></font></td>
+	<td class="yomi"><font id=kanri><?php echo nl2br($Slog[7])?></font></td>
 </tr>
 <?php
 		}
 		?>
 <tr id=log-5>
-	<td style="text-align:center;"><font size="-1">評価: <?=round($Slog[18],2)?> (投票数 <?=$Slog[19]?> )</font></td>
+	<td style="text-align:center;"><font size="-1">評価: <?php echo round($Slog[18],2)?> (投票数 <?php echo $Slog[19]?> )</font></td>
 </tr>
 <tr id=log-6>
-	<td style="text-align:center;"><font size="-1">[<a href="<?=$EST[cgi_path_url]?>ratelink.php?lid=<?=$Slog[0]?>">このサイトを評価する</a>] [<a href="<?=$EST[cgi_path_url]?>regist_ys.php?mode=enter&id=<?=$Slog[0]?>" target="">修正・削除</a>] [<a href="<?=$EST['cgi_path_url']?>regist_ys.php?mode=no_link&id=<?=$Slog[0]?>&pre=on&title=<?=rawurlencode($Slog[1])?>">管理者に通知</a>] [<a target="_top" href="mailto:?subject=<?=rawurlencode(mb_convert_encoding(sprintf(_MD_INTRESTLINK,$xoopsConfig['sitename']),"SJIS","AUTO"))?>&body=<?=rawurlencode(mb_convert_encoding(sprintf(_MD_INTLINKFOUND,$xoopsConfig['sitename'])."\r\n[".$Slog[1]."]\r\n".$EST[cgi_path_url]."single_link.php?item_id=".$Slog[0],"SJIS","AUTO"))?>"><?=_MD_TELLAFRIEND?></a>] [<a href="<?=$EST[cgi_path_url]?>single_link.php?item_id=<?=$Slog[0]?>">コメント(<?=$Slog[20]?>)</a>]</font></td>
+	<td style="text-align:center;"><font size="-1">[<a href="<?php echo $EST[cgi_path_url]?>ratelink.php?lid=<?php echo $Slog[0]?>">このサイトを評価する</a>] [<a href="<?php echo $EST[cgi_path_url]?>regist_ys.php?mode=enter&id=<?php echo $Slog[0]?>" target="">修正・削除</a>] [<a href="<?php echo $EST['cgi_path_url']?>regist_ys.php?mode=no_link&id=<?php echo $Slog[0]?>&pre=on&title=<?php echo rawurlencode($Slog[1])?>">管理者に通知</a>] [<a target="_top" href="mailto:?subject=<?php echo rawurlencode(mb_convert_encoding(sprintf(_MD_INTRESTLINK,$xoopsConfig['sitename']),"SJIS","AUTO"))?>&body=<?php echo rawurlencode(mb_convert_encoding(sprintf(_MD_INTLINKFOUND,$xoopsConfig['sitename'])."\r\n[".$Slog[1]."]\r\n".$EST[cgi_path_url]."single_link.php?item_id=".$Slog[0],"SJIS","AUTO"))?>"><?php echo _MD_TELLAFRIEND?></a>] [<a href="<?php echo $EST[cgi_path_url]?>single_link.php?item_id=<?php echo $Slog[0]?>">コメント(<?php echo $Slog[20]?>)</a>]</font></td>
 </tr>
 </table>
 </div>
@@ -430,7 +430,7 @@ if(isset($Clog[$Ssearch_kt])){
 	?>
 </ul>
 <!-- 目次表示(下) -->
-<?=$PRmokuji?>
+<?php echo $PRmokuji?>
 <!--/データがある場合-->
 <?php
 	##一括削除用のフォーム出力(下)

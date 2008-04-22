@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="<?=$EST['html_path_url']?>style.css" type="text/css">
+<link rel="stylesheet" href="<?php echo $EST['html_path_url']?>style.css" type="text/css">
 <a name=top></a>
 <!-- メニューバー -->
 <div align=right><font id=small>
@@ -17,9 +17,9 @@ head_sp();
 </div>
 </div>
 
-<?=YOMI_HOME_URL?> &gt; <a href="<?=$EST['cgi_path'].$EST['search']?>">詳細検索</a> &gt;
+<?php echo YOMI_HOME_URL?> &gt; <a href="<?php echo $EST['cgi_path'].$EST['search']?>">詳細検索</a> &gt;
 <table width=100%><tr><td id="title-bar">
-<b>外部検索エンジンへのリンク画面(検索ワード：<?=$_GET['word']?> / 検索条件：<?=$_GET['method']?>)</b>
+<b>外部検索エンジンへのリンク画面(検索ワード：<?php echo $_GET['word']?> / 検索条件：<?php echo $_GET['method']?>)</b>
 </td></tr></table>
 <br>
 <ul>▼リンクをクリックすると各検索エンジンの検索結果のページにジャンプします</ul>

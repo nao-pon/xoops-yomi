@@ -2,10 +2,10 @@
 gane_st();
 require "pl/other_cfg.php";
 ?>
-<link rel="stylesheet" href="<?=$EST['html_path_url']?>style.css" type="text/css">
+<link rel="stylesheet" href="<?php echo $EST['html_path_url']?>style.css" type="text/css">
 
 <a name=top></a>
-<form action="<?=$EST['admin']?>" method=post>
+<form action="<?php echo $EST['admin']?>" method=post>
 <?php echo YOMI_TICKET_TAG; ?>
 <!-- メニューバー -->
 <div align=right><font id=small>
@@ -14,11 +14,11 @@ menu_bar();
 ?>
 </font></div>
 <hr noshade color=#aaaaaa>
-<?=YOMI_HOME_URL?> &gt;
+<?php echo YOMI_HOME_URL?> &gt;
 <table width=100%><tr><td id="title-bar">
 <font color=#000000><b>カテゴリ設定</b></font>
 </td></tr></table>
-	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=pass value="<?php echo $_POST['pass']?>">
 	<input type=hidden name=mode value="kanri">
 	<input type=submit value="管理室に戻る">
 <br>
@@ -27,12 +27,12 @@ menu_bar();
 [<a href="#kt_new">カテゴリの新規作成</a>] 
 [<a href="#kt_ex">カテゴリの説明文設定</a>] 
 <hr noshade color=#aaaaaa>
-<form action="<?=$EST['admin']?>" method=post>
+<form action="<?php echo $EST['admin']?>" method=post>
 <?php echo YOMI_TICKET_TAG; ?>
 [<a href="#top">トップに戻る</a>]
 <ul>
 <font size="+1"><a name="kt">【 <b>カテゴリの修正・削除</b> 】</a></font><br>
-	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=pass value="<?php echo $_POST['pass']?>">
 	<input type=hidden name=mode value="cfg_make_kt">
 	<input type=hidden name=mente_mode value="mente">
 	※「読み」にはそのカテゴリ名の読み仮名をひらがな・数字(半角)・英字(半角)を使って設定してください<br>
@@ -51,10 +51,10 @@ foreach($ganes as $tmp=>$val){
 	echo "<tr valign=bottom><td>";
 	if(!strstr($tmp,"_")){echo "<br>[削除] <input type=submit value=\"設定実行\"><br>";}
 	?>
-　<input type=checkbox name=d_<?=$tmp?> value=on> <a href="<?=$Ekt.$tmp.$Eend?>" target="_blank"><?=$tmp?></a> <input type=text name=kt_<?=$tmp?> value="<?=$val?>">
+　<input type=checkbox name=d_<?php echo $tmp?> value=on> <a href="<?php echo $Ekt.$tmp.$Eend?>" target="_blank"><?php echo $tmp?></a> <input type=text name=kt_<?php echo $tmp?> value="<?php echo $val?>">
 </td><td>
-[トップ<input type=checkbox name=t_<?=$tmp?> value=1<?=$c_t?>>] [その他<input type=checkbox name=o_<?=$tmp?> value=1<?=$c_other?>>] [登録不可<input type=checkbox name=no_<?=$tmp?> value=1<?=$c_no?>>] [参照<input type=text name=ref_<?=$tmp?> value="<?=$gane_ref[$tmp]?>" size=10>]
- [読み<input type=text name=furi_<?=$tmp?> value="<?=$EST_furi[$tmp]?>" size=10>]
+[トップ<input type=checkbox name=t_<?php echo $tmp?> value=1<?php echo $c_t?>>] [その他<input type=checkbox name=o_<?php echo $tmp?> value=1<?php echo $c_other?>>] [登録不可<input type=checkbox name=no_<?php echo $tmp?> value=1<?php echo $c_no?>>] [参照<input type=text name=ref_<?php echo $tmp?> value="<?php echo $gane_ref[$tmp]?>" size=10>]
+ [読み<input type=text name=furi_<?php echo $tmp?> value="<?php echo $EST_furi[$tmp]?>" size=10>]
 </td></tr>
 <?php
 }
@@ -64,12 +64,12 @@ foreach($ganes as $tmp=>$val){
 </form>
 </ul>
 <hr noshade color=#aaaaaa>
-<form action="<?=$EST['admin']?>" method=post>
+<form action="<?php echo $EST['admin']?>" method=post>
 <?php echo YOMI_TICKET_TAG; ?>
 [<a href="#top">トップに戻る</a>]
 <ul>
 <font size="+1"><a name="kt_new">【 <b>カテゴリの新規作成</b> 】</a></font>
-	<input type=hidden name=pass value="<?=$_POST[pass]?>">
+	<input type=hidden name=pass value="<?php echo $_POST[pass]?>">
 	<input type=hidden name=mode value="cfg_make_kt">
 	<input type=hidden name=mente_mode value="new">
 <br>
@@ -84,12 +84,12 @@ foreach($ganes as $tmp=>$val){
 </form>
 </ul>
 <hr noshade color=#aaaaaa>
-<form action="<?=$EST['admin']?>" method=post>
+<form action="<?php echo $EST['admin']?>" method=post>
 <?php echo YOMI_TICKET_TAG; ?>
 [<a href="#top">トップに戻る</a>]
 <ol>
 <font size="+1"><a name="kt_ex">【 <b>カテゴリの説明文設定</b> 】</a></font><br><br>
-	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=pass value="<?php echo $_POST['pass']?>">
 	<input type=hidden name=mode value="cfg_make_kt_ex">
 <table border=0>
 <?php
@@ -110,9 +110,9 @@ foreach($KTEX as $key=>$val){
 	echo "<tr valign=bottom><td>";
 	if(!strstr($key,"_") || strstr($key,"ys")){echo "<br>[削除]<br>";}
 	?>
-　<input type=checkbox name=d_<?=$key?> value="1"> <?=$ganes[$key]?>
+　<input type=checkbox name=d_<?php echo $key?> value="1"> <?php echo $ganes[$key]?>
 </td><td>
-<?=$key?> <input type=text name=ex_<?=$key?> value="<?=$val?>" size=60>
+<?php echo $key?> <input type=text name=ex_<?php echo $key?> value="<?php echo $val?>" size=60>
 </td>
 </tr>
 <?php

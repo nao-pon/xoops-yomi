@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="<?=$EST['html_path_url']?>style.css" type="text/css">
+<link rel="stylesheet" href="<?php echo $EST['html_path_url']?>style.css" type="text/css">
 
 <a name=top></a>
 <!-- メニューバー -->
@@ -10,7 +10,7 @@ menu_bar();
 <hr>
 <br><center>
 <table style="width:80%; border:0;"><tr><td class="yomi">
-<?=YOMI_HOME_URL?>　&gt;
+<?php echo YOMI_HOME_URL?>　&gt;
 <table border=3 width="100%" cellpadding=20>
 <tr><td>
 <br>
@@ -38,15 +38,15 @@ if(count($CK_data)>=0){$Ccookie_0=""; $Ccookie_1=" checked";}
 else{$Ccookie_0=" checked"; $Ccookie_1="";}
 ?>
 <br>
-ID:<input type=text name=id value="<?=$_POST['id']?>" size=12><br>
-PASS:<input type=password name=pass value="<?=$pre_pass?>" size=12><br>
-<font size="-1">パスワードを記録する</font><input type=radio name=cookie value="on"<?=$Ccookie_1?>><br>
-<font size="-1">パスワードを記録しない</font><input type=radio name=cookie value="off"<?=$Ccookie_0?>><br>
+ID:<input type=text name=id value="<?php echo $_POST['id']?>" size=12><br>
+PASS:<input type=password name=pass value="<?php echo $pre_pass?>" size=12><br>
+<font size="-1">パスワードを記録する</font><input type=radio name=cookie value="on"<?php echo $Ccookie_1?>><br>
+<font size="-1">パスワードを記録しない</font><input type=radio name=cookie value="off"<?php echo $Ccookie_0?>><br>
 <input type=submit value="修正画面">
 </form>
 </td>
 <td class="yomi" style="vertical-align:top;width:60%">
-<?=$PR_data?>
+<?php echo $PR_data?>
 </td>
 </tr>
 </table>
@@ -61,8 +61,8 @@ PASS:<input type=password name=pass value="<?=$pre_pass?>" size=12><br>
 削除する人：登録者
 <input type=hidden name=changer value="">
 <br>
-ID:<input type=text name=id value="<?=$_POST['id']?>" size=12><br>
-PASS:<input type=password name=pass value="<?=$pre_pass?>" size=12><br>
+ID:<input type=text name=id value="<?php echo $_POST['id']?>" size=12><br>
+PASS:<input type=password name=pass value="<?php echo $pre_pass?>" size=12><br>
 削除確認チェック→<input type=checkbox name=del_check value=on><br>
 <input type=submit value="削除">
 </form>
@@ -80,7 +80,7 @@ if($EST['re_pass_fl']){
 	<input type=hidden name=repass_mode value="repass">
 <div align=left>３．パスワードの再発行</div>
 <br>
-ID:<input type=text name=id value="<?=$_POST['id']?>" size=12><br>
+ID:<input type=text name=id value="<?php echo $_POST['id']?>" size=12><br>
 E-Mail:<input type=text name=email value="" size=20><br>
 再発行確認チェック→<input type=checkbox name=repass_check value=on><br>
 <input type=submit value="再発行">

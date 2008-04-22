@@ -1,5 +1,5 @@
-
-<link rel="stylesheet" href="<?=$EST['html_path_url']?>style.css" type="text/css">
+<?php?>
+<link rel="stylesheet" href="<?php echo $EST['html_path_url']?>style.css" type="text/css">
 <script type="text/javascript">
 <!--
 function ch_type(sel){
@@ -15,7 +15,7 @@ else{form.target="";}
 <a name=top></a>
 <center>
 	<font color=#7D80D7 face="Impact" size=7>
-	<b><?=$EST['search_name']?></b>
+	<b><?php echo $EST['search_name']?></b>
 	</font>
 </center>
 <hr>
@@ -23,17 +23,17 @@ else{form.target="";}
 if($EST['count']){ ##アクセスカウンタの表示設定
 	require 'pl/count/count_ys.php';
 	index_count();
-	?><center><?=$PRcount?></center>
+	?><center><?php echo $PRcount?></center>
 <?php
 }
 ?><center>
 <table><tr><td align=center>
-<form action="<?=$EST['search']?>" method=get target="" name="form1">
-▼ホームページ検索 [<a href="<?=$EST['search']?>">More</a>]
-[<a href="<?=$EST['search']?>?window=_blank">New Window</a>]<br>
+<form action="<?php echo $EST['search']?>" method=get target="" name="form1">
+▼ホームページ検索 [<a href="<?php echo $EST['search']?>">More</a>]
+[<a href="<?php echo $EST['search']?>?window=_blank">New Window</a>]<br>
 	<input type=hidden name=mode value=search>
 	<input type=hidden name=page value=1>
-	<input type=hidden name=sort value=<?=$EST['defo_hyouji']?>>
+	<input type=hidden name=sort value=<?php echo $EST['defo_hyouji']?>>
 	<input type=text name=word size=20>
 	<select name=engine>
 <?php
@@ -116,12 +116,12 @@ while (list($Gnos, $value) = each($ganes)) {
 			echo "\n</td>";
 		}
 		echo "\n\n";
-		?><td width="50%" class="yomi"><a href="<?=yomi_makelink($Gnos).$Eend?>"><b><font size="+1"><?=$value?></font></b></a><br>
+		?><td width="50%" class="yomi"><a href="<?php echo yomi_makelink($Gnos).$Eend?>"><b><font size="+1"><?php echo $value?></font></b></a><br>
 <?php
 		$bf_kt_no=$Gnos;
 	}
 	else { ####サブカテゴリの場合
-		if(isset($gane_top[$Gnos])){
+		if(!empty($gane_top[$Gnos])){
 			$cld_fl=1;
 			//list($Gname) = explode(":",$Gname);
 			echo "\n<font id=small><a href=\"".yomi_makelink($Gnos)."$Eend\">$value</a></font>, ";
@@ -139,26 +139,26 @@ if($cld_fl){echo "<a href=\"".yomi_makelink($bf_kt_no)."$Eend\">...</a>";}
 	<td class="yomi" style="padding:10px;" nowrap>
 <center><font size="+1"><b>【 メニュー 】</b></font><br></center>
 <ol class="yomi">
-<li class="yomi-dec"><a href="<?=yomi_makelink('new')?>"><?=$EST['name_new']?></a><br><br>
-<li class="yomi-dec"><a href="<?=yomi_makelink('renew')?>"><?=$EST['name_renew']?></a><br><br>
+<li class="yomi-dec"><a href="<?php echo yomi_makelink('new')?>"><?php echo $EST['name_new']?></a><br><br>
+<li class="yomi-dec"><a href="<?php echo yomi_makelink('renew')?>"><?php echo $EST['name_renew']?></a><br><br>
 <?php
 #<!--
 if($EST['rank_fl']){echo '<li class="yomi-dec"><a href="'.$EST['rank'].'">'.$EST['name_rank'].'</a><br><br>';}
 if($EST['rev_fl']){echo '<li class="yomi-dec"><a href="'.$EST['rank'].'?mode=rev">'.$EST['name_rev'].'</a><br><br>';}
 if($EST['keyrank']){echo '<li class="yomi-dec"><a href="'.$EST['rank'].'?mode=keyrank">キーワードランキング</a><br><br>';}
 #-->
-?><li class="yomi-dec"><a href="<?=yomi_makelink('m1')?>"><?=$EST['name_m1']?></a><br><br>
-<li class="yomi-dec"><a href="<?=yomi_makelink('m2')?>"><?=$EST['name_m2']?></a><br><br>
-<li class="yomi-dec"><a href="<?=$EST['script']?>?mode=random">ランダムジャンプ</a>
+?><li class="yomi-dec"><a href="<?php echo yomi_makelink('m1')?>"><?php echo $EST['name_m1']?></a><br><br>
+<li class="yomi-dec"><a href="<?php echo yomi_makelink('m2')?>"><?php echo $EST['name_m2']?></a><br><br>
+<li class="yomi-dec"><a href="<?php echo $EST['script']?>?mode=random">ランダムジャンプ</a>
 </ol>
 <hr>
 <ul class="yomi">
-<li><a href="<?=$EST['cgi_path_url']?>sitemap.php">カテゴリマップ</a><br><br>
-<li><a href="<?=$EST['cgi_path_url']?>regist_ys.php?mode=help">ヘルプ</a><br><br>
-<li><a href="<?=$EST['cgi_path_url']?>regist_ys.php?mode=new">新規登録</a><br><br>
-<li><a href="<?=$EST['cgi_path_url']?>regist_ys.php?mode=enter">更新・削除</a><br><br>
+<li><a href="<?php echo $EST['cgi_path_url']?>sitemap.php">カテゴリマップ</a><br><br>
+<li><a href="<?php echo $EST['cgi_path_url']?>regist_ys.php?mode=help">ヘルプ</a><br><br>
+<li><a href="<?php echo $EST['cgi_path_url']?>regist_ys.php?mode=new">新規登録</a><br><br>
+<li><a href="<?php echo $EST['cgi_path_url']?>regist_ys.php?mode=enter">更新・削除</a><br><br>
 </ul>
-<center>(全登録数：<?=$Cpre_gane?>サイト)</center>
+<center>(全登録数：<?php echo $Cpre_gane?>サイト)</center>
 	</td>
 	</tr>
 </table>
@@ -175,7 +175,7 @@ foot_sp();
 if ($is_admin == 1){
 ?>
 <div style="text-align:center;">
-<form action="<?=$EST['admin']?>" method=post>
+<form action="<?php echo $EST['admin']?>" method=post>
 	<input type=hidden name=mode value="kanri">
 	<!--<input type=password name=pass size=10>-->
 	<?php echo YOMI_TICKET_TAG; ?>

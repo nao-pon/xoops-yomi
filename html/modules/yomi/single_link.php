@@ -88,7 +88,7 @@ function PR_meta_page($location_list){
 		if($T_flag==5){echo "</tr>"; $T_flag=1;}
 		if($T_flag==1){echo "<tr>";}
 		?>
-<td class="yomi-s" style="text-align:center;"><a href="<?=$Durl?>" target="<?=$_POST['target']?>"><font size="+1"><?=$Dengine?></font></a></td>
+<td class="yomi-s" style="text-align:center;"><a href="<?php echo $Durl?>" target="<?php echo $_POST['target']?>"><font size="+1"><?php echo $Dengine?></font></a></td>
 <?php
 		$T_flag++;
 	}

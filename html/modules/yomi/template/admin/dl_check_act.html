@@ -1,7 +1,7 @@
-<link rel="stylesheet" href="<?=$EST['html_path_url']?>style.css" type="text/css">
+<link rel="stylesheet" href="<?php echo $EST['html_path_url']?>style.css" type="text/css">
 
 <a name=top></a>
-<form action="<?=$EST['admin']?>" method=post>
+<form action="<?php echo $EST['admin']?>" method=post>
 <?php echo YOMI_TICKET_TAG; ?>
 <!-- メニューバー -->
 <div align=right><font id=small>
@@ -10,11 +10,11 @@ menu_bar();
 ?>
 </font></div>
 <hr noshade color=#aaaaaa>
-<?=YOMI_HOME_URL?> &gt;
+<?php echo YOMI_HOME_URL?> &gt;
 <table width=100%><tr><td id="title-bar">
 <font color=#000000><b>デッドリンクチェック実行画面</b></font>
 </td></tr></table>
-	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=pass value="<?php echo $_POST['pass']?>">
 	<input type=hidden name=mode value="kanri">
 	<input type=submit value="管理室に戻る">
 <br>
@@ -24,18 +24,18 @@ menu_bar();
 $jyuni=1;$jyuni_z=1;
 ?>
 <a name="user"></a>
-<form action="<?=$EST['cgi_path_url']?>regist_ys.php" method=post>
+<form action="<?php echo $EST['cgi_path_url']?>regist_ys.php" method=post>
 <?php echo YOMI_TICKET_TAG; ?>
 <br>
 <ul>
-	<input type=hidden name=pass value="<?=$_POST['pass']?>">
+	<input type=hidden name=pass value="<?php echo $_POST['pass']?>">
 	<input type=hidden name=dl_check value="on">
 	<input type=hidden name=mode value="act_del">
 	<input type=hidden name=del_mode value="multi">
 	<input type=hidden name=changer value="admin">
-	<input type=hidden name=checkfile value="<?=$_POST['checkfile']?>">
+	<input type=hidden name=checkfile value="<?php echo $_POST['checkfile']?>">
 	<font size="+1">【デッドリンクチェック実行】</font><br>
-	(読み込んでいるファイル：<b><?=$_POST[checkfile]?></b>)<br>
+	(読み込んでいるファイル：<b><?php echo $_POST[checkfile]?></b>)<br>
 	▼WWWCでチェックした結果、リンク切れであると思われるサイトのデータのリストです<br>
 	※データを削除する場合には「<b>削除</b>」をチェックしてください<br>
 	※データが存在している場合で、このリストから消したい場合には「<b>存在</b>」をチェックしてください<br>
@@ -53,25 +53,25 @@ if($url) {
 		?>
 <tr>
 <td>
-<input type=radio name="id_<?=$id?>" value="on">x
+<input type=radio name="id_<?php echo $id?>" value="on">x
 </td>
 <td>
-<input type=radio name="id_<?=$id?>" value="off">o
+<input type=radio name="id_<?php echo $id?>" value="off">o
 </td>
 <td>
-<input type=radio name="id_<?=$id?>" value="" checked>-
+<input type=radio name="id_<?php echo $id?>" value="" checked>-
 </td>
 <td>
-<a href="<?=$val?>"><?=$val?></a>
+<a href="<?php echo $val?>"><?php echo $val?></a>
 </td>
 <td align=center>
-<a href="<?=$val?>" target="_blank">ジャンプ</a>
+<a href="<?php echo $val?>" target="_blank">ジャンプ</a>
 </td>
 <td align=center>
-<a href="regist_ys.php?pass=<?=$_POST['pass']?>&changer=admin&in_mode=mente&Smode_name=mente&id=<?=$id?>">編集</a>
+<a href="regist_ys.php?pass=<?php echo $_POST['pass']?>&changer=admin&in_mode=mente&Smode_name=mente&id=<?php echo $id?>">編集</a>
 </td>
 <td align=center>
-<a href="regist_ys.php?pass=<?=$_POST['pass']?>&changer=admin&in_mode=mente&Smode_name=mente&id=<?=$id?>" target="_blank">編集(別窓)</a>
+<a href="regist_ys.php?pass=<?php echo $_POST['pass']?>&changer=admin&in_mode=mente&Smode_name=mente&id=<?php echo $id?>" target="_blank">編集(別窓)</a>
 </td>
 </tr>
 <?php
