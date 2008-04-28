@@ -1,7 +1,7 @@
 <?php
 /*
  * Created on 2008/04/28 by nao-pon http://hypweb.net/
- * $Id: dbcheck.inc.php,v 1.1 2008/04/28 14:00:18 nao-pon Exp $
+ * $Id: dbcheck.inc.php,v 1.2 2008/04/28 14:26:02 nao-pon Exp $
  */
 
 function check_db_admin() {
@@ -34,6 +34,12 @@ function check_db_admin() {
 			$sql = 'UPDATE `' . $db->prefix('yomi_log') . '` SET `build_time` = ' . $stamp;
 			$db->queryF($sql);
 		} 
+	}
+	
+	// file check
+	$logdir = dirname(dirname(__FILE__)) . '/log/';
+	if (! file_exists($logdir . 'keyrank_ys.php')) {
+		@ copy($logdir . 'keyrank_ys.php.dev', $logdir . 'keyrank_ys.php');
 	}
 }
 ?>

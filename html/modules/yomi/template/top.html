@@ -51,7 +51,9 @@ search_form();
 	 <input type=submit value=" 検 索 "> <input type=reset value="リセット">
 <?php
 if($EST['keyrank']){ #おすすめ検索ワード
-	require $EST['log_path']."keyrank_ys.php";
+	$bad_key=array();
+	$open_key=array();
+	@ include $EST['log_path']."keyrank_ys.php";
 	$i = 1;
 	//$link = mysql_connect($EST['host'], $EST['sqlid'], $EST['sqlpass']) or die("Could not connect");
 	//mysql_select_db($EST['sqldb']) or die("Could not select database");
