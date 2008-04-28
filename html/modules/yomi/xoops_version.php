@@ -137,7 +137,7 @@ $modversion['blocks'][10]['options'] = "2|3|20|60|88|31|";
 $xoopsConfig['anonpost'] = 1;
 
 // On Update
-if( ! empty( $_POST['fct'] ) && ! empty( $_POST['op'] ) && $_POST['fct'] == 'modulesadmin' && $_POST['op'] == 'update_ok' && $_POST['dirname'] == $modversion['dirname'] ) {
-	include dirname( __FILE__ ) . "/include/onupdate.inc.php" ;
-}
+//if( ! empty( $_POST['fct'] ) && ! empty( $_POST['op'] ) && $_POST['fct'] == 'modulesadmin' && $_POST['op'] == 'update_ok' && $_POST['dirname'] == $modversion['dirname'] ) {
+//	include dirname( __FILE__ ) . "/include/onupdate.inc.php" ;
+//}
 ?>
