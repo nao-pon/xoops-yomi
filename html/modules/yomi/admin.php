@@ -46,6 +46,10 @@ define('YOMI_TICKET_TAG',$xoopsHypTicket->getTicketHtml( __LINE__ ));
 if(($_POST['mode'] == "dl_check_dl") || ($_POST['mode'] == "log_conv_act")){
 	
 } else{
+	// check db
+	include_once './include/dbcheck.inc.php';
+	check_db_admin();
+	
 	xoops_cp_header();
 	OpenTable();
 	$mymenu_fake_uri = XOOPS_URL."/modules/yomi/admin/admin.php?mode=kanri";
