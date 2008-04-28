@@ -1,0 +1,6 @@
+<?php
+$bad_key=array(
+);
+$open_key=array(
+);
+?>
