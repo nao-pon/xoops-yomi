@@ -8,14 +8,11 @@ function b_yomi_show ($options)
 	
 	include XOOPS_ROOT_PATH.'/modules/yomi/init.php';
 	
-	$script = $EST['cgi_path_url'] . $EST['script'];
-
 	$block = array();
 	
 	$table_cols = $options[0];
 	$table_per = round(100/$table_cols);
 	
-	$Ekt = $script."?mode=kt&kt=";
 	$yomi_reg_tag = XOOPS_URL."/modules/yomi/"."regist_ys.php?mode=new";
 	$yomi_new_tag = $script."?mode=new";
 	

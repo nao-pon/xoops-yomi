@@ -8,6 +8,7 @@ global $ganes, $gane_top, $EST;
 
 require_once dirname(__FILE__).'/pl/cfg.php';
 require_once dirname(__FILE__).'/pl/temp.php';
+include_once XOOPS_ROOT_PATH . '/modules/yomi/include/func.inc.php';
 
 #バージョン情報
 include dirname(__FILE__).'/version.php';
@@ -25,11 +26,22 @@ else
 #データ形式のフィールド数
 $Efld=16;  #0〜15まで
 
-#CGI/HTMLリンク先表示の設定
-if (empty($EST['shorturl']))
-	$Ekt = $EST['cgi_path_url'].$EST['script']."?mode=kt&kt=";
-else
-	$Ekt = XOOPS_URL."/".$EST['shorturl']."/";
 $Eend="";
 
+// Setup $EST 
+if (! defined('_MD_YOMI_INIT_LOADED')) {
+	define('_MD_YOMI_INIT_LOADED', TRUE);
+	$EST['script'] = $EST['cgi_path_url'] . $EST['script'];
+	$EST['search'] = $EST['cgi_path_url'] . $EST['search'];
+	$EST['rank'] = $EST['cgi_path_url'] . $EST['rank'];
+	$EST['admin'] = $EST['cgi_path_url'] . $EST['admin'];
+	$EST['html_path_url'] = $EST['cgi_path_url'] . $EST['html_path_url'];
+	$EST['img_path_url'] = $EST['cgi_path_url'] . $EST['img_path_url'];
+}
+
+#CGI/HTMLリンク先表示の設定
+if (empty($EST['shorturl']))
+	$Ekt = $EST['script'] . "?mode=kt&kt=";
+else
+	$Ekt = XOOPS_URL."/".$EST['shorturl']."/";
 ?>

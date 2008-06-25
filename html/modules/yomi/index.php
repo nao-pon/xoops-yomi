@@ -41,13 +41,6 @@ include("header.php");
 
 include('init.php');
 
-$EST['script'] = $EST['cgi_path_url'] . $EST['script'];
-$EST['search'] = $EST['cgi_path_url'] . $EST['search'];
-$EST['rank'] = $EST['cgi_path_url'] . $EST['rank'];
-$EST['admin'] = $EST['cgi_path_url'] . $EST['admin'];
-$EST['html_path_url'] = $EST['cgi_path_url'] . $EST['html_path_url'];
-$EST['img_path_url'] = $EST['cgi_path_url'] . $EST['img_path_url'];
-
 if (!isset($_GET['mode'])) $_GET['mode']="";
 #各モードへ分岐
 #-----------------#
