@@ -1,5 +1,5 @@
 <?php
-// $Id: data.inc.php,v 1.2 2007/09/30 01:08:38 nao-pon Exp $
+// $Id: data.inc.php,v 1.3 2008/06/25 23:38:19 nao-pon Exp $
 
 // 2005-10-10 K.OHWADA
 // category
@@ -47,7 +47,7 @@ function yomi_new($limit=0, $offset=0)
 		{
 			$cat_name = $ganes[$cat_id];
 		}
-
+		$ret[$i]['uid']      = $row['uid'];
 		$ret[$i]['link']     = $URL_MOD."/single_link.php?item_id=".$id;
 		$ret[$i]['cat_link'] = $URL_MOD."/index.php?mode=kt&kt=".$cat_id;
 		$ret[$i]['title']    = $row['title'];
