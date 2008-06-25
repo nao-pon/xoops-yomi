@@ -3,6 +3,9 @@ if( ! class_exists( 'HypCommonFunc' ) )
 {
 	include_once(XOOPS_ROOT_PATH."/modules/yomi/include/hyp_common/hyp_common_func.php");
 }
+
+include_once XOOPS_ROOT_PATH . '/modules/yomi/include/func.inc.php';
+
 function b_yomi_show_items($Slog,$title_m,$message_m,$w_m,$h_m)
 {
 	//ini_set('allow_url_fopen',1);
@@ -114,41 +117,12 @@ function b_yomi_show_cols($result,$cols,$title_m,$message_m,$w_m,$h_m)
 	return b_yomi_load_css().$ret;
 	//return $ret;
 }
+
 // URLから画像キャッシュURIを返す
-function b_yomi_get_img_cache($url,$id)
-{
-	// URLチェック
-	if (!preg_match("#^https?://.+\.(jpe?g|png|gif)$#i",$url)) return array("",FALSE);
-	
-	// 画像ディレクトリ パーミッション 666
-	$dir = XOOPS_ROOT_PATH."/modules/yomi/blocks/logos/";
-	$imgurl = XOOPS_URL."/modules/yomi/blocks/logos/";
-	// キャッシュ時間(h)
-	$cache_h = 24;
-	$ext = preg_replace("/^.*(\.[^.]+)/","$1",$url);
-	$filename = $dir.$id.$ext;
-	$imgurl = $imgurl.$id.$ext;
-	if (file_exists($filename) && filemtime($filename) + $cache_h*3600 > time())
-		return array($imgurl,getimagesize($filename));
-	
-	// 指定ファイルをキャッシュする
-	
-	$d = new Hyp_HTTP_Request();
-	$d->url = $url;
-	$d->connect_timeout = 3;
-	$d->read_timeout = 2;
-	$d->get();
-	
-	if ($d->rc !== 200 || !$d->data) return array($url,FALSE);
-	
-	if($fp = fopen($filename, "wb"))
-	{
-		fwrite($fp, $d->data);
-		fclose($fp);
-	}
-	
-	return array($imgurl,getimagesize($filename));
+function b_yomi_get_img_cache($url,$id) {
+	return yomi_get_banner_cache ($url, $id);
 }
+
 // スタイルシートを読み込む
 function b_yomi_load_css()
 {

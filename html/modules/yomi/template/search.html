@@ -176,10 +176,10 @@ if($Clog){
 [<input type=checkbox name="del[]" value="<?php echo $Slog[0]?>"> 削除チェック]<br>
 <?php
 		}
-		if($Slog[12]){
+		if($imguri = yomi_get_banner_uri($Slog[12], $Slog[0])){
 ?>
 <a href="<?php echo $jump_url?>" target="_blank">
-<img src="<?php echo $Slog[12]?>" alt="<?php echo $Slog[1]?>" width=<?php echo $EST_reg['Mbana_w']?> height=<?php echo $EST_reg['Mbana_h']?>></a>
+<img src="<?php echo $imguri?>" alt="<?php echo $Slog[1]?>" width=<?php echo $EST_reg['Mbana_w']?> height=<?php echo $EST_reg['Mbana_h']?>></a>
 <?php
 		}
 ?>
