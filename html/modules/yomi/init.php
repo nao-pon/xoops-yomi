@@ -31,12 +31,14 @@ $Eend="";
 // Setup $EST 
 if (! defined('_MD_YOMI_INIT_LOADED')) {
 	define('_MD_YOMI_INIT_LOADED', TRUE);
-	$EST['script'] = $EST['cgi_path_url'] . $EST['script'];
-	$EST['search'] = $EST['cgi_path_url'] . $EST['search'];
-	$EST['rank'] = $EST['cgi_path_url'] . $EST['rank'];
-	$EST['admin'] = $EST['cgi_path_url'] . $EST['admin'];
-	$EST['html_path_url'] = $EST['cgi_path_url'] . $EST['html_path_url'];
-	$EST['img_path_url'] = $EST['cgi_path_url'] . $EST['img_path_url'];
+	$EST['script'] = $EST['cgi_path_url'] . basename($EST['script']);
+	$EST['search'] = $EST['cgi_path_url'] . basename($EST['search']);
+	$EST['rank'] = $EST['cgi_path_url'] . basename($EST['rank']);
+	$EST['admin'] = $EST['cgi_path_url'] . basename($EST['admin']);
+	if (strpos($EST['html_path_url'], $EST['cgi_path_url']) !== 0)
+		$EST['html_path_url'] = $EST['cgi_path_url'] . $EST['html_path_url'];
+	if (strpos($EST['img_path_url'], $EST['cgi_path_url']) !== 0)
+		$EST['img_path_url'] = $EST['cgi_path_url'] . $EST['img_path_url'];
 }
 
 #CGI/HTMLリンク先表示の設定

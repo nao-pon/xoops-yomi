@@ -166,19 +166,19 @@ if($EST['pass'] == "setup"){
 	</ul><br>
 	<li><a href="#cfg_submit"><b>yomi.phpのファイル名</b></a><br>
 	<ul>
-	<input type=text name=script value="<?php echo $EST['script']?>">
+	<input type=text name=script value="<?php echo basename($EST['script'])?>">
 	</ul><br>
 	<li><a href="#cfg_submit"><b>検索用のCGIファイル名</b></a><br>
 	<ul>
-	<input type=text name=search value="<?php echo $EST['search']?>">
+	<input type=text name=search value="<?php echo basename($EST['search'])?>">
 	</ul><br>
 	<li><a href="#cfg_submit"><b>ランキング用のCGIファイル名</b></a><br>
 	<ul>
-	<input type=text name=rank value="<?php echo $EST['rank']?>">
+	<input type=text name=rank value="<?php echo basename($EST['rank'])?>">
 	</ul><br>
 	<li><a href="#cfg_submit"><b>管理処理用のCGIファイル名</b></a><br>
 	<ul>
-	<input type=text name=admin value="<?php echo $EST['admin']?>">
+	<input type=text name=admin value="<?php echo basename($EST['admin'])?>">
 	</ul><br>
 	<li><a href="#cfg_submit"><b>管理メニューを実行できるIPアドレス</b></a><br>
 	※特に指定しない場合には記入しないでください<br>
