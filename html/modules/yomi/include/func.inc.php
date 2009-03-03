@@ -2,11 +2,15 @@
 /*
  * Created on 2008/06/23 by nao-pon http://hypweb.net/
  * License: GPL v2 or (at your option) any later version
- * $Id: func.inc.php,v 1.1 2008/06/25 23:42:09 nao-pon Exp $
+ * $Id: func.inc.php,v 1.2 2009/03/03 23:57:11 nao-pon Exp $
  */
 
 if( ! class_exists( 'HypCommonFunc' ) ) {
-	include_once(XOOPS_ROOT_PATH."/modules/yomi/include/hyp_common/hyp_common_func.php");
+	if (defined('XOOPS_TRUST_PATH') && file_exists(XOOPS_TRUST_PATH . '/class/hyp_common/hyp_common_func.php')) {
+		include_once XOOPS_TRUST_PATH . '/class/hyp_common/hyp_common_func.php';
+	} else {
+		include_once XOOPS_ROOT_PATH . '/modules/yomi/include/hyp_common/hyp_common_func.php';
+	}
 }
 
 // URLから画像キャッシュURIを返す
