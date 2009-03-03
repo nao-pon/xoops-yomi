@@ -13,8 +13,8 @@ function b_yomi_show ($options)
 	$table_cols = $options[0];
 	$table_per = round(100/$table_cols);
 	
-	$yomi_reg_tag = XOOPS_URL."/modules/yomi/"."regist_ys.php?mode=new";
-	$yomi_new_tag = $script."?mode=new";
+	$yomi_reg_tag = XOOPS_URL."/modules/yomi/regist_ys.php?mode=new";
+	$yomi_new_tag = XOOPS_URL."/modules/yomi/index.php?mode=new";
 	
 	$block['title'] = _MI_YOMI_BNAME1;
 	$block['content'] = "<table style=\"width:100%;\" cellpadding=3>";
