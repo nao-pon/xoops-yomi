@@ -1,17 +1,12 @@
 <?php
 global $xoopsConfig;
-if (!$xoopsConfig['dbhost']) $xoopsConfig['dbhost']=XOOPS_DB_HOST;
-if (!$xoopsConfig['dbuname']) $xoopsConfig['dbuname']=XOOPS_DB_USER;
-if (!$xoopsConfig['dbname']) $xoopsConfig['dbname']=XOOPS_DB_NAME;
-if (!$xoopsConfig['dbpass']) $xoopsConfig['dbpass']=XOOPS_DB_PASS;
-if (!$xoopsConfig['prefix']) $xoopsConfig['prefix']=XOOPS_DB_PREFIX;
 #一般の共通設定
 $EST=array(
-'host'=>$xoopsConfig['dbhost'], #MySQLのホスト名
-'sqlid'=>$xoopsConfig['dbuname'],#MySQLのユーザ名
-'sqldb'=>$xoopsConfig['dbname'],#MySQLのデータベース名
-'sqlpass'=>$xoopsConfig['dbpass'], #MySQLのパスワード
-'sqltb'=>$xoopsConfig['prefix'].'_yomi_', #テーブルのプレフィックス
+'host'=>XOOPS_DB_HOST, #MySQLのホスト名
+'sqlid'=>XOOPS_DB_USER,#MySQLのユーザ名
+'sqldb'=>XOOPS_DB_NAME,#MySQLのデータベース名
+'sqlpass'=>XOOPS_DB_PASS, #MySQLのパスワード
+'sqltb'=>XOOPS_DB_PREFIX.'_yomi_', #テーブルのプレフィックス
 'pass'=>'', #管理用パスワード(WEB上で設定後は暗号化されます)
 'home'=>XOOPS_URL.'/modules/yomi/', #サーチエンジンのトップへのパスorURL
 'script'=>'index.php', #yomi.phpのファイル名
