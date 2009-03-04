@@ -1,4 +1,5 @@
 <?php
+if (is_readable("shorturl.php")) include("shorturl.php");
 // For XOOPS
 include("header.php");
 
@@ -60,8 +61,8 @@ search_form();
 		<option value="1">別窓で
 	</select>
 	<font id=small>
-	 [<a href="<?php echo $EST['cgi_path_url'].$EST['search']?>">More</a>]
-	 [<a href="<?php echo $EST['cgi_path_url'].$EST['search']?>?window=_blank">New Window</a>]
+	 [<a href="<?php echo $EST['search']?>">More</a>]
+	 [<a href="<?php echo $EST['search']?>?window=_blank">New Window</a>]
 	</font>
 	<input type=hidden name=hyouji value="30">
 </td>
@@ -80,10 +81,10 @@ foreach($ganes as $key=>$val){
 	echo "<tr valign=bottom nowrap><td nowrap>";
 	if(!strstr($key,"_")){ #トップカテゴリの場合
 		echo "<br><br>"; 
-		echo "<font color=\"#FFFFFF\">$key</font><font size=\"+1\">■</font><a href=\"$Ekt$key$Eend\"><font size=\"+1\"><b>$val</b></font></a>\n"; #背景色と合わせる
+		echo "<font color=\"#FFFFFF\">$key</font><font size=\"+1\">■</font><a href=\"".yomi_makelink($key)."\"><font size=\"+1\"><b>$val</b></font></a>\n"; #背景色と合わせる
 	}
 	else{
-		echo "<font color=\"#FFFFFF\">$key</font><a href=\"$Ekt$key$Eend\">$val</a>\n"; #背景色と合わせる
+		echo "<font color=\"#FFFFFF\">$key</font><a href=\"".yomi_makelink($key)."\">$val</a>\n"; #背景色と合わせる
 	}
 	echo "</td><td nowrap>";
 	if (isset($KTEX[$key])) {
