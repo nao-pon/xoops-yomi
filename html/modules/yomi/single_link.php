@@ -9,13 +9,16 @@ if(ini_get("magic_quotes_gpc")) {
 }
 $_GET = array_map("htmlspecialchars", $_GET);
 
-if(!$_GET[page]){$_GET[page]=1;}
+if(!$_GET['page']){$_GET['page']=1;}
 
 #(1)検索結果表示画面(search)
 #入力値の整形
 if(!$_GET['item_id']){$_GET['item_id']=$_POST['item_id'];}
 if(preg_match("/\D/", $_GET['item_id']) || (!$_GET['item_id'])){mes("指定値が不正です","ページ指定エラー","java");}
-$item_id = $_GET['item_id'];
+$item_id = intval($_GET['item_id']);
+$mode = $_GET['mode'];
+$order = intval($_GET['order']);
+$comment_id = intval($_GET['comment_id']);
 
 #結果表示
 
@@ -68,7 +71,7 @@ exit;
 function open_for_search($target_kt, $target_day, $sort){
 	global $xoopsDB, $EST, $item_id, $write;
 	$i = 0;
-	$query = "SELECT * FROM $EST[sqltb]log WHERE id=".$item_id;
+	$query = "SELECT * FROM {$EST['sqltb']}log WHERE id=".$item_id;
 	##検索処理実行
 	$result = $xoopsDB->query($query) or die("Query failed1");
 		while($line = mysql_fetch_row($result)){
