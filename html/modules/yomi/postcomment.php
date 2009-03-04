@@ -1,4 +1,6 @@
 <?php
+if (empty($_POST)) exit();
+
 include("../../mainfile.php");
 
 $xoopsOption['show_rblock'] =0;
