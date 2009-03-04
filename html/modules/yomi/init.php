@@ -18,10 +18,12 @@ $x_ver = $_md_yomi_info['x_ver'];
 $EST['shorturl'] = (defined("YOMI_SHORTURL"))? YOMI_SHORTURL : "";
 
 //ナビゲーションの「ホーム」へのリンク
-if (empty($EST['shorturl']))
-	define('YOMI_HOME_URL','<a href="'.$EST['home'].'">'._MD_YOMI_TOP.'</a>');
-else
-	define('YOMI_HOME_URL','<a href="'.XOOPS_URL.'/'.$EST['shorturl'].'/">'._MD_YOMI_TOP.'</a>');
+if (! defined('YOMI_HOME_URL')) {
+	if (empty($EST['shorturl']))
+		define('YOMI_HOME_URL','<a href="'.$EST['home'].'">'._MD_YOMI_TOP.'</a>');
+	else
+		define('YOMI_HOME_URL','<a href="'.XOOPS_URL.'/'.$EST['shorturl'].'/">'._MD_YOMI_TOP.'</a>');
+}
 
 #データ形式のフィールド数
 $Efld=16;  #0〜15まで
