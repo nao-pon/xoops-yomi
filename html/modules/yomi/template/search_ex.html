@@ -60,7 +60,6 @@ head_sp();
 <table width=100%><tr><td id="title-bar">
 <a name="ex"><b>詳細検索</b></a>
 </td></tr></table>
-<ul>
 <form action="<?php echo $EST['search']?>" method=get target="<?php echo $_GET['window']?>" name="form1">
 	<?php echo YOMI_TICKET_TAG; ?>
 	<input type=hidden name=mode value=search>
@@ -115,11 +114,9 @@ while(list($kt,)=each($ganes)){
 	<br>
 	<a href="#ex_set_option">検索オプションを保存</a>：<input type=checkbox name=set_option value=on<?php echo $ck_ck?>>
 </form>
-</ul>
 <table width=100%><tr><td id="title-bar">
 <b>一括検索</b>
 </td></tr></table>
-<ul>
 <form action="<?php echo $EST['search']?>" method="get" target="<?php echo $_GET['window']?>">
 	<?php echo YOMI_TICKET_TAG; ?>
 	<input type=hidden name=mode value=meta>
@@ -141,7 +138,6 @@ while(list($kt,)=each($ganes)){
 		<option value="">リンク先を次のページにする
 	</select><br>
 </form>
-</ul>
 <table width=100%><tr><td id="title-bar">
 <b>ヘルプ</b>
 </td></tr></table>
