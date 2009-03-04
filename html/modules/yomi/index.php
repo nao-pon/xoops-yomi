@@ -39,6 +39,11 @@ if (defined("YOMI_SHORTURL") && YOMI_SHORTURL)
 //For XOOPS
 include("header.php");
 
+// Hide Notice Error. orz... TODO
+error_reporting('E_ERROR | E_WARNING | E_PARSE');
+
+if (isset($_SERVER['_REQUEST_URI'])) $_SERVER['REQUEST_URI'] = $_SERVER['_REQUEST_URI'];
+
 include('init.php');
 
 if (!isset($_GET['mode'])) $_GET['mode']="";
