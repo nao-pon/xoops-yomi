@@ -29,6 +29,10 @@ foreach(array("mode","mente_mode","kt_new","search_form") as $key)
 
 // For XOOPS
 include("admin_header.php");
+
+// Hide Notice Error. orz... TODO
+error_reporting('E_ERROR | E_WARNING | E_PARSE');
+
 include_once("./include/hyp_tickets.php");
 if( strtolower($_SERVER['REQUEST_METHOD']) == "post" )
 {
