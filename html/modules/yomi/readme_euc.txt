@@ -51,14 +51,15 @@ WonderLinkで配布しているスクリプト（以下、配布スクリプト）は
 
 ■インストール方法
 ・yomi_xoops.zip をダウンロードして解凍します。
-・次のファイルを以下のようにリネームしてください。
-　　pl/cfg.php.dev       -> pl/cfg.php
-　　pl/other_cfg.php.dev -> pl/other_cfg.php
-　　pl/search.dat.dev    -> pl/search.dat 
+・pl, log ディレクトリ内のすべての *.dev ファイルをリネームして .dev を取り除きます。
+　(例)
+　　pl/cfg.php.dev         -> pl/cfg.php
+　　log/keyrank_ys.php.dev -> log/keyrank_ys.php
+　　log/look_mes.cgi.dev   -> log/look_mes.cgi 
 ・XOOPS の modules ディレクトリに yomi ディレクトリ以下すべてをアップロードしてパーミッションを設定します。
 　　pl/cfg.php(666)
 　　pl/other_cfg.php(666)
-　　log/内のすべてのファイル(666)
+　　log/内の index.html 以外のファイル(666)
 ・XOOPSの管理者画面よりインストールをします。
 ・インストールが完了したら、XOOPSの管理者画面より Yomiサーチ のアイコンをクリックして管理者画面を開きます。
 ・管理者パスワードは、ほとんど使いませんが、Yomiサーチの管理者画面の「環境設定」から管理者パスワードを設定してください。(Yomiサーチ独自でも結構です。)
@@ -67,4 +68,4 @@ WonderLinkで配布しているスクリプト（以下、配布スクリプト）は
 
 　以上でインストール完了です。
 
- 再配布者　nao-pon http://hypweb.net/
+ 再配布者　nao-pon http://xoops.hypweb.net/
