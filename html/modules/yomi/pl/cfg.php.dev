@@ -605,7 +605,7 @@ $KTEX=array(
 ##検索フォームの設定
 function search_form(){
 global $EST;
-?><option value="pre" selected><?=$EST['search_name']?>で
+?><option value="pre" selected><?php echo $EST['search_name']?>で
 <option value="yahoo">Yahoo!で
 <option value="google">Googleで
 <option value="infoseek">Infoseekで
@@ -641,12 +641,12 @@ global $EST;
 function menu_bar(){
 global $EST;
 ?>
-<a href="<?=$EST['script']?>?mode=new">新着サイト</a> -
-<a href="<?=$EST['script']?>?mode=renew">更新サイト</a> -
-<a href="<?=$EST['cgi_path_url']?>rank.php">人気ランキング</a> -
-<a href="<?=$EST['cgi_path_url']?>rank.php?mode=keyrank">キーワードランキング</a> -
-<a href="<?=$EST['script']?>?mode=m1">おすすめサイト</a> -
-<a href="<?=$EST['script']?>?mode=m2">相互リンクサイト</a>
+<a href="<?php echo $EST['script']?>?mode=new">新着サイト</a> -
+<a href="<?php echo $EST['script']?>?mode=renew">更新サイト</a> -
+<a href="<?php echo $EST['cgi_path_url']?>rank.php">人気ランキング</a> -
+<a href="<?php echo $EST['cgi_path_url']?>rank.php?mode=keyrank">キーワードランキング</a> -
+<a href="<?php echo $EST['script']?>?mode=m1">おすすめサイト</a> -
+<a href="<?php echo $EST['script']?>?mode=m2">相互リンクサイト</a>
 <?php
 } #end of &menu_bar
 ##ヘッダスペース
