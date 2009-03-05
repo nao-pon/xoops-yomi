@@ -181,7 +181,7 @@ function mokuji($arg){
 #管理者画面用著作権表示(削除・変更をしないでください。ただし、中寄せ・左寄せは可)
 function cp_cr(){
 	global $ver,$x_ver,$EST;
-	?><div style="text-align:right;font-size:11px"><a href="http://hypweb.net/" target="_blank">Yomi-Search [ XOOPS ] Ver. <?php echo $x_ver?></a><br />Based on - <a href="http://yomi.pekori.to/" target="_blank">Yomi-Search Ver<?php echo $ver?></a> - <a href="http://sql.s28.xrea.com:8080/" target="_blank">Powered by PHP</a></div>
+	?><div style="text-align:right;font-size:11px"><a href="http://xoops.hypweb.net/" target="_blank">Yomi-Search [ XOOPS ] Ver. <?php echo $x_ver?></a><br />Based on - <a href="http://yomi.pekori.to/" target="_blank">Yomi-Search Ver<?php echo $ver?></a> - <a href="http://sql.s28.xrea.com:8080/" target="_blank">Powered by PHP</a></div>
 	<?php
 	//For XOOPS
 	echo "</td></tr></table>";
