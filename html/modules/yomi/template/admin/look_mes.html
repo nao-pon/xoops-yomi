@@ -41,6 +41,7 @@ elseif(preg_match("/(\d+)/", $EST_reg['look_mes'], $match)){echo "※現在、登録者
 <?php
 $fp=fopen("$EST[log_path]look_mes.cgi", "r");
 while($tmp=fgets($fp, 4096)){
+	if (! rtrim($tmp)) continue;
 	$look_mes=explode("<>",$tmp);
 	?>
 <hr width="80%" align=left>

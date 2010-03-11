@@ -1,9 +1,3 @@
-<?php
-$bad_key=array();
-$open_key=array();
-@ include $EST['log_path']."keyrank_ys.php";
-?>
-
 <link rel="stylesheet" href="<?php echo $EST['html_path_url']?>style.css" type="text/css">
 <script type="text/javascript">
 <!--
@@ -89,13 +83,13 @@ function PR_keyrank_data($keyrank_fl){
 				if($bf_c != $pt){$jyuni=$jyuni_z;}
 				?>
 <tr><td class="yomi-s"><?php echo $jyuni?></td>
-<td class="yomi-s"><a href="<?php echo $EST['cgi_path_url'].$EST['search']?>?mode=search&word=<?php echo $en_keyword?>">
+<td class="yomi-s"><a href="<?php echo $EST['search']?>?mode=search&word=<?php echo $en_keyword?>">
 <?php
 				if($open_key[$keyword] == "1"){echo $PR_key;}
 				else{echo $open_key[$keyword];}
 				?>
 </a> -> <?php echo $pt?>pts.</td>
-<td class="yomi-s" style="text-align:center;"><a href="<?php echo $EST['cgi_path_url'].$EST['search']?>?mode=search&word=<?php echo $en_keyword?>" target="_blank">¢£</a></td></tr>
+<td class="yomi-s" style="text-align:center;"><a href="<?php echo $EST['search']?>?mode=search&word=<?php echo $en_keyword?>" target="_blank">¢£</a></td></tr>
 <?php
 				$jyuni_z++;
 				$bf_c=$pt;

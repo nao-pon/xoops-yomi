@@ -46,6 +46,8 @@ CREATE TABLE `yomi_log` (
   `rating` double(6,4) NOT NULL default '0.0000',
   `votes` int(11) unsigned NOT NULL default '0',
   `comments` int(11) unsigned NOT NULL default '0',
+  `count` int(11) unsigned NOT NULL default '0',
+  `count_rev` int(11) unsigned NOT NULL default '0',
   PRIMARY KEY  (`id`),
   KEY `uid` (`uid`)
 ) TYPE=MyISAM;

@@ -30,7 +30,7 @@ if (!$_no_ad_space){head_sp();}
 </div>
 
 <!-- ナビゲーションバー -->
-<?php echo YOMI_HOME_URL?> &gt; 
+<?php echo YOMI_HOME_URL?> &gt;
 <table width="100%"><tr><td id="title-bar">
 <b><?php echo $Stitle?></b>
 </td></tr></table>
@@ -152,19 +152,14 @@ if($Clog){
 <?php echo $PRmokuji?>
 <?php
 	foreach ($log_lines as $Slog){ #検索データを表示
-		if($EST['rank_fl']){
-			//$jump_url=$Slog[2];
-			//$jump_url=urlencode($jump_url);
-			//$jump_url="$EST[cgi_path_url]$EST[rank]?mode=link&id=$Slog[0]&url=$jump_url";
-			$jump_url=$EST['cgi_path_url']."jump.php?id=$Slog[0]";
-		}
-		else{$jump_url=$Slog[2];}
+		$Slog['jump_url'] = $EST['rank_fl']? $EST['cgi_path_url']."jump.php?id=$Slog[0]" : $Slog[2];
+		$Slog['favicon'] = yomi_get_favicon($Slog[2], '■');
 		?>
 <!-- ログ表示 -->
 <div style="text-align:center;">
-<table style="border:5px solid #DDDDDD;" id=log>
-<tr id=log-1>
-	<td><a href="<?php echo $jump_url?>" target="_blank" style="text-decoration:none" title="新しいウィンドウで開く">■</a> <a href="<?php echo $jump_url?>" title="このウィンドウで開く&#13;&#10;左の■は別ウィンドウ"><font size="+1"><b><?php echo $Slog[1]?></b></font></a>
+<table id="log">
+<tr id="log-1">
+	<td class="yomi"><a href="<?php echo $Slog['jump_url']?>" target="_blank" style="text-decoration:none" title="新しいウィンドウで開く"><?php echo $Slog['favicon']?></a> <a href="<?php echo $Slog['jump_url']?>" title="このウィンドウで開く&#13;&#10;左の■は別ウィンドウ"><font size="+1"><b><?php echo $Slog[1]?></b></font></a>
 <?php
 		put_icon(); #<!-- ←アイコンを付加 -->
 		?>
@@ -177,12 +172,12 @@ if($Clog){
 		}
 		if($imguri = yomi_get_banner_uri($Slog[12], $Slog[0])){
 ?>
-<a href="<?php echo $jump_url?>" target="_blank">
+<a href="<?php echo $Slog['jump_url']?>" target="_blank">
 <img src="<?php echo $imguri?>" alt="<?php echo $Slog[1]?>" width=<?php echo $EST_reg['Mbana_w']?> height=<?php echo $EST_reg['Mbana_h']?>></a>
 <?php
 		}
 ?>
-		&nbsp;<a href="<?php echo $jump_url?>" target="_blank"><?php echo $Slog[2]?></a>
+		&nbsp;<a href="<?php echo $Slog['jump_url']?>" target="_blank"><?php echo $Slog[2]?></a>
 <tr id=log-2><td><font id=small>
 <?php
 		$kt=explode("&",$Slog[10]);
@@ -226,7 +221,7 @@ if($Clog){
 			echo "</td></tr>";
 		}
 ?>
-		
+
 </table>
 </div>
 <br>

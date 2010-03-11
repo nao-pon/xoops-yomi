@@ -41,7 +41,7 @@ head_sp();
 <table width="100%" cellpadding=8 cellspacing=0 border=0>
 <tr id="mid-bar">
 <td colspan=2>
-	<form action="<?php echo $EST['cgi_path_url'].$EST['search']?>" method=get  target="" name="form1">
+	<form action="<?php echo $EST['search']?>" method=get  target="" name="form1">
 	<input type=hidden name=mode value=search>
 	<input type=hidden name=page value=1>
 	<input type=hidden name=sort value="<?php echo $_POST['sort']?>">

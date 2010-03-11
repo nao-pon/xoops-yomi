@@ -82,7 +82,6 @@ function PRbelow_kt($arg0,$arg1,$arg2){
 	while(list($key,)=each ($ganes)){
 		if(preg_match("/^$arg0\_(\d+)$/", $key)){array_push($PR_below_kt,$key);}
 		elseif(preg_match("/^$arg0\_(\d+)\_/", $key, $match)){
-			if (isset($Clog[$key])) $Clog["${arg0}_$match[1]"]+=$Clog[$key];
 			$check["${arg0}_$match[1]"]=1;
 		}
 	}
@@ -192,42 +191,27 @@ function cp_cr(){
 
 #(c1)クッキーの書き込み(&set_cookie)
 function set_cookie($CK_data){
-	$times = time() + 5184000;
+	$ttl = time() + 864000; // 10days
 	#クッキーのフォーマット(@CK_dataのグローバル変数)
 	#[0]=パスワード(登録者用)/[1]=ID(登録者用)/[2]=変更者/[3]=管理者用パスワード
-	#[4]=直接認証(1or0)/[5]=検索条件(,で区切る)/[6]=下層カテゴリ表示(1or0)/[7]ソート順
-	$PRcookie=$CK_data[0].":".$CK_data[1].":".$CK_data[2].":".$CK_data[3].":".$CK_data[4].":".$CK_data[5].":".$CK_data[6].":".$CK_data[7];
+	#[4]=直接認証(1or0)/[5]=検索条件(,で区切る)/[6]=下層カテゴリ表示(1or0)/[7]ソート順/[8]マーク優先
+	$PRcookie=join(':', $CK_data);
 	$PRcookie=str_replace(" ", "", $PRcookie);
 	$PRcookie=str_replace(";", "", $PRcookie);
-	setcookie("ysp", $PRcookie, time() + 5184000);
+	setcookie("ysp", $PRcookie, $ttl, '/');
 }
 
 #(c1.1)クッキーを初期化(&set_fo_cookie)
 function set_fo_cookie(){
-	setcookie("ysp", "", 0);
+	setcookie("ysp", "", 0, '/');
 }
 
 #(c2)クッキーの読み込み(&get_cookie)
 function get_cookie(){
 	#local($cookie,@cookie,$data);
-	if (isset($_COOKIE["ysp"])) {$data=$_COOKIE["ysp"];} else {$data="";}
-	if($data)
-	{
-		$CK_data=explode(":",$data);
-		$CK_data[1] = intval($CK_data[1]);
-	}
-	else
-	{
-		$CK_data=array();
-		$CK_data[0]="";
-		$CK_data[1]="";
-		$CK_data[2]="";
-		$CK_data[3]="";
-		$CK_data[4]="";
-		$CK_data[5]="";
-		$CK_data[6]="";
-		$CK_data[7]="";
-	}
+	$data = (isset($_COOKIE["ysp"]))? $_COOKIE["ysp"] : '';
+	$CK_data=array_pad(explode(":",$data), 9, '');
+	$CK_data[1] = intval($CK_data[1]);
 	return $CK_data;
 }
 
@@ -256,7 +240,9 @@ function location($T_location){
 	global $EST;
 	if(!$T_location){mes("リンク先が見つかりません","エラー","java");}
 	if($EST[location]){
-		header ("Location: $T_location");
+		header('HTTP/1.1 301 Moved Permanently');
+		header('Status: 301 Moved Permanently');
+		header('Location: ' . $T_location);
 		exit;
 	}else{
 		?><html><head><title></title>
@@ -316,14 +302,14 @@ function yomi_makelink($val="")
 {
 	global $EST;
 	//error_reporting(E_ALL);
-	
+
 	$mode = "?mode=";
 	if (preg_match("/^[\d_]+$/",$val))
 	{
 		if ($EST['shorturl']) $val = str_replace("_","/",$val);
 		$mode = "?mode=kt&amp;kt=";
 	}
-	
+
 	if (empty($EST['shorturl']))
 		return $EST['script'].$mode.$val;
 	else
@@ -345,7 +331,7 @@ function make_serach_box($Ssearch_kt = "")
 	<input type=hidden name=page value=1>
 	<input type=hidden name=sort value=<?php echo $EST['defo_hyouji']?>>
 	<font id=small>
-	[<a href="<?php echo $EST['search']?>">More</a>] 
+	[<a href="<?php echo $EST['search']?>">More</a>]
 	[<a href="<?php echo $EST['search']?>?window=_blank">New Window</a>]
 	</font>
 	<br />
@@ -380,11 +366,11 @@ search_form();
 </tr>
 <tr><td></form>
 	 <font id=small>
-	 [<a href="#other">他のカテゴリ</a>] 
+	 [<a href="#other">他のカテゴリ</a>]
 	 [<a href="<?php echo $EST['cgi_path_url']?>sitemap.php">サイトマップ</a>]
 	 </font>
 </td><td align=right>	<font id=small>
-	[<a href="<?php echo $EST['cgi_path_url']?>regist_ys.php?mode=help">ヘルプ</a>] 
+	[<a href="<?php echo $EST['cgi_path_url']?>regist_ys.php?mode=help">ヘルプ</a>]
 <?php
 if(empty($gane_UR[$_GET['kt']]) && $_GET['mode'] == "kt"){
 	?>

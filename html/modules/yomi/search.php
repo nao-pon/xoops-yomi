@@ -265,6 +265,31 @@ elseif($_GET['mode'] == "meta"){
 
 #詳細検索画面
 else{
+	#クッキーの処理
+	$CK_data=get_cookie();
+	$ck_lines=explode(",",$CK_data[5]);
+	$ck_0_0=" checked";$ck_0_1=""; #[0]
+	if($ck_lines[0] == "o"){$ck_0_0="";$ck_0_1=" checked";}
+	$ck_1=""; #[1]
+	if($ck_lines[1]){$ck_1=" checked";}
+	$ck_2_3=""; #[2]&[3]
+	if($ck_lines[2] && $ck_lines[3]){$ck_2_3="<option value=\"$ck_lines[2]\" selected>$ck_lines[3]";}
+	$ck_4=" checked"; #[4]
+	if($ck_lines[4]){$ck_4="";}
+	$ck_5_6=""; #[5]&[6]
+	if($ck_lines[5] && $ck_lines[6]){$ck_5_6="<option value=\"$ck_lines[5]\" selected>$ck_lines[6]";}
+	$ck_7_0=" checked";$ck_7_1=""; #[7]
+	if($ck_lines[7]){$ck_7_0="";$ck_7_1=" checked";}
+	$ck_8_9=""; #[8]&[9]
+	if($ck_lines[8] && $ck_lines[9]){$ck_8_9="<option value=\"$ck_lines[8]\" selected>$ck_lines[9]";}
+	$ck_10=""; #[10]
+	if($ck_lines[10]){$ck_10=$ck_lines[10];}
+	$ck_11_0=" checked";$ck_11_1=""; #[11]
+	if($ck_lines[11]){$ck_11_0="";$ck_11_1=" checked";}
+	if(count($ck_lines)>=0){$ck_ck=" checked";}
+	if($_GET['window'] == "_blank"){$PR_open_type_select_0=""; $PR_open_type_select_1=" selected";}
+	else{$PR_open_type_select_0=" selected"; $PR_open_type_select_1="";}
+
 	require "$EST[temp_path]search_ex.html";
 }
 exit;

@@ -15,7 +15,7 @@ menu_bar();
 $Ctemp=0;
 	$fp=fopen("$EST[log_path]$EST[temp_logfile]", "r");
 	while($tmp=fgets($fp, 4096)){
-		$Ctemp++;
+		if (rtrim($tmp)) $Ctemp++;
 	}
 	fclose($fp);
 ?>

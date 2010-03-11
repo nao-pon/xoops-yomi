@@ -48,12 +48,12 @@ define('YOMI_TICKET_TAG',$xoopsHypTicket->getTicketHtml( __LINE__ ));
 //if (!xoops_refcheck()) redirect_header(XOOPS_URL."/",1,"Access Denied.");
 
 if(($_POST['mode'] == "dl_check_dl") || ($_POST['mode'] == "log_conv_act")){
-	
+
 } else{
 	// check db
 	include_once './include/dbcheck.inc.php';
 	check_db_admin();
-	
+
 	xoops_cp_header();
 	OpenTable();
 	$mymenu_fake_uri = XOOPS_URL."/modules/yomi/admin/admin.php?mode=kanri";
@@ -70,7 +70,7 @@ $is_admin = 0;
 $x_uid = 0;
 if ( $xoopsUser ) {
 	$xoopsModule = XoopsModule::getByDirname("yomi");
-	if ( $xoopsUser->isAdmin($xoopsModule->mid()) ) { 
+	if ( $xoopsUser->isAdmin($xoopsModule->mid()) ) {
 		$is_admin = 1;
 	}
 	$x_uid = $xoopsUser->uid();
@@ -161,7 +161,7 @@ elseif($_POST['mode'] == "temp_to_regist"){
 	EST_reg(); #登録関連の設定をロード
 	$fp = fopen("$EST[log_path]$EST[temp_logfile]", "r");
 	while($tmp = fgets($fp, 4096)){
-		$Ctemp++;
+		if (rtrim($tmp)) $Ctemp++;
 	}
 	fclose($fp);
 	require "$EST[temp_path]admin/temp_to_regist.html";
@@ -182,6 +182,7 @@ elseif($_POST['mode'] == "temp_to_regist_act"){
 	$_POST=array_map("yomi_unhtmlspecialchars", $_POST);
 	$_POST=array_map("htmlspecialchars", $_POST);
 	while($tmp=fgets($fp, 4096)){
+		if (! rtrim($tmp)) continue;
 		$Tlog=explode("<>",$tmp);
 		if($_POST["R$Tlog[0]"] == "reg"){ #登録
 			$temp_id=$Tlog[0];
@@ -232,9 +233,9 @@ elseif($_POST['mode'] == "temp_to_regist_act"){
 			#登録日時(16) by nao-pon
 			$Slog[16] = time();
 			$Slog[17]=$_POST["Fuid$temp_id"];
-			
+
 			$Slog = array_map("addslashes", $Slog);
-			$query = "INSERT INTO $EST[sqltb]log VALUES('$Slog[0]','$Slog[1]','$Slog[2]','$Slog[3]','$Slog[4]','$Slog[5]','$Slog[6]','$Slog[7]','$Slog[8]','$Slog[9]','$Slog[10]','$Slog[11]','$Slog[12]','$Slog[13]','$Slog[14]','$Slog[15]','$Slog[16]','$Slog[17]',0,0,0)";
+			$query = "INSERT INTO $EST[sqltb]log VALUES('$Slog[0]','$Slog[1]','$Slog[2]','$Slog[3]','$Slog[4]','$Slog[5]','$Slog[6]','$Slog[7]','$Slog[8]','$Slog[9]','$Slog[10]','$Slog[11]','$Slog[12]','$Slog[13]','$Slog[14]','$Slog[15]','$Slog[16]','$Slog[17]',0,0,0,0,0)";
 			$result = $xoopsDB->queryF($query) or die("Query failed admin146 $query");
 			if($EST[mail_new]){
 				#仮登録→新規登録時のメールを送信
@@ -370,7 +371,7 @@ elseif($_POST['mode'] == "log_conv_act"){
 				$Slog[10]="&".$Slog[10]."&";
 				$Slog[13]=substr($Slog[11], -1);
 				$Slog[11]=substr($Slog[11], 0, -2);
-				$query = "INSERT INTO $EST[sqltb]log VALUES ('$Slog[0]', '$Slog[1]', '$Slog[2]', '$Slog[3]', '$Slog[4]', '$Slog[5]', '$Slog[6]', '$Slog[7]', '$Slog[8]', '$Slog[9]', '$Slog[10]', '$Slog[11]', '$Slog[12]', '$Slog[13]', '$Slog[14]', '$Slog[15]','$Slog[11]',0,0,0,0)";
+				$query = "INSERT INTO $EST[sqltb]log VALUES ('$Slog[0]', '$Slog[1]', '$Slog[2]', '$Slog[3]', '$Slog[4]', '$Slog[5]', '$Slog[6]', '$Slog[7]', '$Slog[8]', '$Slog[9]', '$Slog[10]', '$Slog[11]', '$Slog[12]', '$Slog[13]', '$Slog[14]', '$Slog[15]','$Slog[11]',0,0,0,0,0,0)";
 				$result=$xoopsDB->queryF($query);
 				$counter++;
 				if (($counter/100) == (floor($counter/100))){
@@ -486,7 +487,7 @@ elseif($_POST['mode'] == "log_conv_kt_sort"){
 	foreach($ganes as $key=>$value) {
 		if($kt_af[$key]){
 			unset ($ganes[$key]);
-			#副属性 %gane_top/%gane_st/%gane_ref/%gane_UR/%KTEX/ 
+			#副属性 %gane_top/%gane_st/%gane_ref/%gane_UR/%KTEX/
 			unset ($gane_top[$key]);
 			unset ($gane_st[$key]);
 			unset ($gane_ref[$key]);
@@ -610,6 +611,11 @@ elseif($_POST['mode'] == "log_kt_change_act"){
 				$query="UPDATE $EST[sqltb]log SET category='$line[category]' WHERE id='$line[id]'";
 			}
 			else {
+				$query="DELETE FROM {$EST['sqltb']}rank WHERE id='{$line['id']}'";
+				$xoopsDB->queryF($query);
+				$query="DELETE FROM {$EST['sqltb']}rev WHERE id='{$line['id']}'";
+				$xoopsDB->queryF($query);
+
 				$query="DELETE FROM $EST[sqltb]log WHERE id='$line[id]' LIMIT 1";
 			}
 			$result2=$xoopsDB->queryF($query) or die("Query failed admin256 $query");
@@ -662,6 +668,8 @@ elseif($_POST['mode'] == "log_repair_act"){
 		  `rating` double(6,4) NOT NULL default '0.0000',
 		  `votes` int(11) unsigned NOT NULL default '0',
 		  `comments` int(11) unsigned NOT NULL default '0',
+		  `count` int(11) unsigned NOT NULL default '0',
+		  `count_rev` int(11) unsigned NOT NULL default '0',
 		  PRIMARY KEY  (`id`),
 		  KEY `uid` (`uid`)
 		)";
@@ -670,7 +678,9 @@ elseif($_POST['mode'] == "log_repair_act"){
 		while($line=fgets($fp, 10240)) {
 			$Slog = explode("\t", $line);
 			$Slog = array_map('addslashes', $Slog);
-			$query = "INSERT INTO $EST[sqltb]log VALUES ('$Slog[0]', '$Slog[1]', '$Slog[2]', '$Slog[3]', '$Slog[4]', '$Slog[5]', '$Slog[6]', '$Slog[7]', '$Slog[8]', '$Slog[9]', '$Slog[10]', '$Slog[11]', '$Slog[12]', '$Slog[13]', '$Slog[14]', '$Slog[15]','$Slog[16]','$Slog[17]','$Slog[18]','$Slog[19]','$Slog[20]')";
+			if (!isset($Slog[21])) $Slog[21] = '0';
+			if (!isset($Slog[22])) $Slog[22] = '0';
+			$query = "INSERT INTO $EST[sqltb]log VALUES ('$Slog[0]', '$Slog[1]', '$Slog[2]', '$Slog[3]', '$Slog[4]', '$Slog[5]', '$Slog[6]', '$Slog[7]', '$Slog[8]', '$Slog[9]', '$Slog[10]', '$Slog[11]', '$Slog[12]', '$Slog[13]', '$Slog[14]', '$Slog[15]','$Slog[16]','$Slog[17]','$Slog[18]','$Slog[19]','$Slog[20]','$Slog[21]','$Slog[22]')";
 			$result=$xoopsDB->queryF($query);
 		}
 		fclose($fp);
@@ -703,6 +713,7 @@ elseif($_POST['mode'] == "dl_check"){
 	#no_link_temp.cgi から no_link.cgi にデータを移行する
 	$fp=fopen("$EST[log_path]no_link.cgi", "r");
 	while($tmp=fgets($fp, 4096)){
+		if (! rtrim($tmp)) continue;
 		$data=explode("<>",$tmp); #id<>count(,)<>ip<>url<>com<>\n
 		$ip=explode("&",$data[2]);
 		$url[$data[0]]=$data[3];
@@ -722,6 +733,7 @@ elseif($_POST['mode'] == "dl_check"){
 	fclose($fp);
 	$fp=fopen("$EST[log_path]no_link_temp.cgi", "r");
 	while($tmp=fgets($fp, 4096)){
+		if (! rtrim($tmp)) continue;
 		$data=explode("<>",$tmp);
 		if(!$fl["$data[0]_$data[1]"]){
 			$data[2] = preg_replace("/,$/","",$data[2]);
@@ -850,9 +862,9 @@ elseif($_POST['mode'] == "cfg_make_PR_menu"){
 	$allow_search_form = trim(preg_replace("/(\n| )+/"," ",$_POST['allow_search_form']));
 
 	$file=file("pl/cfg.php");
-	
+
 	if (!trim($_POST['search_form'])) $_POST['search_form'] = get_search_form();
-	
+
 	foreach($file as $tmp){
 		$tmp = trim($tmp);
 		if ($tmp == "\$EST=array(") $est_find = true;
@@ -864,17 +876,17 @@ elseif($_POST['mode'] == "cfg_make_PR_menu"){
 			$tmp = "\n#検索窓を外部から使用許可するURL\n'allow_search_form'=>'".$allow_search_form."',\n".$tmp;
 			$est_find = false;
 		}
-		
+
 		if($fl==1){array_push($file_data,$_POST[search_form]); $fl=0;}
 		elseif($fl==2){array_push($file_data,$_POST[menu_bar]); $fl=0;}
 		elseif($fl==3){array_push($file_data,$_POST[head_sp]); $fl=0;}
 		elseif($fl==4){array_push($file_data,$_POST[foot_sp]); $fl=0;}
-		
+
 		if($tmp == "} #end of &search_form"){array_push($file_data,"<?php");$p_fl=1;}
 		elseif($tmp == "} #end of &menu_bar"){array_push($file_data,"<?php");$p_fl=1;}
 		elseif($tmp == "} #end of &head_sp"){array_push($file_data,"<?php");$p_fl=1;}
 		elseif($tmp == "} #end of &foot_sp"){array_push($file_data,"<?php");$p_fl=1;}
-		
+
 		if($p_fl){
 			array_push($file_data,$tmp);
 		}
@@ -891,11 +903,11 @@ elseif($_POST['mode'] == "cfg_make_PR_menu"){
 		elseif($tmp == "function head_sp(){"){ #head
 			array_push($file_data,"?>");
 			$fl=3; $p_fl=0;
-		}		
+		}
 		elseif($tmp == "function foot_sp(){"){ #foot
 			array_push($file_data,"?>");
 			$fl=4; $p_fl=0;
-		}		
+		}
 	}
 	$fp=fopen("pl/cfg.php", "w");
 	foreach($file_data as $tmp) {
@@ -953,7 +965,7 @@ elseif($_POST['mode'] == "cfg_make_kt"){
 				if (isset($gane_top[$key])) unset ($gane_top[$key]);
 				if (isset($gane_UR[$key])) unset ($gane_UR[$key]);
 				if (isset($gane_ref[$key])) unset ($gane_ref[$key]);
-				
+
 				$_tmp = array();
 				foreach($gane_ref as $_key=>$_val)
 				{
@@ -963,7 +975,7 @@ elseif($_POST['mode'] == "cfg_make_kt"){
 					$_tmp[$_key] = $_val;
 				}
 				$gane_ref = $_tmp;
-				
+
 				$_key = array_search($key,$gane_other);
 				if ($_key !== false) array_splice($gane_other,$_key);
 				continue;
@@ -982,13 +994,13 @@ elseif($_POST['mode'] == "cfg_make_kt"){
 			#ふりがなの設定
 			$EST_furi[$key]=$_POST["furi_$key"]; #$EST_furi[$key]=~s/'/’/g;
 		}
-		
+
 		if ($gane_del) {
 			foreach ($gane_del as $key) {
 				unset($ganes[$key]);
 			}
 		}
-		
+
 		ksort ($ganes,SORT_STRING);
 		ksort ($gane_top,SORT_STRING);
 		ksort ($gane_UR,SORT_STRING);
@@ -1006,7 +1018,7 @@ elseif($_POST['mode'] == "cfg_make_kt"){
 			}
 		}
 	}
-	
+
 	#ふりがなを設定
 	$fp = fopen("pl/other_cfg.php", "wb");
 	fputs($fp, "<?php\n\$EST_furi=array(\n");
@@ -1020,7 +1032,7 @@ elseif($_POST['mode'] == "cfg_make_kt"){
 	}
 	fputs($fp, ");\n?>");
 	fclose($fp);
-	
+
 	ksort ($ganes,SORT_STRING);
 
 	cfg_set(0,1,0);
@@ -1220,7 +1232,7 @@ function yomi_stripslashes($v)
 	}
 	else
 	$v = stripslashes($v);
-	
+
 	return $v;
 }
 ##-- end of admin.php --##

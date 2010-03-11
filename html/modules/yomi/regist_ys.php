@@ -251,7 +251,7 @@ elseif($_POST['mode'] == "act_regist"){
 	} #</仮登録時>
 	else{ #<新規登録時>
 		$Slog = array_map("addslashes", $Slog);
-		$query = "INSERT INTO $EST[sqltb]log VALUES ('$Slog[0]','$Slog[1]','$Slog[2]','$Slog[3]','$Slog[4]','$Slog[5]','$Slog[6]','$Slog[7]','$Slog[8]','$Slog[9]','$Slog[10]','$Slog[11]','$Slog[12]','$Slog[13]','$Slog[14]','$Slog[15]','$Slog[16]','$Slog[17]',0,0,0)";
+		$query = "INSERT INTO $EST[sqltb]log VALUES ('$Slog[0]','$Slog[1]','$Slog[2]','$Slog[3]','$Slog[4]','$Slog[5]','$Slog[6]','$Slog[7]','$Slog[8]','$Slog[9]','$Slog[10]','$Slog[11]','$Slog[12]','$Slog[13]','$Slog[14]','$Slog[15]','$Slog[16]','$Slog[17]',0,0,0,0,0)";
 		$result = $xoopsDB->query($query) or die("Query failed regist633");
 		##登録者のメッセージを保存する設定の場合
 		if(($_POST['Fadd_kt'] || $_POST['Fto_admin']) && $EST_reg['look_mes'] && preg_match("/(\d+)(\w*)/", $EST_reg['look_mes'], $match)){
@@ -260,6 +260,7 @@ elseif($_POST['mode'] == "act_regist"){
 			$max=$match[1];
 			$fp = fopen("$EST[log_path]look_mes.cgi", "r");
 			while($tmp = fgets($fp, 4096)){
+				if (! rtrim($tmp)) continue;
 				if($i<$max){array_push($look_mes_list,$tmp);}
 				else{break;}
 				$i++;
@@ -573,6 +574,7 @@ elseif($_POST['mode'] == "act_del"){
 		mes("現在、登録者による削除は停止されています","エラー","java");
 	*/
 	$Cdel=0;
+	$return = $EST['home'];
 	if($_POST[del_mode] == "single"){ #del_mode:single
 		if($_POST['del_check'] != "on"){mes("削除確認のためにチェックを入れてから削除ボタンを押してください","確認チェックをしてください","java");}
 		if($_POST['changer'] != "admin" && $EST_reg['no_mente']){mes("現在、登録者による修正・削除は停止されています","エラー","java");}
@@ -605,6 +607,7 @@ elseif($_POST['mode'] == "act_del"){
 			$lines = array();
 			$fp=fopen("$EST[log_path]no_link.cgi", "r");
 				while($tmp = fgets($fp, 4096)){
+					if (! rtrim($tmp)) continue;
 					$data=explode("<>",$tmp); #id<>count<>ip<>url<>\n
 					if(!$_POST["id_$data[0]"]){array_push($lines,$tmp);}
 					if($_POST["id_$data[0]"] == "on") {$_POST['del'][] = $data[0];}
@@ -636,12 +639,19 @@ elseif($_POST['mode'] == "act_del"){
 		if($_POST[del]) {
 			foreach($_POST['del'] as $del){
 				$query = "DELETE FROM $EST[sqltb]log WHERE id='$del' LIMIT 1";
-				$result = $xoopsDB->queryF($query) or die("Query failed regist558 $query");
+				$result = $xoopsDB->queryF($query) or die("Query failed regist".__LINE__);
+				// rankログ内該当ID削除
+				$query = "DELETE FROM $EST[sqltb]rank WHERE id='$del'";
+				$result = $xoopsDB->queryF($query) or die("Query failed regist".__LINE__);
+				// revログ内該当ID削除
+				$query = "DELETE FROM $EST[sqltb]rev WHERE id='$del'";
+				$result = $xoopsDB->queryF($query) or die("Query failed regist".__LINE__);
 			}
+			if (isset($_POST['refer'])) $return = str_replace('&', '&amp;', $_POST['refer']);
 		}
 	}
 	if($_POST['changer'] == "admin" && ($_POST['no_link'] == "on" || $_POST['dl_check'] == "on")){mes("削除処理が完了しました","削除完了","kanri");}
-	else{mes("削除処理が完了しました","削除完了",$EST[home]);}
+	else{mes("削除処理が完了しました","削除完了",$return);}
 	exit;
 }
 #(9)登録画面(新規登録・管理人代理登録・登録内容変更)(regist)

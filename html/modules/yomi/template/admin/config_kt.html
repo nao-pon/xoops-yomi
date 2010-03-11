@@ -1,6 +1,6 @@
 <?php
 gane_st();
-require "pl/other_cfg.php";
+require dirname(dirname(dirname(__FILE__))) . "/pl/other_cfg.php";
 ?>
 <link rel="stylesheet" href="<?php echo $EST['html_path_url']?>style.css" type="text/css">
 
@@ -23,9 +23,9 @@ menu_bar();
 	<input type=submit value="管理室に戻る">
 <br>
 </form>
-[<a href="#kt">カテゴリの修正・削除</a>] 
-[<a href="#kt_new">カテゴリの新規作成</a>] 
-[<a href="#kt_ex">カテゴリの説明文設定</a>] 
+[<a href="#kt">カテゴリの修正・削除</a>]
+[<a href="#kt_new">カテゴリの新規作成</a>]
+[<a href="#kt_ex">カテゴリの説明文設定</a>]
 <hr noshade color=#aaaaaa>
 <form action="<?php echo $EST['admin']?>" method=post>
 <?php echo YOMI_TICKET_TAG; ?>

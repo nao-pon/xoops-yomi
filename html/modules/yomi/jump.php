@@ -25,6 +25,8 @@ if($_GET['id']){
 		if(!$tmp) {
 			$query="INSERT INTO $EST[sqltb]rank (id,time,ip) VALUES ('$_GET[id]', '$time' ,'$_SERVER[REMOTE_ADDR]');";
 			$result=$xoopsDB->queryF($query) or die("Query failed jump27 $query");
+			$query = 'UPDATE ' . $EST['sqltb'] . 'log SET `count` = `count` + 1 WHERE `id` = ' . $_GET['id'];
+			$result=$xoopsDB->queryF($query) or die("Query failed jump29 $query");
 		}
 	}
 	$query="SELECT url FROM $EST[sqltb]log WHERE id='$_GET[id]' LIMIT 1";

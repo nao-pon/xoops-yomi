@@ -40,13 +40,13 @@ if($EST['rev_fl']){
 <font size="+1">★現在アクセスランキングを開催しています</font><br>
 以下のURLにリンクを張っていただくとランキングに集計されます。<br>
 【あなた専用のURL】<br>
-<input type=text size=90 value="<?php echo $EST['cgi_path_url'].$EST[rank]?>?mode=r_link&id=<?php echo $Pdata[0]?>" readonly><br>
+<input type=text size=90 value="<?php echo $EST[rank]?>?mode=r_link&id=<?php echo $Pdata[0]?>" readonly><br>
 あなたのサイトの訪問者の方が上記のURLへのリンクをクリックすると、<br>
 当サイトの<a href="<?php echo $EST['rev_url']?>" target="_blank">トップページ</a>に転送され、アクセスランキングのポイントが加算されます。<br>
 ※ただし、一定時間内の同じ訪問者の方からのアクセスは1ポイントとします
 <br><br>
-あなたのサイトへのアクセス数=&gt;<a href="<?php echo $EST['rank']?>?mode=rank" target="_blank">現在</a>: <b><?php echo $Pdata[pt0]?></b>pt / <a href="<?php echo $EST['cgi_path_url'].$EST['rank']?>?mode=rank_rui" target="_blank">累計</a>: <b><?php echo $Pdata[pt1]?></b>pt<br>
-あなたのサイトからのアクセス数=&gt;<a href="<?php echo $EST['rank']?>?mode=rev" target="_blank">現在</a>: <b><?php echo $Pdata[pt2]?></b>pt / <a href="<?php echo $EST['cgi_path_url'].$EST['rank']?>?mode=rev_rui" target="_blank">累計</a>: <b><?php echo $Pdata[pt3]?></b>pt
+あなたのサイトへのアクセス数=&gt;<a href="<?php echo $EST['rank']?>?mode=rank" target="_blank">現在</a>: <b><?php echo $Pdata[pt0]?></b>pt / <a href="<?php echo $EST['rank']?>?mode=rank_rui" target="_blank">累計</a>: <b><?php echo $Pdata[pt1]?></b>pt<br>
+あなたのサイトからのアクセス数=&gt;<a href="<?php echo $EST['rank']?>?mode=rev" target="_blank">現在</a>: <b><?php echo $Pdata[pt2]?></b>pt / <a href="<?php echo $EST['rank']?>?mode=rev_rui" target="_blank">累計</a>: <b><?php echo $Pdata[pt3]?></b>pt
 <br><br>
 </ul>
 <hr>
