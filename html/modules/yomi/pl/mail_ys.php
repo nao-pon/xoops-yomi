@@ -235,7 +235,7 @@ $EST[cgi_path_url]regist_ys.php?mode=enter&id=$log[0]
 function sendmail($mailto,$from_mail,$kenmei,$mail_mode,$admin,$log,$arg6="",$PRadd_kt="",$PRto_admin="",$PRto_register="",$PRhonbun="")
 {
 	#$honbun, #本文
-	global $Eref,$admin_fl,$vars,
+	global $Eref,$admin_fl,$vars,$EST,
 	$PRkt, #カテゴリ名
 	$PRpass; #パスワード
 	//$PRsougo, #相互リンク
@@ -287,9 +287,15 @@ function sendmail($mailto,$from_mail,$kenmei,$mail_mode,$admin,$log,$arg6="",$PR
 	elseif($mail_mode == "pass"){$honbun=pass_mail($log);}
 	elseif($mail_mode == "any"){$honbun=$PRhonbun;}
 	$honbun = unhtmlentities($honbun);
+
+    $old_from = ini_get("sendmail_from");
+    @ ini_set("sendmail_from", $EST['admin_email']);
+    $params = sprintf("-oi -f %s", $EST['admin_email']);
+	if ($old_from) @ ini_set("sendmail_from", $old_from);
+
 	mb_language ("ja");
 	mb_internal_encoding("EUC-JP");
-	mb_send_mail($mailto,$kenmei,$honbun,"From: $from_mail");
+	mb_send_mail($mailto,$kenmei,$honbun,"From: $from_mail",$params);
 }
 
 //HTML文字エンティティを元に戻す
