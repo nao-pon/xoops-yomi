@@ -81,6 +81,7 @@ if (! empty($_POST['do_counter_mente'])) {
 			$sql = "SELECT t.topic_external_link_id as id, COUNT(p.post_id) as 'count' FROM `{$xoopsDB->prefix($moduleConfig['comment_dirname'].'_posts')}` p LEFT JOIN `{$xoopsDB->prefix($moduleConfig['comment_dirname'].'_topics')}` t ON t.topic_id=p.topic_id WHERE t.forum_id='{$moduleConfig['comment_forum_id']}' GROUP BY t.topic_external_link_id";
 		}
 		if ($result = $xoopsDB->query($sql)) {
+			$xoopsDB->query('UPDATE `'.$xoopsDB->prefix('yomi_log').'` SET `comments`=0');
 			include_once XOOPS_ROOT_PATH . '/modules/yomi/include/comment_functions.php';
 			while($arr = $xoopsDB->fetchArray($result)) {
 				yomi_com_update($arr['id'], $arr['count']);
