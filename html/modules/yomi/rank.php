@@ -52,10 +52,12 @@ if (isset($_GET['mode'])) {
 		if($EST['rev_fl']){
 			$_GET['id']=preg_replace("/\D/", "", $_GET['id']);
 			if($_GET['id']){
-				$query="SELECT id, url FROM {$EST['sqltb']}log WHERE id='{$_GET['id']}'";
+				// 対象カテゴリトップへのリンク?
+				$catlink = (substr(trim($EST['rev_url']), -8) == '?mode=kt');
+				$query="SELECT id, url, category FROM {$EST['sqltb']}log WHERE id='{$_GET['id']}'";
 				$result=$xoopsDB->query($query) or die("Query failed rank54 $query");
 				if ($result) { //IDが存在する場合のみ処理する
-					list($id, $url) = mysql_fetch_row($result);
+					list($id, $url, $category) = mysql_fetch_row($result);
 					// $_SERVER['HTTP_REFERER']チェック
 					if ($ref = @$_SERVER['HTTP_REFERER']) {
 						$ref = preg_replace('#^(https?://[^/]+).*$#', '$1', $ref);
@@ -72,6 +74,10 @@ if (isset($_GET['mode'])) {
 								$result=$xoopsDB->queryF($query) or die("Query failed jump29 $query");
 							}
 						}
+					}
+					if ($catlink) {
+						list(, $cat) = explode('&', $category);
+						$EST['rev_url'] = str_replace('&amp;', '&', yomi_makelink($cat));
 					}
 				}
 			}
