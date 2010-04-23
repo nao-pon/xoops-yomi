@@ -16,16 +16,19 @@ if(!$_GET['page']){$_GET['page']=1;}
 if(!$_GET['item_id']){$_GET['item_id']=$_POST['item_id'];}
 if(preg_match("/\D/", $_GET['item_id']) || (!$_GET['item_id'])){mes("指定値が不正です","ページ指定エラー","java");}
 $item_id = intval($_GET['item_id']);
-$mode = $_GET['mode'];
-$order = intval($_GET['order']);
-$comment_id = intval($_GET['comment_id']);
+$single_link = true;
+
+//$mode = $_GET['mode'];
+//$order = intval($_GET['order']);
+//$comment_id = intval($_GET['comment_id']);
+
 
 #結果表示
 
 ##ファイルの読み込み＆該当データ総数を得る
-$Clog=open_for_search($_GET['search_kt'],$_GET['search_day'],$_GET['sort']);
+$Clog=open_for_search($item_id);
 
-$log_lines = array_splice($write,($_GET['page']-1)*$EST['hyouji'],$EST['hyouji']);
+$log_lines = $write;
 unset($write);
 ##↑で@writeを破棄
 
@@ -39,7 +42,7 @@ foreach($log_lines as $Slog)
 	{
 		if($ganes[$tmp])
 		{
-			$_no_ad_space = (preg_match("/\.$/",$ganes[$tmp]));	
+			$_no_ad_space = (preg_match("/\.$/",$ganes[$tmp]));
 		}
 		if ($_no_ad_space) break;
 	}
@@ -48,12 +51,27 @@ foreach($log_lines as $Slog)
 
 $Stitle = $Slog[1];
 
+if (is_object($xoopsTpl)) {
+	// For comments with d3forum
+	$module_config =& $config_handler->getConfigsByCat(0, $xoopsModule->mid());
+	$content = array();
+	$content['item_id'] = $item_id;
+	$content['subject'] = htmlspecialchars($Stitle);
+	$xoopsTpl->assign(
+		array(
+			'mod_config' => $module_config,
+			'mydirname'  => 'yomi',
+			'content'    => $content
+		)
+	);
+}
+
 //xoops2 タイトル設定
-global $xoopsModule,$xoopsTpl;
+//global $xoopsModule,$xoopsTpl;
 if (is_object($xoopsTpl))
 {
 	$xoops_pagetitle = $xoopsModule->name();
-	$xoops_pagetitle = "$Stitle-$xoops_pagetitle";
+	$xoops_pagetitle = "$Stitle - $xoops_pagetitle";
 	$xoopsTpl->assign("xoops_pagetitle",$xoops_pagetitle);
 }
 
@@ -68,17 +86,15 @@ if (isset($link) && $link) {
 exit;
 
 
-function open_for_search($target_kt, $target_day, $sort){
-	global $xoopsDB, $EST, $item_id, $write;
+function open_for_search($item_id){
+	global $xoopsDB, $EST, $write;
 	$i = 0;
 	$query = "SELECT * FROM {$EST['sqltb']}log WHERE id=".$item_id;
 	##検索処理実行
 	$result = $xoopsDB->query($query) or die("Query failed1");
-		while($line = mysql_fetch_row($result)){
-			$write[] = $line;
-			$i++;
-		}
-	if(!count($write)){$i=0;}
+	if ($write[0] = mysql_fetch_row($result)) {
+		$i = 1;
+	}
 	return $i;
 }
 

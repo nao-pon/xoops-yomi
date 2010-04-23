@@ -6,18 +6,32 @@ tr.yomi{ text-align:left; padding:7px; }
 ol.yomi{ margin: 2px; padding: 10px; list-style: decimal inside; text-align: left;}
 ul.yomi{ margin: 2px; padding: 10px; list-style: decimal inside; text-align: left;}
 li.yomi-dec{ list-style-type: decimal }
-table.yomi-body{background-color: #ffffff; width: 100%;}
+table.yomi-body{ background-color: #ffffff; width: 100%;}
 
 #mid{ font-size:11pt; }
 #small{ font-size:10pt; }
-#kanri{ color:#ff9999; } /* ????????? */
+#kanri{ color:#ff9999; } /* Admin's comment */
 #log{ width:90%; border-style:solid; border-color:#9999CC; margin:auto;}
-#log-0{ background-color:#FFCC66; } /* ???????*/
-#log-1{ background-color:#CCCCFF; } /* ???? */
-#log-2{ background-color:#F0F0F0; } /* ???? */
-#log-3{ background-color:#FFFFFF; } /* ???*/
-#log-4{ background-color:#FFFFFF; } /* ??????? */
-#log-5{ background-color:#F0F0F0; } /* ????? */
-#log-6{ background-color:#CCCCFF; } /* ???????? */
-#title-bar{ background-color:#A7C2DD; color:#000000; font-size:13pt; } /* ?????? */
-#mid-bar{ background-color:#DDDDDD; } /* ???? */
+#log-0{ background-color:#FFCC66; } /* Ranking */
+#log-1{ background-color:#CCCCFF; } /* Title */
+#log-2{ background-color:#F0F0F0; } /* Catgory */
+#log-3{ background-color:#FFFFFF; } /* Messege */
+#log-4{ background-color:#FFFFFF; } /* Comment */
+#log-5{ background-color:#F0F0F0; } /* Vote */
+#log-6{ background-color:#CCCCFF; } /* Function */
+#title-bar{ background-color:#A7C2DD; color:#000000; font-size:13pt; } /* Title bar */
+#mid-bar{ background-color:#DDDDDD; } /* Middle bar */
+
+div.yomi_comments {
+	width: 85%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+div.yomi_comments textarea {
+	height: 4em;
+}
+
+div.yomi_comments h2.head {
+	font-size: 13pt;
+}

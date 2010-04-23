@@ -57,9 +57,10 @@ WonderLinkで配布しているスクリプト（以下、配布スクリプト）は
 　　log/keyrank_ys.php.dev -> log/keyrank_ys.php
 　　log/look_mes.cgi.dev   -> log/look_mes.cgi
 ・XOOPS の modules ディレクトリに yomi ディレクトリ以下すべてをアップロードしてパーミッションを設定します。
-　　pl/cfg.php(666)
-　　pl/other_cfg.php(666)
-　　log/内の index.html 以外のファイル(666)
+　　blocks/logos (777)
+	pl/cfg.php (666)
+　　pl/other_cfg.php (666)
+　　log/内の index.html 以外のファイル (666)
 ・XOOPSの管理者画面よりインストールをします。
 ・インストールが完了したら、XOOPSの管理者画面より Yomiサーチ のアイコンをクリックして管理者画面を開きます。
 ・管理者パスワードは、ほとんど使いませんが、Yomiサーチの管理者画面の「環境設定」から管理者パスワードを設定してください。(Yomiサーチ独自でも結構です。)

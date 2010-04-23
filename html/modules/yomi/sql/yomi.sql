@@ -92,26 +92,3 @@ CREATE TABLE `yomi_votedata` (
   KEY ratinghostname (ratinghostname)
 ) TYPE=MyISAM;
 
-#
-# Table structure for table `yomi_comments`
-#
-
-CREATE TABLE `yomi_comments` (
-  comment_id int(8) unsigned NOT NULL auto_increment,
-  pid int(8) unsigned NOT NULL default '0',
-  item_id int(8) unsigned NOT NULL default '0',
-  date int(10) unsigned NOT NULL default '0',
-  user_id int(5) unsigned NOT NULL default '0',
-  ip varchar(15) NOT NULL default '',
-  subject varchar(255) NOT NULL default '',
-  comment text NOT NULL,
-  nohtml tinyint(1) unsigned NOT NULL default '0',
-  nosmiley tinyint(1) unsigned NOT NULL default '0',
-  noxcode tinyint(1) unsigned NOT NULL default '0',
-  icon varchar(25) NOT NULL default '',
-  PRIMARY KEY  (comment_id),
-  KEY pid (pid),
-  KEY item_id (item_id),
-  KEY user_id (user_id),
-  KEY subject (subject(40))
-) TYPE=MyISAM;

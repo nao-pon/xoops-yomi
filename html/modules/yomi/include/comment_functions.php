@@ -1,17 +1,19 @@
 <?php
-// ------------------------------------------------------------------------- //
+// $Id: comment_functions.php,v 1.1 2010/04/23 02:14:37 nao-pon Exp $
+//  ------------------------------------------------------------------------ //
 //                XOOPS - PHP Content Management System                      //
+//                    Copyright (c) 2000 XOOPS.org                           //
 //                       <http://www.xoops.org/>                             //
-// ------------------------------------------------------------------------- //
-// Based on:								     //
-// myPHPNUKE Web Portal System - http://myphpnuke.com/	  		     //
-// PHP-NUKE Web Portal System - http://phpnuke.org/	  		     //
-// Thatware - http://thatware.org/					     //
-// ------------------------------------------------------------------------- //
+//  ------------------------------------------------------------------------ //
 //  This program is free software; you can redistribute it and/or modify     //
 //  it under the terms of the GNU General Public License as published by     //
 //  the Free Software Foundation; either version 2 of the License, or        //
 //  (at your option) any later version.                                      //
+//                                                                           //
+//  You may not change or alter any portion of this comment or credits       //
+//  of supporting developers from this source code or any supporting         //
+//  source code which is considered copyrighted (c) material of the          //
+//  original comment or credit authors.                                      //
 //                                                                           //
 //  This program is distributed in the hope that it will be useful,          //
 //  but WITHOUT ANY WARRANTY; without even the implied warranty of           //
@@ -21,17 +23,25 @@
 //  You should have received a copy of the GNU General Public License        //
 //  along with this program; if not, write to the Free Software              //
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
-// ------------------------------------------------------------------------- //
+//  ------------------------------------------------------------------------ //
 
+// comment callback functions
 
-if (! defined('XOOPS_ROOT_PATH')) {
-	exit();
+function yomi_com_update($id, $total_num)
+{
+	$xoopsDB =& Database::getInstance();
+	$value = '`comments`=\''.$total_num.'\'';
+	$query = 'UPDATE `'.$xoopsDB->prefix('yomi_log').'` SET '.$value.' WHERE `id`=\''.$id.'\'';
+	//exit($query);
+	if ($res = $xoopsDB->query($query)) {
+		return true;
+	} else {
+		return false;
+	}
 }
 
-if (is_object($xoopsTpl)) {
-	$item_id = $Slog[0];
-	include XOOPS_ROOT_PATH . '/include/comment_view.php';
-	$xoopsTpl->display('db:yomi_comment_view.html');
-} else {
-	echo 'no object';
+function yomi_com_approve(&$comment)
+{
+	// notification mail here
 }
+

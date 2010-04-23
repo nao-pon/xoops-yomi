@@ -134,9 +134,69 @@ $modversion['blocks'][10]['show_func'] = "b_yomi_s3";
 $modversion['blocks'][10]['edit_func'] = "b_yomi_s3_edit";
 $modversion['blocks'][10]['options'] = "2|3|20|60|88|31|";
 
-$xoopsConfig['anonpost'] = 1;
-
 $modversion['onUpdate'] = 'include/onupdate.php' ;
+
+$modversion['templates'][1]['file'] = 'yomi_comment_view.html';
+$modversion['templates'][1]['description'] = 'Comments view template.';
+
+$modversion['hasComments'] = 1;
+$modversion['comments']['pageName'] = 'single_link.php';
+$modversion['comments']['itemName'] = 'item_id';
+// Comment callback functions
+$modversion['comments']['callbackFile'] = 'include/comment_functions.php';
+//$modversion['comments']['callback']['approve'] = 'yomi_com_approve';
+$modversion['comments']['callback']['update'] = 'yomi_com_update';
+
+// Configs
+$modversion['config'][] = array(
+	'name'			=> 'comment_dirname' ,
+	'title'			=> '_MI_YOMI_COM_DIRNAME' ,
+	'description'	=> '' ,
+	'formtype'		=> 'textbox' ,
+	'valuetype'		=> 'text' ,
+	'default'		=> '' ,
+	'options'		=> array()
+) ;
+
+$modversion['config'][] = array(
+	'name'			=> 'comment_forum_id' ,
+	'title'			=> '_MI_YOMI_COM_FORUM_ID' ,
+	'description'	=> '' ,
+	'formtype'		=> 'textbox' ,
+	'valuetype'		=> 'int' ,
+	'default'		=> '0' ,
+	'options'		=> array()
+) ;
+
+$modversion['config'][] = array(
+	'name'			=> 'comment_order' ,
+	'title'			=> '_MI_YOMI_COM_ORDER' ,
+	'description'	=> '' ,
+	'formtype'		=> 'select' ,
+	'valuetype'		=> 'text' ,
+	'default'		=> 'desc' ,
+	'options'		=> array( '_OLDESTFIRST' => 'asc' , '_NEWESTFIRST' => 'desc' )
+) ;
+
+$modversion['config'][] = array(
+	'name'			=> 'comment_view' ,
+	'title'			=> '_MI_YOMI_COM_VIEW' ,
+	'description'	=> '' ,
+	'formtype'		=> 'select' ,
+	'valuetype'		=> 'text' ,
+	'default'		=> 'listposts_flat' ,
+	'options'		=> array( '_FLAT' => 'listposts_flat' , '_THREADED' => 'listtopics' )
+) ;
+
+$modversion['config'][] = array(
+	'name'			=> 'comment_posts_num' ,
+	'title'			=> '_MI_YOMI_COM_POSTSNUM' ,
+	'description'	=> '' ,
+	'formtype'		=> 'textbox' ,
+	'valuetype'		=> 'int' ,
+	'default'		=> '10' ,
+	'options'		=> array()
+) ;
 
 // keep block's options
 if (!defined('XOOPS_CUBE_LEGACY') && substr(XOOPS_VERSION, 6, 3) < 2.1 && !empty($_POST['fct']) && !empty($_POST['op']) && $_POST['fct'] == 'modulesadmin' && $_POST['op'] == 'update_ok' && $_POST['dirname'] == $modversion['dirname']) {

@@ -1,0 +1,24 @@
+<!-- d3forum comment integration -->
+<div class="yomi_comments">
+<{if $mod_config.comment_dirname && $mod_config.comment_forum_id}>
+	<{d3comment mydirname=$mydirname class="yomiD3commentContent"}>
+<{else}>
+  <div style="text-align: center; padding: 3px; margin: 3px;">
+    <{$commentsnav}>
+    <{$lang_notice}>
+  </div>
+  <{if $comments}>
+    <div style="text-align: left; margin: 3px; padding: 3px;">
+    <!-- start comments loop -->
+    <{if $comment_mode == "flat"}>
+      <{include file="db:system_comments_flat.html"}>
+    <{elseif $comment_mode == "thread"}>
+      <{include file="db:system_comments_thread.html"}>
+    <{elseif $comment_mode == "nest"}>
+      <{include file="db:system_comments_nest.html"}>
+    <{/if}>
+    <!-- end comments loop -->
+    </div>
+  <{/if}>
+<{/if}>
+</div>

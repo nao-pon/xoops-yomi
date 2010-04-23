@@ -122,7 +122,7 @@ if($Clog){
 	}
 	##一括削除用のフォーム出力(上)
 	$CK_data=get_cookie();
-	if(($CK_data[3] || $is_admin == 1) && !($EST['html'] && $ganes[$LC_kt]) && ($Clog !== 1)){
+	if(($CK_data[3] || $is_admin == 1) && !($EST['html'] && $ganes[$LC_kt]) && empty($single_link)){
 		?>
 	<form action="<?php echo $EST['cgi_path_url']?>regist_ys.php" method=post>
 		<?php echo YOMI_TICKET_TAG; ?>
@@ -165,7 +165,7 @@ if($Clog){
 		?>
  <br><div align="right"><font size="-1">更新日：<?php echo $Slog[4]?></font></div>
 <?php
-		if(($CK_data[3] || $is_admin == 1) && !($EST['html'] && $ganes[$LC_kt]) && ($Clog !== 1)){
+		if(($CK_data[3] || $is_admin == 1) && !($EST['html'] && $ganes[$LC_kt]) && empty($single_link)){
 			?>
 [<input type=checkbox name="del[]" value="<?php echo $Slog[0]?>"> 削除チェック]<br>
 <?php
@@ -198,7 +198,7 @@ if($Clog){
 </tr>
 <?php
 		if($Slog[7]){
-			?>
+		?>
 <tr id=log-4>
 	<td class="yomi"><font id=kanri><?php echo nl2br($Slog[7])?></font></td>
 </tr>
@@ -212,19 +212,14 @@ if($Clog){
 	<td style="text-align:center;"><font size="-1">[<a href="ratelink.php?lid=<?php echo $Slog[0]?>">このサイトを評価する</a>] [<a href="<?php echo $EST[cgi_path_url]?>regist_ys.php?mode=enter&id=<?php echo $Slog[0]?>" target="">修正・削除</a>] [<a href="<?php echo $EST['cgi_path_url']?>regist_ys.php?mode=no_link&id=<?php echo $Slog[0]?>&pre=on&title=<?php echo rawurlencode($Slog[1])?>">管理者に通知</a>] [<a target="_top" href="mailto:?subject=<?php echo rawurlencode(mb_convert_encoding(sprintf(_MD_INTRESTLINK,$xoopsConfig['sitename']),"SJIS","AUTO"))?>&body=<?php echo rawurlencode(mb_convert_encoding(sprintf(_MD_INTLINKFOUND,$xoopsConfig['sitename'])."\r\n[".$Slog[1]."]\r\n".XOOPS_URL."/modules/yomi/single_link.php?item_id=".$Slog[0],"SJIS","AUTO"))?>"><?php echo _MD_TELLAFRIEND?></a>] [<a href="single_link.php?item_id=<?php echo $Slog[0]?>">コメント(<?php echo $Slog[20]?>)</a>]</font></td>
 </tr>
 
-
-<?php
-		if ($Clog == 1){
-			$item_id = $Slog[0];
-			echo "<tr><td>";
-			include "comment.inc.php";
-			echo "</td></tr>";
-		}
-?>
-
 </table>
 </div>
-<br>
+<?php
+if (! empty($single_link)){
+	include "comment.inc.php";
+}
+?>
+<br />
 <!-- /ログ表示 -->
 <?php
 	}
@@ -234,14 +229,16 @@ if($Clog){
 <!--/データがある場合-->
 <?php
 }
-else{ #外部検索エンジンへのリンクを表示
+else if (! $item_id){ #外部検索エンジンへのリンクを表示
 	echo "<ul>▼該当するデータは見つかりませんでした。下記の検索エンジンで再検索できます。</ul>";
 	require "pl/meta_ys.php";
 	$location_list=meta("meta_page","on");
 	PR_meta_page($location_list);
+} else {
+	echo '<p>▼該当するデータはありません。登録されていないか削除されました。</p>';
 }
 ##一括削除用のフォーム出力(下)
-if(($CK_data[3] || $is_admin == 1) && !($EST['html'] && $ganes[$LC_kt]) && ($Clog !== 1)){
+if(($CK_data[3] || $is_admin == 1) && !($EST['html'] && $ganes[$LC_kt]) && empty($single_link)){
 	?>
 <center>
 <input type=submit value="一括削除実行">
