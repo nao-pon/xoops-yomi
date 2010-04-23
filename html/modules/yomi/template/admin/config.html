@@ -31,8 +31,9 @@ else{$Cmail_pass_0=" checked"; $Cmail_pass_1="";}
 if($EST['re_pass_fl']){$Cre_pass_fl_0=""; $Cre_pass_fl_1=" checked";}
 else{$Cre_pass_fl_0=" checked"; $Cre_pass_fl_1="";}
 #紹介文の改行(無効=0/有効=1)
-if($EST['syoukai_br']){$Csyoukai_br_0=""; $Csyoukai_br_1=" checked";}
-else{$Csyoukai_br_0=" checked"; $Csyoukai_br_1="";}
+if($EST['syoukai_br'] == 2){$Csyoukai_br_0=$Csyoukai_br_2=""; $Csyoukai_br_2=" checked";}
+else if($EST['syoukai_br'] == 1){$Csyoukai_br_0=$Csyoukai_br_3=""; $Csyoukai_br_2=" checked";}
+else{$Csyoukai_br_0=" checked"; $Csyoukai_br_1=$Csyoukai_br_3="";}
 #ジャンプ処理(Locationを使う=1/メタタグを使う=0)
 if($EST['location']){$Clocation_0=""; $Clocation_1=" checked";}
 else{$Clocation_0=" checked"; $Clocation_1="";}
@@ -335,7 +336,7 @@ if($EST['pass'] == "setup"){
 	</ul><br>
 	<li><a href="#cfg_submit"><b>紹介文の改行</b></a><br>
 	<ul>
-		<input type=radio name="syoukai_br" value="2"<?php echo $Csyoukai_br_1?>>有効にする(XOOPSコード有効) |
+		<input type=radio name="syoukai_br" value="2"<?php echo $Csyoukai_br_2?>>有効にする(XOOPSコード有効) |
 		<input type=radio name="syoukai_br" value="1"<?php echo $Csyoukai_br_1?>>有効にする |
 		<input type=radio name="syoukai_br" value="0"<?php echo $Csyoukai_br_0?>>無効にする
 	</ul><br>
