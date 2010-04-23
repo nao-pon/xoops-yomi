@@ -6,7 +6,7 @@ $_GET = array_map("htmlspecialchars", $_GET);
 //コメント欄のパラメータ変更は single_link.php へリダイレクト
 if (!empty($_GET['item_id'])){
 	$redirect = "single_link.php?item_id=".$_GET['item_id']."&mode=".$_GET['mode']."&order=".$_GET['order'];
-	header("Location: $redirect");  
+	header("Location: $redirect");
 }
 // For XOOPS
 if (empty($_GET['engine']) || $_GET['engine'] == "pre")
@@ -132,7 +132,7 @@ if($_GET['mode'] == "search"){ #検索結果表示画面
 	//$_GET['word'] = mb_convert_encoding($_GET['word'], "EUC-JP", "auto");
 
 	if(!$_GET['hyouji']){$_GET['hyouji']=$EST['hyouji'];}
-	
+
 	if($EST['keyrank'] && $_GET['page']==1){ #キーワードランキング用のデータを取得
 		set_word();
 	}
@@ -198,32 +198,39 @@ if($_GET['mode'] == "search"){ #検索結果表示画面
 		elseif(preg_match("/^(\d+)\/(\d+)\/(\d+)$/", $_GET['search_day'], $match)){ #year/mon/day
 			$search_day="★".$_GET['search_day']." に更新されたサイト<br>";
 		}
-	
+
 	}
 	##ファイルの読み込み＆該当データ総数を得る
 	$Clog=open_for_search($_GET['search_kt'],$_GET['search_day'],$_GET['sort']);
-	
+
 	$log_lines = array_splice($write,($_GET['page']-1)*$EST['hyouji'],$EST['hyouji']);
 	unset($write);
 	##↑で@writeを破棄
-	
+
+	$myts =& MyTextsanitizer::getInstance();
+
 	// ヘッダスペース抑止カテゴリの判定
 	EST_reg();
 	$_no_ad_space = false;
-	foreach($log_lines as $Slog)
+	foreach($log_lines as $key => $Slog)
 	{
 		$kt = explode("&",$Slog[10]);
 		foreach ($kt as $tmp)
 		{
 			if($ganes[$tmp])
 			{
-				$_no_ad_space = (preg_match("/\.$/",$ganes[$tmp]));	
+				$_no_ad_space = (preg_match("/\.$/",$ganes[$tmp]));
 			}
 			if ($_no_ad_space) break;
 		}
-		if ($_no_ad_space) break;
+		$Slog[6] = str_replace('<br>', "\n", $Slog[6]);
+		if ($EST['syoukai_br'] == 2) {
+			$log_lines[$key][6] = $myts->displayTarea(unhtmlspecialchars($Slog[6]));
+		} else if ($EST['syoukai_br'] == 1) {
+			$log_lines[$key][6] = nl2br($Slog[6]);
+		}
 	}
-	
+
 	if($_GET['item_id']){
 		//$Stitle="検索結果";
 		$Stitle = $write[0][1];
@@ -244,13 +251,13 @@ if($_GET['mode'] == "search"){ #検索結果表示画面
 	}
 
 	require $EST['temp_path']."search.html";
-	
+
 	include("footer.php");
-	
+
 	if (isset($link) && $link) {
 		@mysql_close($link);
 	}
-	
+
 	exit;
 }
 

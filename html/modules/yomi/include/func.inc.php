@@ -2,7 +2,7 @@
 /*
  * Created on 2008/06/23 by nao-pon http://hypweb.net/
  * License: GPL v2 or (at your option) any later version
- * $Id: func.inc.php,v 1.4 2010/04/19 01:36:58 nao-pon Exp $
+ * $Id: func.inc.php,v 1.5 2010/04/23 08:32:09 nao-pon Exp $
  */
 
 if( ! class_exists( 'HypCommonFunc' ) ) {
@@ -74,6 +74,14 @@ function yomi_get_favicon($url, $alt = '') {
 		return $alt;
 	}
 	return '<img src="' . XOOPS_URL . '/class/hyp_common/favicon.php?url=' . rawurlencode($url) . '" width="16" height="16" alt="'.$alt.'" />';
+}
+
+// unhtmlspecialchars (utility)
+if (! function_exists('unhtmlspecialchars')) {
+function unhtmlspecialchars( $text , $quotes = ENT_QUOTES )
+{
+	return strtr( $text , array_flip( get_html_translation_table( HTML_SPECIALCHARS , $quotes ) ) + array( '&#039;' => "'" ) ) ;
+}
 }
 
 // For PHP 4

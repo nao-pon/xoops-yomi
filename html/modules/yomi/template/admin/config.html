@@ -125,11 +125,11 @@ menu_bar();
 	<input type=submit value="管理室に戻る">
 <br>
 </form>
-[<a href="#pass_change">パスワード変更</a>] 
-[<a href="#cfg">環境設定(一般)</a>] 
+[<a href="#pass_change">パスワード変更</a>]
+[<a href="#cfg">環境設定(一般)</a>]
 [<a href="#regist">登録処理関係の設定</a>]<br>
-[<a href="#start">初期設定</a>] 
-[<a href="#menu">メニューバー/外部検索エンジン/ヘッダ・フッタスペースの設定</a>] 
+[<a href="#start">初期設定</a>]
+[<a href="#menu">メニューバー/外部検索エンジン/ヘッダ・フッタスペースの設定</a>]
 <hr noshade color=#aaaaaa>
 <form action="<?php echo $EST['admin']?>" method=post>
 <?php echo YOMI_TICKET_TAG; ?>
@@ -193,7 +193,7 @@ if($EST['pass'] == "setup"){
 	<ul>
 			<li><b>ユーザのカテゴリ変更</b><br>
 			<ul>
-			<input type=radio name="user_change_kt" value="0"<?php echo $Cuser_change_kt_0?>>許可する | 
+			<input type=radio name="user_change_kt" value="0"<?php echo $Cuser_change_kt_0?>>許可する |
 			<input type=radio name="user_change_kt" value="1"<?php echo $Cuser_change_kt_1?>>許可しない
 			</ul>
 	</ul>
@@ -201,7 +201,7 @@ if($EST['pass'] == "setup"){
 			<li><b>審査登録システム</b><br>
 			※仮登録モードにした場合には管理人が管理室から登録の可否を決定できます<br>
 			<ul>
-			<input type=radio name="user_check" value="0"<?php echo $Cuser_check_0?>>仮登録モードにしない | 
+			<input type=radio name="user_check" value="0"<?php echo $Cuser_check_0?>>仮登録モードにしない |
 			<input type=radio name="user_check" value="1"<?php echo $Cuser_check_1?>>仮登録モードにする
 			</ul>
 	</ul><br>
@@ -297,32 +297,32 @@ if($EST['pass'] == "setup"){
 	<ul>
 		<li><b>管理人にメールを送信</b><br>
 		<ul>
-			<input type=radio name="mail_to_admin" value="1"<?php echo $Cmail_to_admin_1?>>する | 
+			<input type=radio name="mail_to_admin" value="1"<?php echo $Cmail_to_admin_1?>>する |
 			<input type=radio name="mail_to_admin" value="0"<?php echo $Cmail_to_admin_0?>>しない
 		</ul>
 		<li><b>登録者にメールを送信</b><br>
 		<ul>
-			<input type=radio name="mail_to_register" value="1"<?php echo $Cmail_to_register_1?>>する | 
+			<input type=radio name="mail_to_register" value="1"<?php echo $Cmail_to_register_1?>>する |
 			<input type=radio name="mail_to_register" value="0"<?php echo $Cmail_to_register_0?>>しない
 		</ul>
 		<li><b>新規登録完了メールを送信</b><br>
 		<ul>
-			<input type=radio name="mail_new" value="1"<?php echo $Cmail_new_1?>>する | 
+			<input type=radio name="mail_new" value="1"<?php echo $Cmail_new_1?>>する |
 			<input type=radio name="mail_new" value="0"<?php echo $Cmail_new_0?>>しない
 		</ul>
 		<li><b>登録内容変更完了メールを送信</b><br>
 		<ul>
-			<input type=radio name="mail_ch" value="1"<?php echo $Cmail_ch_1?>>する | 
+			<input type=radio name="mail_ch" value="1"<?php echo $Cmail_ch_1?>>する |
 			<input type=radio name="mail_ch" value="0"<?php echo $Cmail_ch_0?>>しない
 		</ul>
 		<li><b>仮登録完了メールを送信</b><br>
 		<ul>
-			<input type=radio name="mail_temp" value="1"<?php echo $Cmail_temp_1?>>する | 
+			<input type=radio name="mail_temp" value="1"<?php echo $Cmail_temp_1?>>する |
 			<input type=radio name="mail_temp" value="0"<?php echo $Cmail_temp_0?>>しない
 		</ul>
 		<li><b>パスワード変更メールを送信</b><br>
 		<ul>
-			<input type=radio name="mail_pass" value="1"<?php echo $Cmail_pass_1?>>する | 
+			<input type=radio name="mail_pass" value="1"<?php echo $Cmail_pass_1?>>する |
 			<input type=radio name="mail_pass" value="0"<?php echo $Cmail_pass_0?>>しない
 		</ul>
 	</ul><br>
@@ -330,12 +330,13 @@ if($EST['pass'] == "setup"){
 	※パスワード変更メールを送信しない設定でこの設定を「する」にした場合にはWEB上でパスワードの通知が行われます<br>
 	※上記の理由からパスワード変更メールを送信しない設定でこの設定を「する」にすることは推奨しません
 	<ul>
-		<input type=radio name="re_pass_fl" value="1"<?php echo $Cre_pass_fl_1?>>する | 
+		<input type=radio name="re_pass_fl" value="1"<?php echo $Cre_pass_fl_1?>>する |
 		<input type=radio name="re_pass_fl" value="0"<?php echo $Cre_pass_fl_0?>>しない
 	</ul><br>
 	<li><a href="#cfg_submit"><b>紹介文の改行</b></a><br>
 	<ul>
-		<input type=radio name="syoukai_br" value="1"<?php echo $Csyoukai_br_1?>>有効にする | 
+		<input type=radio name="syoukai_br" value="2"<?php echo $Csyoukai_br_1?>>有効にする(XOOPSコード有効) |
+		<input type=radio name="syoukai_br" value="1"<?php echo $Csyoukai_br_1?>>有効にする |
 		<input type=radio name="syoukai_br" value="0"<?php echo $Csyoukai_br_0?>>無効にする
 	</ul><br>
 	<li><a href="#cfg_submit"><b>標準のログ表示順</b></a><br>
@@ -354,7 +355,7 @@ if($EST['pass'] == "setup"){
 	<li><a href="#cfg_submit"><b>ジャンプ処理</b></a><br>
 	※まず、<a href="<?php echo $EST['script']?>?mode=random" target="_blank">ランダムジャンプ</a> をクリックしてみてページが表示できない場合には「メタタグを使う」にしてください
 	<ul>
-		<input type=radio name="location" value="1"<?php echo $Clocation_1?>>Locationを使う | 
+		<input type=radio name="location" value="1"<?php echo $Clocation_1?>>Locationを使う |
 		<input type=radio name="location" value="0"<?php echo $Clocation_0?>>メタタグを使う
 	</ul><br>
 	<li><a href="#cfg_submit"><b>キーワードランキングの設定</b></a><br>
@@ -368,13 +369,13 @@ if($EST['pass'] == "setup"){
 <!--
 	<li><a href="#cfg_submit"><b>アクセスカウンタ</b></a>
 	<ul>
-		<input type=radio name="count" value="0"<?php echo $Ccount_0?>>使用しない | 
+		<input type=radio name="count" value="0"<?php echo $Ccount_0?>>使用しない |
 		<input type=radio name="count" value="1"<?php echo $Ccount_1?>>使用する
 	</ul><br>
 -->
 	<li><a href="#cfg_submit"><b>カテゴリ表示で下層カテゴリデータの表示</b></a>
 	<ul>
-		<input type=radio name="kt_child_show" value="0"<?php echo $Cchild_0?>>表示しない | 
+		<input type=radio name="kt_child_show" value="0"<?php echo $Cchild_0?>>表示しない |
 		<input type=radio name="kt_child_show" value="1"<?php echo $Cchild_1?>>表示する
 	</ul><br>
 	<input type=hidden name="allow_search_form" value="<?php echo $EST['allow_search_form']?>">
@@ -558,39 +559,39 @@ if($EST['pass'] == "setup"){
 	<ul>
 		<li><b>管理人にメールを送信</b><br>
 		<ul>
-			<input type=radio name="mail_to_admin" value="1"<?php echo $Cmail_to_admin_1?>>する | 
+			<input type=radio name="mail_to_admin" value="1"<?php echo $Cmail_to_admin_1?>>する |
 			<input type=radio name="mail_to_admin" value="0"<?php echo $Cmail_to_admin_0?>>しない
 		</ul>
 		<li><b>登録者にメールを送信</b><br>
 		<ul>
-			<input type=radio name="mail_to_register" value="1"<?php echo $Cmail_to_register_1?>>する | 
+			<input type=radio name="mail_to_register" value="1"<?php echo $Cmail_to_register_1?>>する |
 			<input type=radio name="mail_to_register" value="0"<?php echo $Cmail_to_register_0?>>しない
 		</ul>
 		<li><b>新規登録完了メールを送信</b><br>
 		<ul>
-			<input type=radio name="mail_new" value="1"<?php echo $Cmail_new_1?>>する | 
+			<input type=radio name="mail_new" value="1"<?php echo $Cmail_new_1?>>する |
 			<input type=radio name="mail_new" value="0"<?php echo $Cmail_new_0?>>しない
 		</ul>
 		<li><b>登録内容変更完了メールを送信</b><br>
 		<ul>
-			<input type=radio name="mail_ch" value="1"<?php echo $Cmail_ch_1?>>する | 
+			<input type=radio name="mail_ch" value="1"<?php echo $Cmail_ch_1?>>する |
 			<input type=radio name="mail_ch" value="0"<?php echo $Cmail_ch_0?>>しない
 		</ul>
 		<li><b>仮登録完了メールを送信</b><br>
 		<ul>
-			<input type=radio name="mail_temp" value="1"<?php echo $Cmail_temp_1?>>する | 
+			<input type=radio name="mail_temp" value="1"<?php echo $Cmail_temp_1?>>する |
 			<input type=radio name="mail_temp" value="0"<?php echo $Cmail_temp_0?>>しない
 		</ul>
 		<li><b>パスワード変更メールを送信</b><br>
 		<ul>
-			<input type=radio name="mail_pass" value="1"<?php echo $Cmail_pass_1?>>する | 
+			<input type=radio name="mail_pass" value="1"<?php echo $Cmail_pass_1?>>する |
 			<input type=radio name="mail_pass" value="0"<?php echo $Cmail_pass_0?>>しない
 		</ul>
 	</ul>
 	<li><b>ジャンプ処理</b><br>
 	※まず、<a href="<?php echo $EST['script']?>?mode=random" target="_blank">ランダムジャンプ</a> をクリックしてみてページが表示できない場合には「メタタグを使う」にしてください
 	<ul>
-		<input type=radio name="location" value="1"<?php echo $Clocation_1?>>Locationを使う | 
+		<input type=radio name="location" value="1"<?php echo $Clocation_1?>>Locationを使う |
 		<input type=radio name="location" value="0"<?php echo $Clocation_0?>>メタタグを使う
 	</ul>
 <br><br><input type=submit value="初期設定を変更する"> <input type=reset value="リセット">

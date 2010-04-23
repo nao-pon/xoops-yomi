@@ -32,10 +32,12 @@ $log_lines = $write;
 unset($write);
 ##¢¬¤Ç@write¤òÇË´þ
 
+$myts =& MyTextsanitizer::getInstance();
+
 // ¥Ø¥Ã¥À¥¹¥Ú¡¼¥¹ÍÞ»ß¥«¥Æ¥´¥ê¤ÎÈ½Äê
 EST_reg();
 $_no_ad_space = false;
-foreach($log_lines as $Slog)
+foreach($log_lines as $key => $Slog)
 {
 	$kt = explode("&",$Slog[10]);
 	foreach ($kt as $tmp)
@@ -46,7 +48,12 @@ foreach($log_lines as $Slog)
 		}
 		if ($_no_ad_space) break;
 	}
-	if ($_no_ad_space) break;
+	$Slog[6] = str_replace('<br>', "\n", $Slog[6]);
+	if ($EST['syoukai_br'] == 2) {
+		$log_lines[$key][6] = $myts->displayTarea(unhtmlspecialchars($Slog[6]));
+	} else if ($EST['syoukai_br'] == 1) {
+		$log_lines[$key][6] = nl2br($Slog[6]);
+	}
 }
 
 $Stitle = $Slog[1];

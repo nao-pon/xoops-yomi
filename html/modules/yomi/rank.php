@@ -14,6 +14,8 @@ if(!isset($_GET['page'])){$_GET['page']=1;}
 
 $refer = (isset($_SERVER['REQUEST_URI']))? htmlspecialchars(preg_replace('#^(https?://[^/]+).*$#','$1',XOOPS_URL) . $_SERVER['REQUEST_URI']) : '';
 
+$myts =& MyTextsanitizer::getInstance();
+
 if (isset($_GET['mode'])) {
 	#(1)リンクジャンプ処理(link)
 	if($_GET['mode'] == "link"){
@@ -91,18 +93,18 @@ if (isset($_GET['mode'])) {
 	elseif($_GET['mode'] == "rev" || $_GET['mode'] == "rev_bf" || $_GET['mode'] == "rev_rui"){
 		if(!$EST['rev_fl']){mes("アクセスランキングは実施しない設定になっています","エラー","java");}
 		$CK_data=get_cookie();
-		
+
 		if (isset($CK_data[6])) $EST['kt_child_show']=$CK_data[6];
-		
+
 		if (empty($_GET['kt'])) $_GET['kt'] = "";
-		
+
 		if($_GET['mode'] == "rev"){$Stitle="アクセスランキング";}
 		elseif($_GET['mode'] == "rev_bf"){$Stitle="前回のアクセスランキング";}
 		else{$Stitle="アクセスランキング(累計)";}
 		if($_GET['kt']){$Stitle.=" - " . $ganes[$_GET['kt']];}
 		// ヘッダ広告スペース抑止
 		$_no_ad_space = (preg_match("/\.$/",$ganes[$_GET['kt']]));
-		
+
 		if (isset($_GET['child_show'])) {
 			$EST['kt_child_show'] = $_GET['child_show'];
 			$g_prm_child = "&child_show=".$_GET['child_show'];
@@ -123,14 +125,14 @@ if (isset($_GET['mode'])) {
 				}
 			} else {
 				$kt_sql = "&".$_GET['kt']."&";
-				
+
 			}
 		}
 		else
 		{
 			$Stitle .= " 全体";
 		}
-		
+
 		//xoops2 タイトル設定
 		global $xoopsModule,$xoopsTpl;
 		if (is_object($xoopsTpl))
@@ -139,7 +141,7 @@ if (isset($_GET['mode'])) {
 			$xoops_pagetitle = "$Stitle-$xoops_pagetitle";
 			$xoopsTpl->assign("xoops_pagetitle",$xoops_pagetitle);
 		}
-		
+
 		$Eref=urlencode($_SERVER['HTTP_REFERER']);
 		$Slog=array();
 		$log_lines=array(); $Clog=0; $bf_pt=0; $pre_pt=""; $pre_rank=$pre_rank_z=1; $pre_pt_fl=1;
@@ -161,12 +163,12 @@ if (isset($_GET['mode'])) {
 			$end=$time;
 			$last_mod="　-　".date("Y/m/d H:i", $end);
 		}
-		
+
 		if ($start) {
 			if ($_GET['kt']){
-				$query="SELECT r.id, COUNT(r.id) AS pt 
-				FROM $EST[sqltb]rev r, $EST[sqltb]log l 
-				WHERE l.id = r.id and r.time BETWEEN $start AND $end and l.category LIKE '%$kt_sql%' 
+				$query="SELECT r.id, COUNT(r.id) AS pt
+				FROM $EST[sqltb]rev r, $EST[sqltb]log l
+				WHERE l.id = r.id and r.time BETWEEN $start AND $end and l.category LIKE '%$kt_sql%'
 				GROUP BY r.id";
 			} else {
 				$query="SELECT id,COUNT(*) AS pt FROM $EST[sqltb]rev WHERE time BETWEEN $start AND $end GROUP BY id";
@@ -178,18 +180,18 @@ if (isset($_GET['mode'])) {
 				$query="SELECT * FROM $EST[sqltb]log";
 			}
 		}
-		
+
 		if (!$Clog) {
 			$result = $xoopsDB->query($query." LIMIT ".$EST['rank_best']);
 			$Clog = mysql_num_rows($result);
 		}
-		
+
 		$query .= $start? " ORDER BY pt DESC" : " ORDER BY count_rev DESC";
-		
+
 		$end_no=$EST['hyouji'];
 		$str_no=$_GET['page']*$EST['hyouji']-$EST['hyouji'];
 		$query .= " LIMIT $str_no , $end_no";
-		
+
 		$result = $xoopsDB->query($query);
 		while($Rank = mysql_fetch_array($result)){
 			$kt_fl=0;
@@ -203,10 +205,17 @@ if (isset($_GET['mode'])) {
 				$Slog[16] = $Rank['pt'];
 			}
 			if($Slog[0]){
+				$Slog[6] = str_replace('<br>', "\n", $Slog[6]);
+				if ($EST['syoukai_br'] == 2) {
+					$Slog[6] = $myts->displayTarea(unhtmlspecialchars($Slog[6]));
+				} else if ($EST['syoukai_br'] == 1) {
+					$Slog[6] = nl2br($Slog[6]);
+				}
 				array_push($log_lines,$Slog);
 			}
+
 		}
-		
+
 		#ナビゲーションバーを表示
 		$navi = "";
 		$kt=explode("_",$_GET['kt']); array_pop($kt);
@@ -216,7 +225,7 @@ if (isset($_GET['mode'])) {
 			$navi .= "<a href=\"$Ekt$temp_kt\">$ganes[$temp_kt]</a> &gt; ";
 			$temp_kt .="_";
 		}
-		
+
 		$tmp=array($_GET['page'],$Clog,$EST['hyouji'],"{$g_prm_child}&mode=$_GET[mode]&kt=$_GET[kt]",$EST['rank']);
 		$PRmokuji=mokuji($tmp);
 		require "$EST[temp_path]rev_rank.html";
@@ -261,7 +270,7 @@ if ($_GET['kt'])
 		}
 	} else {
 		$kt_sql = "&".$_GET['kt']."&";
-		
+
 	}
 }
 else
@@ -311,9 +320,9 @@ else {
 
 if ($start) {
 	if ($_GET['kt']){
-		$query="SELECT r.id, COUNT(r.id) AS pt, l.category, l.id 
-		FROM $EST[sqltb]rank r, $EST[sqltb]log l 
-		WHERE l.id = r.id and r.time BETWEEN $start AND $end and l.category LIKE '%$kt_sql%' 
+		$query="SELECT r.id, COUNT(r.id) AS pt, l.category, l.id
+		FROM $EST[sqltb]rank r, $EST[sqltb]log l
+		WHERE l.id = r.id and r.time BETWEEN $start AND $end and l.category LIKE '%$kt_sql%'
 		GROUP BY r.id";
 	} else {
 		$query="SELECT id,COUNT(*) AS pt FROM $EST[sqltb]rank WHERE time BETWEEN $start AND $end GROUP BY id";
@@ -347,6 +356,12 @@ while($Rank = mysql_fetch_array($result)){
 		$Slog['pt'] = $Rank['pt'];
 	}
 	if($Slog[0]){
+		$Slog[6] = str_replace('<br>', "\n", $Slog[6]);
+		if ($EST['syoukai_br'] == 2) {
+			$Slog[6] = $myts->displayTarea(unhtmlspecialchars($Slog[6]));
+		} else if ($EST['syoukai_br'] == 1) {
+			$Slog[6] = nl2br($Slog[6]);
+		}
 		array_push($log_lines,$Slog);
 	}
 }

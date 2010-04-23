@@ -208,12 +208,10 @@ elseif($_POST['mode'] == "temp_to_regist_act"){
 			$Slog[5]=$Tlog[5];
 			#紹介文(6)
 			$Slog[6]=$_POST["Fsyoukai$temp_id"];
-			$Slog[6]=str_replace("\r", "", $Slog[6]);
-			$Slog[6]=str_replace("\n", "<br>", $Slog[6]);
+			$Slog[6]=str_replace('<br>', "\n", $Slog[6]);
 			#管理人コメント(7)
 			$Slog[7]=$_POST["Fkanricom$temp_id"];
-			$Slog[7]=str_replace("\r", "", $Slog[7]);
-			$Slog[7]=str_replace("\n", "<br>", $Slog[7]);
+			$Slog[7]=str_replace('<br>', "\n", $Slog[7]);
 			#お名前(8)
 			$Slog[8]=$_POST["Fname$temp_id"];
 			#E-Mail(9)

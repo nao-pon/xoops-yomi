@@ -79,7 +79,7 @@ if($EST_reg['bana_url']){
 <!--タイトルバナーのURL-->
 	<li>【タイトルバナーのURL】
 		<ul>※バナー(画像)のURLの最後が「.gif」「.jpg」「.png」のいずれかで終わるようにしてください。
-		<br>※表示されるサイズは 横<b><?php echo $EST_reg['Mbana_w']?></b>×縦<b><?php echo $EST_reg['Mbana_h']?></b>(ピクセル)</b> です。 
+		<br>※表示されるサイズは 横<b><?php echo $EST_reg['Mbana_w']?></b>×縦<b><?php echo $EST_reg['Mbana_h']?></b>(ピクセル)</b> です。
 		<br>※半角英数字<b><?php echo $EST_reg['Mbana_url']?></b>文字以内
 		<br><input type=text name=Fbana_url value="<?php echo $_POST['Fbana_url']?>" size=60>
 		</ul><br>
@@ -93,12 +93,15 @@ if($EST_reg['bana_url']){
 <!--ホームページの紹介文-->
 	<li>【ホームページの紹介文】<font color=red>☆</font>
 		<ul>※HTMLタグは使えません<br>
+		<?php if ($EST['syoukai_br'] == 2) { ?>※XOOPS(BB)コードは使用できます<br><?php };?>
+		<?php if ($EST['syoukai_br'] >= 1) { ?>※改行は有効です<br><?php };?>
+		<?php if ($EST['syoukai_br'] == 0) { ?>※改行は無視されます<br><?php };?>
 		※全角<b><?php echo $EST_reg['Msyoukai']?></b>文字以内<br>
 		<textarea wrap="soft" name="Fsyoukai" cols=50 rows=3><?php echo $_POST['Fsyoukai']?></textarea></ul><br>
 <!--管理人のコメント-->
 	<li>【管理人のコメント】
-		<ul>※HTMLタグは使えません<br>
-		※全角<b>100</b>文字以内<br>
+		<ul>※HTMLタグを使用できます<br>
+		※改行は有効です<br>
 		<textarea wrap="soft" name="Fkanricom" cols=50 rows=3><?php echo $_POST['Fkanricom']?></textarea></ul><br>
 <!--登録するカテゴリ-->
 	<li>【登録するカテゴリ】<font color=red>☆</font>
