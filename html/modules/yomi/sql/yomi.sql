@@ -16,7 +16,8 @@
 CREATE TABLE `yomi_key` (
   `word` varchar(50) default NULL,
   `time` int(10) unsigned default NULL,
-  `ip` varchar(15) default NULL
+  `ip` varchar(15) default NULL,
+  KEY `word` (`word`)
 ) TYPE=MyISAM;
 # --------------------------------------------------------
 
@@ -49,7 +50,9 @@ CREATE TABLE `yomi_log` (
   `count` int(11) unsigned NOT NULL default '0',
   `count_rev` int(11) unsigned NOT NULL default '0',
   PRIMARY KEY  (`id`),
-  KEY `uid` (`uid`)
+  KEY `uid` (`uid`),
+  KEY `mark` (`mark`),
+  KEY `category` (`category`)
 ) TYPE=MyISAM;
 # --------------------------------------------------------
 
@@ -60,7 +63,9 @@ CREATE TABLE `yomi_log` (
 CREATE TABLE `yomi_rank` (
   `id` int(10) unsigned default NULL,
   `time` int(10) unsigned default NULL,
-  `ip` varchar(15) default NULL
+  `ip` varchar(15) default NULL,
+  KEY `id` (`id`),
+  KEY `time` (`time`)
 ) TYPE=MyISAM;
 # --------------------------------------------------------
 
@@ -71,7 +76,9 @@ CREATE TABLE `yomi_rank` (
 CREATE TABLE `yomi_rev` (
   `id` int(10) unsigned default NULL,
   `time` int(10) unsigned default NULL,
-  `ip` varchar(15) default NULL
+  `ip` varchar(15) default NULL,
+  KEY `id` (`id`),
+  KEY `time` (`time`)
 ) TYPE=MyISAM;
 
 # --------------------------------------------------------

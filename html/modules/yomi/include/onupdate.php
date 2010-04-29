@@ -1,7 +1,7 @@
 <?php
 /**
  * On module update function
- * @version $Rev: 255 $ $Date: 2010/04/23 02:14:37 $
+ * @version $Rev: 255 $ $Date: 2010/04/29 05:31:49 $
  * @link $URL: https://ajax-discuss.svn.sourceforge.net/svnroot/ajax-discuss/openid/trunk/openid/include/onupdate.php $
  */
 
@@ -104,6 +104,60 @@ function xoops_module_update_yomi ( $module ) {
 	if ($db->query($sql)) {
 		include dirname(__FILE__) . '/comment_upgread.php';
 	}
+
+	// Ver 0.92 ADD INDEXES
+	$table = $db->prefix('yomi_key');
+    if ($result = $db->query('SHOW INDEX FROM `' . $table . '`')) {
+        $keys = array( 'word' => '' );
+        while($arr = $db->fetchArray($result)) {
+        	unset($keys[$arr['Key_name']]);
+        }
+        foreach ($keys as $_key => $_val) {
+        	$query = 'ALTER TABLE `' . $table . '` ADD INDEX(`'.$_key.'`'.$_val.')';
+        	$db->query($query);
+        	//$msgs[] = $query;
+        }
+    }
+	$table = $db->prefix('yomi_log');
+    if ($result = $db->query('SHOW INDEX FROM `' . $table . '`')) {
+        $keys = array( 'uid' => '',
+                       'mark' => '',
+                       'category' => '' );
+        while($arr = $db->fetchArray($result)) {
+        	unset($keys[$arr['Key_name']]);
+        }
+        foreach ($keys as $_key => $_val) {
+        	$query = 'ALTER TABLE `' . $table . '` ADD INDEX(`'.$_key.'`'.$_val.')';
+        	$db->query($query);
+        	//$msgs[] = $query;
+        }
+    }
+	$table = $db->prefix('yomi_rank');
+    if ($result = $db->query('SHOW INDEX FROM `' . $table . '`')) {
+        $keys = array( 'id' => '',
+                       'time' => '' );
+        while($arr = $db->fetchArray($result)) {
+        	unset($keys[$arr['Key_name']]);
+        }
+        foreach ($keys as $_key => $_val) {
+        	$query = 'ALTER TABLE `' . $table . '` ADD INDEX(`'.$_key.'`'.$_val.')';
+        	$db->query($query);
+        	//$msgs[] = $query;
+        }
+    }
+	$table = $db->prefix('yomi_rev');
+    if ($result = $db->query('SHOW INDEX FROM `' . $table . '`')) {
+        $keys = array( 'id' => '',
+                       'time' => '' );
+        while($arr = $db->fetchArray($result)) {
+        	unset($keys[$arr['Key_name']]);
+        }
+        foreach ($keys as $_key => $_val) {
+        	$query = 'ALTER TABLE `' . $table . '` ADD INDEX(`'.$_key.'`'.$_val.')';
+        	$db->query($query);
+        	//$msgs[] = $query;
+        }
+    }
 
 	return TRUE;
 }
