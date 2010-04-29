@@ -1,7 +1,7 @@
 <?php
 /**
  * On module update function
- * @version $Rev: 255 $ $Date: 2010/04/29 05:31:49 $
+ * @version $Rev: 255 $ $Date: 2010/04/29 05:39:41 $
  * @link $URL: https://ajax-discuss.svn.sourceforge.net/svnroot/ajax-discuss/openid/trunk/openid/include/onupdate.php $
  */
 
@@ -123,32 +123,6 @@ function xoops_module_update_yomi ( $module ) {
         $keys = array( 'uid' => '',
                        'mark' => '',
                        'category' => '' );
-        while($arr = $db->fetchArray($result)) {
-        	unset($keys[$arr['Key_name']]);
-        }
-        foreach ($keys as $_key => $_val) {
-        	$query = 'ALTER TABLE `' . $table . '` ADD INDEX(`'.$_key.'`'.$_val.')';
-        	$db->query($query);
-        	//$msgs[] = $query;
-        }
-    }
-	$table = $db->prefix('yomi_rank');
-    if ($result = $db->query('SHOW INDEX FROM `' . $table . '`')) {
-        $keys = array( 'id' => '',
-                       'time' => '' );
-        while($arr = $db->fetchArray($result)) {
-        	unset($keys[$arr['Key_name']]);
-        }
-        foreach ($keys as $_key => $_val) {
-        	$query = 'ALTER TABLE `' . $table . '` ADD INDEX(`'.$_key.'`'.$_val.')';
-        	$db->query($query);
-        	//$msgs[] = $query;
-        }
-    }
-	$table = $db->prefix('yomi_rev');
-    if ($result = $db->query('SHOW INDEX FROM `' . $table . '`')) {
-        $keys = array( 'id' => '',
-                       'time' => '' );
         while($arr = $db->fetchArray($result)) {
         	unset($keys[$arr['Key_name']]);
         }
