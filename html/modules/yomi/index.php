@@ -46,7 +46,7 @@ if (isset($_SERVER['_REQUEST_URI'])) $_SERVER['REQUEST_URI'] = $_SERVER['_REQUES
 
 include('init.php');
 
-if (empty($_GET['mode']) || empty($_GET['kt'])) $_GET['mode']="";
+if (empty($_GET['mode']) || ($_GET['mode'] == 'kt' && empty($_GET['kt']))) $_GET['mode']="";
 #各モードへ分岐
 #-----------------#
 if($_GET['mode']){
