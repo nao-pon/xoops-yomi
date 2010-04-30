@@ -52,7 +52,8 @@ CREATE TABLE `yomi_log` (
   PRIMARY KEY  (`id`),
   KEY `uid` (`uid`),
   KEY `mark` (`mark`),
-  KEY `category` (`category`)
+  KEY `category` (`category`),
+  KEY `stamp` (`stamp`)
 ) TYPE=MyISAM;
 # --------------------------------------------------------
 

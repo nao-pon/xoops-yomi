@@ -1,7 +1,7 @@
 <?php
 /**
  * On module update function
- * @version $Rev: 255 $ $Date: 2010/04/29 05:39:41 $
+ * @version $Rev: 255 $ $Date: 2010/04/30 02:31:27 $
  * @link $URL: https://ajax-discuss.svn.sourceforge.net/svnroot/ajax-discuss/openid/trunk/openid/include/onupdate.php $
  */
 
@@ -122,7 +122,8 @@ function xoops_module_update_yomi ( $module ) {
     if ($result = $db->query('SHOW INDEX FROM `' . $table . '`')) {
         $keys = array( 'uid' => '',
                        'mark' => '',
-                       'category' => '' );
+                       'category' => '',
+                       'stamp' => '' );
         while($arr = $db->fetchArray($result)) {
         	unset($keys[$arr['Key_name']]);
         }
