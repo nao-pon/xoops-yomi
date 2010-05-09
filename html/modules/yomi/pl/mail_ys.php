@@ -295,7 +295,11 @@ function sendmail($mailto,$from_mail,$kenmei,$mail_mode,$admin,$log,$arg6="",$PR
 
 	mb_language ("ja");
 	mb_internal_encoding("EUC-JP");
-	mb_send_mail($mailto,$kenmei,$honbun,"From: $from_mail",$params);
+	if (ini_get('safe_mode')) {
+		mb_send_mail($mailto,$kenmei,$honbun,"From: $from_mail");
+	} else {
+		mb_send_mail($mailto,$kenmei,$honbun,"From: $from_mail",$params);
+	}
 }
 
 //HTML文字エンティティを元に戻す
