@@ -75,10 +75,10 @@ if (! empty($_POST['do_counter_mente'])) {
 	} else {
 		if (!$moduleConfig['comment_dirname'] || !$moduleConfig['comment_forum_id']) {
 			//XOOPS2コメント
-			$sql = "SELECT `com_itemid` as 'id', count(`com_id`) as 'count' FROM `{$xoopsDB->prefix('xoopscomments')}` WHERE `com_modid`='{$mid}' GROUP BY `com_itemid`";
+			$sql = "SELECT `com_itemid` as 'id', count(`com_id`) as 'count' FROM `" . $xoopsDB->prefix('xoopscomments') . "` WHERE `com_modid`='{$mid}' GROUP BY `com_itemid`";
 		} else {
 			//d3forumコメント統合
-			$sql = "SELECT t.topic_external_link_id as id, COUNT(p.post_id) as 'count' FROM `{$xoopsDB->prefix($moduleConfig['comment_dirname'].'_posts')}` p LEFT JOIN `{$xoopsDB->prefix($moduleConfig['comment_dirname'].'_topics')}` t ON t.topic_id=p.topic_id WHERE t.forum_id='{$moduleConfig['comment_forum_id']}' GROUP BY t.topic_external_link_id";
+			$sql = "SELECT t.topic_external_link_id as id, COUNT(p.post_id) as 'count' FROM `" . $xoopsDB->prefix($moduleConfig['comment_dirname'].'_posts') . "` p LEFT JOIN `" . $xoopsDB->prefix($moduleConfig['comment_dirname'].'_topics') . "` t ON t.topic_id=p.topic_id WHERE t.forum_id='" . $moduleConfig['comment_forum_id'] . "' GROUP BY t.topic_external_link_id";
 		}
 		if ($result = $xoopsDB->query($sql)) {
 			$xoopsDB->query('UPDATE `'.$xoopsDB->prefix('yomi_log').'` SET `comments`=0');
