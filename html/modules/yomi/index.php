@@ -75,6 +75,9 @@ if($_GET['mode']){
 	$start=$time-$EST['rank_kikan']*86400;
 	$end=$time;
 	$_no_ad_space = false;
+	
+	$myts =& MyTextsanitizer::getInstance();
+	
 	if($_GET['mode'] == "kt"){ #各カテゴリの場合
 
 		$Stitle=$ganes[$_GET['kt']];
@@ -190,8 +193,6 @@ if($_GET['mode']){
 			$Clog[$_key] = count($_counter[$_key]);
 		}
 
-		$myts =& MyTextsanitizer::getInstance();
-
 		$query = "SELECT * FROM ".$EST['sqltb']."log WHERE category LIKE '%$kt_sql%' ORDER BY $order LIMIT $st_no, ".$EST['hyouji'].";";
 		$result = $xoopsDB->query($query) or die("Query failed");
 		while ($Slog = mysql_fetch_row($result)) {
@@ -279,6 +280,14 @@ if($_GET['mode']){
 			}
 			$Slog['jump_url'] = $EST['rank_fl']? $EST['cgi_path_url']."jump.php?id=$Slog[0]" : $Slog[2];
 			$Slog['favicon'] = yomi_get_favicon($Slog[2], '■');
+			
+			$Slog[6] = str_replace('<br>', "\n", $Slog[6]);
+			if ($EST['syoukai_br'] == 2) {
+				$Slog[6] = $myts->displayTarea(unhtmlspecialchars($Slog[6]));
+			} else if ($EST['syoukai_br'] == 1) {
+				$Slog[6] = nl2br($Slog[6]);
+			}
+			
 			array_push($log_lines,$Slog);
 		}
 		$query3="SELECT COUNT(*) FROM $EST[sqltb]log WHERE".$query;
