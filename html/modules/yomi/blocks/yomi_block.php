@@ -2,20 +2,20 @@
 function b_yomi_show ($options)
 {
 	//global $ganes, $gane_top, $EST;
-	
+
 	if (is_readable(XOOPS_ROOT_PATH.'/modules/yomi/shorturl.php'))
 		include XOOPS_ROOT_PATH.'/modules/yomi/shorturl.php';
-	
+
 	include XOOPS_ROOT_PATH.'/modules/yomi/init.php';
-	
+
 	$block = array();
-	
+
 	$table_cols = $options[0];
 	$table_per = round(100/$table_cols);
-	
+
 	$yomi_reg_tag = XOOPS_URL."/modules/yomi/regist_ys.php?mode=new";
 	$yomi_new_tag = XOOPS_URL."/modules/yomi/index.php?mode=new";
-	
+
 	$block['title'] = _MI_YOMI_BNAME1;
 	$block['content'] = "<table style=\"width:100%;\" cellpadding=3>";
 
@@ -61,8 +61,9 @@ function b_yomi_show ($options)
 	$block['content'] .= "<tr><td colspan=".$table_cols." style=\"text-align:center;padding:3px;\">";
 	$block['content'] .= "- <a href=\"".$yomi_reg_tag."\">"._MB_YOMI_NEWREG."</a> - ";
 	$block['content'] .= "<a href=\"".$yomi_new_tag."\">"._MB_YOMI_NEWARV."</a> -";
-	$block['content'] .= "<br /><span style=\"font-size:90%;\">総登録件数: <script language=\"JavaScript\" src=\"".XOOPS_URL."/modules/yomi/count.js.php\"></script><noscript> ?(要JavaScript) </noscript>サイトです。</span>";
+	$block['content'] .= "<br /><span style=\"font-size:90%;\">総登録件数: <span id=\"yomi_bcat_count\"><noscript> ?(要JavaScript) </noscript></span>サイトです。</span>";
 	$block['content'] .= "</td></tr></table>";
+	$block['content'] .= "<script language=\"JavaScript\" src=\"".XOOPS_URL."/modules/yomi/count.js.php\"></script>";
 	return $block;
 }
 
@@ -80,7 +81,7 @@ function b_yomi_top($options) {
 	//$mode = "all";	#人気ランキング(累計)
 	$kensu = $options[0];#表示する件数
 	$kikan = $options[1];	#集計期間（日
-	
+
 	$log_lines=array(); $Clog=0;
 
 	$time=time();
@@ -144,7 +145,7 @@ function b_yomi_top($options) {
 	}
 
 	return $block;
-}	
+}
 
 function b_yomi_new($options) {
 
@@ -157,7 +158,7 @@ function b_yomi_new($options) {
 
 	$kensu = $options[0];#表示する件数
 	$block['content'] .= "<div style=\"text-align:left;\">";
-	
+
 	$query="SELECT * FROM ".$xoopsDB->prefix("yomi_log")." WHERE id > 0 ORDER BY stamp DESC LIMIT ".$kensu;
 	$result = $xoopsDB->query($query) or die("Query failed rank109 $query");
 	while($Slog = mysql_fetch_assoc($result)){
@@ -168,7 +169,7 @@ function b_yomi_new($options) {
 	$block['content'] .= "</div>";
 
 	return $block;
-}	
+}
 
 
 function b_yomi_edit($options) {

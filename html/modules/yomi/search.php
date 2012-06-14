@@ -125,7 +125,7 @@ if($_GET['mode'] == "search"){ #検索結果表示画面
 	if($_GET['kn']>0 && $_GET['kn']<=20){ #キーワードの結合
 		if(preg_match("/\D/", $_GET['kn'])){mes('$_GET[kn]が不正です',"エラー","java");}
 		for($i=1; $i< $_GET['kn']; $i++){
-			if($_GET["word$i"]){$_GET['word'] .= " ".$_GET["word$i"];}
+			if(!empty($_GET["word$i"])){$_GET['word'] .= " ".$_GET["word$i"];}
 		}
 	}
 	//キーワード文字エンコード変換
