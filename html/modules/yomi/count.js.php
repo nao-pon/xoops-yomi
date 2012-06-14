@@ -4,7 +4,7 @@
 //
 // 使用方法
 // HTMLからJavaScriptとして呼び出します。
-// 
+//
 // 使用例
 // 総登録:<script language="JavaScript" src="http://XOOPSのルート/modules/yomi/count.js.php"></script>サイト
 
@@ -20,10 +20,6 @@ $query = "SELECT COUNT(*) FROM `".$EST['sqltb']."log`";
 //echo $query;
 $result = mysql_query($query) or die(mysql_error());
 list($count) = mysql_fetch_row($result); #総登録数
-
-echo "document.open();
-document.write(\"{$count}\");
-document.close();";
-
 mysql_close($db);
-?>
+
+echo "document.getElementById('yomi_bcat_count').innerHTML = '{$count}';";
