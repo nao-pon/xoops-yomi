@@ -58,7 +58,7 @@ function b_yomi_s2($options) {
 		{
 			$id = strval($Rank['id']);
 			$ranking[$id] += $Rank['pt'];
-			$out[$id] += $Rank['pt'];
+			$in[$id] += $Rank['pt'];
 		}
 	}
 	
@@ -74,7 +74,7 @@ function b_yomi_s2($options) {
 		{
 			$id = strval($Rank['id']);
 			$ranking[$id] += $Rank['pt'];
-			$in[$id] += $Rank['pt'];
+			$out[$id] += $Rank['pt'];
 		}
 	}
 	
