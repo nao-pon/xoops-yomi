@@ -46,9 +46,9 @@ function b_yomi_s2($options) {
 	}
 	$out=$in=$ranking = array();
 	
-	if (!empty($options[7]))
+	if (!empty($options[8]))
 	{
-		$limit = " LIMIT {$options[7]}";
+		$limit = " LIMIT {$options[8]}";
 		if ($q_nolist)
 			$query="SELECT r.id,COUNT(r.id) AS pt, l.category FROM ".$xoopsDB->prefix("yomi_rank")." r LEFT JOIN ".$xoopsDB->prefix("yomi_log")." l ON r.id = l.id WHERE (time BETWEEN $start AND $end) AND {$q_nolist} GROUP BY id ORDER BY pt DESC{$limit}";
 		else
@@ -58,13 +58,13 @@ function b_yomi_s2($options) {
 		{
 			$id = strval($Rank['id']);
 			$ranking[$id] += $Rank['pt'];
-			$in[$id] += $Rank['pt'];
+			$out[$id] += $Rank['pt'];
 		}
 	}
 	
-	if (!empty($options[8]))
+	if (!empty($options[7]))
 	{
-		$limit = " LIMIT {$options[8]}";
+		$limit = " LIMIT {$options[7]}";
 		if ($q_nolist)
 			$query="SELECT r.id,COUNT(r.id) AS pt, l.category FROM ".$xoopsDB->prefix("yomi_rev")." r LEFT JOIN ".$xoopsDB->prefix("yomi_log")." l ON r.id = l.id WHERE (time BETWEEN $start AND $end) AND {$q_nolist} GROUP BY id ORDER BY pt DESC{$limit}";
 		else
@@ -74,7 +74,7 @@ function b_yomi_s2($options) {
 		{
 			$id = strval($Rank['id']);
 			$ranking[$id] += $Rank['pt'];
-			$out[$id] += $Rank['pt'];
+			$in[$id] += $Rank['pt'];
 		}
 	}
 	
