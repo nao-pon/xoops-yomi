@@ -53,7 +53,7 @@ $jyuni=1;$jyuni_z=1;
 <?php
 $query="SELECT word,COUNT(*) AS pt FROM $EST[sqltb]key GROUP BY word ORDER BY pt DESC";
 $result=$xoopsDB->query($query) or die("Query failed 70 $query");
-while(list($key,$pt)=mysql_fetch_row($result)){
+while(list($key,$pt)=$xoopsDB->fetchRow($result)){
 	if(!$open_key[$key] and !$bad_key[$key]){
 		$skey = htmlspecialchars($key);
 		$PR_key=$key;
@@ -184,8 +184,4 @@ cp_cr();
 ?>
 
 <?php
-if (isset($link) && $link) {
-	@mysql_close($link);
-}
 exit;
-?>

@@ -13,13 +13,12 @@ $xoopsOption['nocommon'] = 1;
 require '../../mainfile.php';
 require 'pl/cfg.php';
 
-$db = mysql_connect(XOOPS_DB_HOST, XOOPS_DB_USER, XOOPS_DB_PASS) or die(mysql_error());
-mysql_select_db(XOOPS_DB_NAME,$db);
+$link = mysqli_connect(XOOPS_DB_HOST, XOOPS_DB_USER, XOOPS_DB_PASS, XOOPS_DB_NAME) or die('MySQL Connect Error');
 
 $query = "SELECT COUNT(*) FROM `".$EST['sqltb']."log`";
-//echo $query;
-$result = mysql_query($query) or die(mysql_error());
-list($count) = mysql_fetch_row($result); #ÁíÅÐÏ¿¿ô
-mysql_close($db);
+
+$result = mysqli_query($link, $query) or die(mysqli_error($link));
+list($count) = mysqli_fetch_row($result); #ÁíÅÐÏ¿¿ô
+mysqli_close($link);
 
 echo "document.getElementById('yomi_bcat_count').innerHTML = '{$count}';";

@@ -54,16 +54,12 @@ if($EST['keyrank']){ #おすすめ検索ワード
 	$open_key=array();
 	@ include $EST['log_path']."keyrank_ys.php";
 	$i = 1;
-	//$link = mysql_connect($EST['host'], $EST['sqlid'], $EST['sqlpass']) or die("Could not connect");
-	//mysql_select_db($EST['sqldb']) or die("Could not select database");
 	foreach($open_key as $key=>$val) {
 		$query="SELECT COUNT(*) FROM ".$EST['sqltb']."key WHERE word='$key'";
-		//$result = mysql_query($query) or die("Query failed $query");
 		$result = $xoopsDB->query($query) or die("Query failed $query");
-		$pt = mysql_fetch_row($result);
+		$pt = $xoopsDB->fetchRow($result);
 		$point[$key] = $pt[0];
 	}
-	//mysql_close($link);
 	if(isset($point)) {
 		arsort($point);
 		echo "<br>【 <a href=\"".$EST['rank']."?mode=keyrank\">おすすめ検索ワード</a> =&gt; ";
@@ -187,11 +183,5 @@ if ($is_admin == 1){
 ?>
 <?php
 include("footer.php"); #　pl/temp.php内の著作権表示ルーチン
-?>
-
-<?php
-if (isset($link) && $link) {
-	@mysql_close($link);
-}
 exit;
 ?>

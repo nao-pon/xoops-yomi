@@ -4,19 +4,19 @@ $start=$time-$EST['rank_kikan']*86400;
 $end=$time;
 $query="SELECT COUNT(*) FROM $EST[sqltb]rank WHERE time BETWEEN $start AND $end AND id='$Pdata[0]'";
 $result = $xoopsDB->query($query) or die("Query failed mente8 $query");
-$count=mysql_fetch_row($result);
+$count=$xoopsDB->fetchRow($result);
 $Pdata[pt0] = $count[0];
 $query="SELECT COUNT(*) FROM $EST[sqltb]rank WHERE id='$Pdata[0]'";
 $result = $xoopsDB->query($query) or die("Query failed mente12 $query");
-$count=mysql_fetch_row($result);
+$count=$xoopsDB->fetchRow($result);
 $Pdata[pt1] = $count[0];
 $query="SELECT COUNT(*) FROM $EST[sqltb]rev WHERE time BETWEEN $start AND $end AND id='$Pdata[0]'";
 $result = $xoopsDB->query($query) or die("Query failed mente16 $query");
-$count=mysql_fetch_row($result);
+$count=$xoopsDB->fetchRow($result);
 $Pdata[pt2] = $count[0];
 $query="SELECT COUNT(*) FROM $EST[sqltb]rev WHERE id='$Pdata[0]'";
 $result = $xoopsDB->query($query) or die("Query failed mente20 $query");
-$count=mysql_fetch_row($result);
+$count=$xoopsDB->fetchRow($result);
 $Pdata[pt3] = $count[0];
 ?>
 
@@ -184,8 +184,4 @@ include("footer.php");
 ?>
 
 <?php
-if (isset($link) && $link) {
-	@mysql_close($link);
-}
 exit;
-?>

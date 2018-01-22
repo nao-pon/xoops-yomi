@@ -18,7 +18,7 @@ CREATE TABLE `yomi_key` (
   `time` int(10) unsigned default NULL,
   `ip` varchar(15) default NULL,
   KEY `word` (`word`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 # --------------------------------------------------------
 
 #
@@ -54,7 +54,7 @@ CREATE TABLE `yomi_log` (
   KEY `mark` (`mark`),
   KEY `category` (`category`),
   KEY `stamp` (`stamp`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 # --------------------------------------------------------
 
 #
@@ -67,7 +67,7 @@ CREATE TABLE `yomi_rank` (
   `ip` varchar(15) default NULL,
   KEY `id` (`id`),
   KEY `time` (`time`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 # --------------------------------------------------------
 
 #
@@ -80,7 +80,7 @@ CREATE TABLE `yomi_rev` (
   `ip` varchar(15) default NULL,
   KEY `id` (`id`),
   KEY `time` (`time`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 # --------------------------------------------------------
 
@@ -98,5 +98,5 @@ CREATE TABLE `yomi_votedata` (
   PRIMARY KEY  (ratingid),
   KEY ratinguser (ratinguser),
   KEY ratinghostname (ratinghostname)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 

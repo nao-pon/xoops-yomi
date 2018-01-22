@@ -21,7 +21,7 @@ if($_GET['id']){
 		$time=time();
 		$query="SELECT id FROM $EST[sqltb]rank WHERE id='$_GET[id]' AND ip='$_SERVER[REMOTE_ADDR]' AND time > ".($time-$EST['rank_time']*3600);
 		$result=$xoopsDB->query($query) or die("Query failed rank32 $query");
-		$tmp = mysql_fetch_row($result);
+		$tmp = $xoopsDB->fetchRow($result);
 		if(!$tmp) {
 			$query="INSERT INTO $EST[sqltb]rank (id,time,ip) VALUES ('$_GET[id]', '$time' ,'$_SERVER[REMOTE_ADDR]');";
 			$result=$xoopsDB->queryF($query) or die("Query failed jump27 $query");
@@ -31,7 +31,7 @@ if($_GET['id']){
 	}
 	$query="SELECT url FROM $EST[sqltb]log WHERE id='$_GET[id]' LIMIT 1";
 	$result=$xoopsDB->query($query) or die("Query failed jump31 $query");
-	$tmp = mysql_fetch_row($result);
+	$tmp = $xoopsDB->fetchRow($result);
 	$url = str_replace("&amp;","&",$tmp[0]);}
 if($url)
 {

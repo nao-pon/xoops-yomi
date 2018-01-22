@@ -12,10 +12,10 @@ if (! empty($_POST['do_counter_mente'])) {
 
 	$query="SELECT id FROM $EST[sqltb]rank GROUP BY id";
 	$result = $xoopsDB->query($query);
-	while($Rank = mysql_fetch_assoc($result)){
+	while($Rank = $xoopsDB->fetchArray($result)){
 		$query="SELECT * FROM $EST[sqltb]log WHERE id='$Rank[id]' LIMIT 1";
 		$result2 = $xoopsDB->query($query);
-		$Slog = mysql_fetch_row($result2);
+		$Slog = $xoopsDB->fetchRow($result2);
 		if(! $Slog[0]){
 			$query="DELETE FROM $EST[sqltb]rank WHERE id='$Rank[id]'";
 			$xoopsDB->query($query);
@@ -25,10 +25,10 @@ if (! empty($_POST['do_counter_mente'])) {
 
 	$query="SELECT id FROM $EST[sqltb]rev GROUP BY id";
 	$result = $xoopsDB->query($query);
-	while($Rank = mysql_fetch_assoc($result)){
+	while($Rank = $xoopsDB->fetchArray($result)){
 		$query="SELECT * FROM $EST[sqltb]log WHERE id='$Rank[id]' LIMIT 1";
 		$result2 = $xoopsDB->query($query);
-		$Slog = mysql_fetch_row($result2);
+		$Slog = $xoopsDB->fetchRow($result2);
 		if(! $Slog[0]){
 			$query="DELETE FROM $EST[sqltb]rev WHERE id='$Rank[id]'";
 			$xoopsDB->query($query);
@@ -39,7 +39,7 @@ if (! empty($_POST['do_counter_mente'])) {
 	$msg = '';
 	$query="SELECT id,COUNT(*) AS pt FROM $EST[sqltb]rank GROUP BY id";
 	$result = $xoopsDB->query($query);
-	while($Rank = mysql_fetch_assoc($result)){
+	while($Rank = $xoopsDB->fetchArray($result)){
 		$query = 'UPDATE ' . $EST['sqltb'] . 'log SET `count` = ' . $Rank['pt'] . ' WHERE `id` = ' . $Rank['id'];
 		if (! $xoopsDB->query($query)) {
 			$msg = 'モジュール管理よりモジュールアップデートを行ってください。';
@@ -51,7 +51,7 @@ if (! empty($_POST['do_counter_mente'])) {
 	if (! $msg) {
 		$query="SELECT id,COUNT(*) AS pt FROM $EST[sqltb]rev GROUP BY id";
 		$result = $xoopsDB->query($query);
-		while($Rank = mysql_fetch_assoc($result)){
+		while($Rank = $xoopsDB->fetchArray($result)){
 			$query = 'UPDATE ' . $EST['sqltb'] . 'log SET `count_rev` = ' . $Rank['pt'] . ' WHERE `id` = ' . $Rank['id'];
 			$xoopsDB->query($query);
 			//echo $query . '<br />';

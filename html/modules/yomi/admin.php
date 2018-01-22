@@ -363,7 +363,7 @@ elseif($_POST['mode'] == "log_conv_act"){
 			$fp=fopen($_POST[bf_file], "r");
 			$counter = 0;
 			while($line=fgets($fp, 4096)) {
-				$line=mb_convert_encoding($line, "EUC-JP", "SJIS");
+				$line=mb_convert_encoding($line, _CHARSET, "SJIS");
 				$line = addslashes($line);
 				$Slog=explode("<>", $line);
 				$Slog[10]="&".$Slog[10]."&";
@@ -535,7 +535,7 @@ elseif($_POST['mode'] == "log_conv_kt_sort"){
 	#本体ログを更新
 	$query="SELECT id,category FROM $EST[sqltb]log";
 	$result=$xoopsDB->query($query) or die("Query failed admin440 $query");
-	while($Slog = mysql_fetch_row($result)){
+	while($Slog = $xoopsDB->fetchRow($result)){
 		$kt_fl=0; $kt_line="&";
 		$kt=explode("&",$Slog[1]);
 		foreach ($kt as $tmp){
@@ -578,7 +578,7 @@ elseif($_POST['mode'] == "log_kt_change_act"){
 		$kousin_kt=array("&$change_kt1&"=>"&$change_kt2&", "&$change_kt2&"=>"&$change_kt1&");
 		$query="SELECT id,category FROM $EST[sqltb]log WHERE (category LIKE '%&$change_kt1&%') OR (category LIKE '%&$change_kt2&%')";
 		$result=$xoopsDB->query($query) or die("Query failed admin216 $query");
-		while($line = mysql_fetch_array($result, MYSQL_ASSOC)){
+		while($line = $xoopsDB->fetchArray($result)){
 			$line[category]=strtr($line[category], $kousin_kt);
 			$query="UPDATE $EST[sqltb]log SET category='$line[category]' WHERE id='$line[id]'";
 			$result2=$xoopsDB->queryF($query) or die("Query failed admin220 $query");
@@ -591,7 +591,7 @@ elseif($_POST['mode'] == "log_kt_change_act"){
 		$af_move_kt=$_POST[af_move_kt];
 		$query="SELECT id,category FROM $EST[sqltb]log WHERE category LIKE '%&$bf_move_kt&%'";
 		$result=$xoopsDB->query($query) or die("Query failed admin232 $query");
-		while($line = mysql_fetch_array($result, MYSQL_ASSOC)){
+		while($line = $xoopsDB->fetchArray($result)){
 			$line[category]=str_replace("&$bf_move_kt&", "&$af_move_kt&", $line[category]);
 			$query="UPDATE $EST[sqltb]log SET category='$line[category]' WHERE id='$line[id]'";
 			$result2=$xoopsDB->queryF($query) or die("Query failed admin236 $query");
@@ -603,7 +603,7 @@ elseif($_POST['mode'] == "log_kt_change_act"){
 		$del_kt=$_POST[del_kt];
 		$query="SELECT id,category FROM $EST[sqltb]log WHERE category LIKE '%&$del_kt&%'";
 		$result=$xoopsDB->query($query) or die("Query failed admin232 $query");
-		while($line = mysql_fetch_array($result, MYSQL_ASSOC)){
+		while($line = $xoopsDB->fetchArray($result)){
 			$line[category]=str_replace("&$del_kt&", "&", $line[category]);
 			if(preg_match("/\d+/", $line[category])) {
 				$query="UPDATE $EST[sqltb]log SET category='$line[category]' WHERE id='$line[id]'";
@@ -634,7 +634,7 @@ elseif($_POST['mode'] == "log_repair_act"){
 		$query="SELECT * FROM $EST[sqltb]log ORDER BY id";
 		$result=$xoopsDB->query($query) or die("Query failed admin378 $query");
 		$fp=fopen($_POST[file], "w");
-		while($line=mysql_fetch_row($result)) {
+		while($line=$xoopsDB->fetchRow($result)) {
 			fputs($fp, implode("\t", $line)."\n");
 		}
 		fclose($fp);
@@ -745,7 +745,7 @@ elseif($_POST['mode'] == "dl_check"){
 			$com[$data[0]].="$data[4]<2>$data[5]<2>$data[3]<1>";
 			$query="SELECT id,url FROM $EST[sqltb]log WHERE id=$data[0] LIMIT 1;";
 			$result=$xoopsDB->query($query) or die("Query failed admin356 $query");
-			$Slog = mysql_fetch_assoc($result);
+			$Slog = $xoopsDB->fetchArray($result);
 			for($i=1; $i <= 5; $i++){
 				if($count{"${i}_$Slog[id]"}){$url[$Slog[id]]=$Slog[url]; break;}
 			}
@@ -779,10 +779,9 @@ elseif($_POST['mode'] == "dl_check_dl"){
 	header("Content-Type: application/x-download; name=\"check_urls.dat\"");
 	$query="SELECT id,url FROM $EST[sqltb]log";
 	$result=$xoopsDB->query($query) or die("Query failed admin682 $query");
-	while($Slog = mysql_fetch_assoc($result)){
+	while($Slog = $xoopsDB->fetchArray($result)){
 		echo "$Slog[id]\t$Slog[url]\t\t\t0\t\t\t\t\t\t\t\t0\t\t\t\t\n";
 	}
-	//mysql_close($link);
 	exit;
 }
 elseif($_POST['mode'] == "dl_check_act"){

@@ -73,7 +73,7 @@ elseif($_POST['in_mode'] == "new_dairi"){ #管理人代理登録(new_dairi)
 elseif($_POST['in_mode'] == "mente"){ #内容変更(mente)
 	$query = "SELECT * FROM $EST[sqltb]log WHERE id='$_POST[id]' LIMIT 1";
 	$result = $xoopsDB->query($query) or die("Query failed");
-	$Pdata = mysql_fetch_row($result);
+	$Pdata = $xoopsDB->fetchRow($result);
 	if($Pdata){
 		if ($is_admin != 1){
 			$cr_pass=crypt($_POST['pass'],$Pdata[5]);
@@ -205,7 +205,7 @@ elseif($_POST['mode'] == "act_regist"){
 	else{
 		$query = "SELECT id FROM $EST[sqltb]log ORDER BY id DESC LIMIT 1";
 		$result = $xoopsDB->query($query) or die("Query failed");
-		$num=mysql_fetch_row($result);
+		$num=$xoopsDB->fetchRow($result);
 		$new_id=++$num[0];
 		$fp=fopen("$EST[log_path]$EST[temp_logfile]", "r");
 		while($tmp=fgets($fp, 4096)) {
@@ -356,7 +356,7 @@ elseif($_GET['mode'] == "enter"){
 		$_count = 0;
 		if ($result)
 		{
-			list($_count) = mysql_fetch_row($result);
+			list($_count) = $xoopsDB->fetchRow($result);
 		}
 		if ($_count)
 		{
@@ -370,7 +370,7 @@ elseif($_GET['mode'] == "enter"){
 		// idが指定されている
 		$query = "SELECT * FROM $EST[sqltb]log WHERE id='".$_POST['id']."' LIMIT 1";
 		$result = $xoopsDB->query($query) or die("Query failed registys.php in ".__LINE__);
-		$Pdata = mysql_fetch_row($result);
+		$Pdata = $xoopsDB->fetchRow($result);
 		$Pdata = array_map("stripslashes", $Pdata);
 		$_count = count($Pdata);
 		
@@ -422,7 +422,7 @@ EOM;
 			$query = "SELECT * FROM $EST[sqltb]log WHERE uid='".$x_uid."' ORDER BY `stamp` DESC LIMIT 100";
 			$result = $xoopsDB->query($query) or die("Query failed registys.php in ".__LINE__);
 			$msg = "";
-			while ($Pdata = mysql_fetch_row($result))
+			while ($Pdata = $xoopsDB->fetchRow($result))
 			{
 				$msg .= '<li><a href="?mode=enter&amp;id='.$Pdata[0].'">'.htmlspecialchars($Pdata[1]).'</a></li>';
 			}
@@ -470,7 +470,7 @@ elseif($_POST['mode'] == "act_mente"){
 	if($EST_reg['nijyu_url']){get_id_url_ch(2);}
 	$query = "SELECT * FROM $EST[sqltb]log WHERE id='$_POST[id]' LIMIT 1";
 	$result = $xoopsDB->query($query) or die("Query failed");
-	$Spre_log = mysql_fetch_row($result);
+	$Spre_log = $xoopsDB->fetchRow($result);
 	#登録者のパスワード認証
 	if($_POST[changer] != "admin"){
 		#$cr_pass=crypt($_POST[pass],$Spre_log[5]);
@@ -531,7 +531,7 @@ elseif($_POST['mode'] == "act_repass"){
 	}
 	$query = "SELECT * FROM $EST[sqltb]log WHERE id='$_POST[id]' LIMIT 1";
 	$result = $xoopsDB->query($query) or die("Query failed1");
-	$Slog = mysql_fetch_row($result);
+	$Slog = $xoopsDB->fetchRow($result);
 	if($Slog) {
 		if($_POST['repass_mode'] != "repass"){
 			if($_POST['changer'] != "admin"){$cr_pass=crypt($_POST['pass'],$Slog[5]);}
@@ -582,7 +582,7 @@ elseif($_POST['mode'] == "act_del"){
 		$fl=0;
 		$query = "SELECT passwd FROM $EST[sqltb]log WHERE id='$_POST[id]' LIMIT 1";
 		$result = $xoopsDB->query($query) or die("Query failed1");
-		$Slog = mysql_fetch_row($result);
+		$Slog = $xoopsDB->fetchRow($result);
 		if($Slog) {
 			if(!$x_uid || ($_POST['changer'] != "admin" && $x_uid != $_POST['Fuid'])) { #削除する人が登録者の場合
 				$cr_pass=crypt($_POST['pass'],$Slog[0]);
@@ -1083,7 +1083,7 @@ function get_id_url_ch($fl){
 		$Tlog=array();
 		$query = "SELECT * FROM {$EST['sqltb']}log WHERE url='{$_POST['Furl']}' LIMIT 1";
 		$result = $xoopsDB->query($query) or die("Query failed");
-		$Tlog = mysql_fetch_row($result);
+		$Tlog = $xoopsDB->fetchRow($result);
 		if($Tlog)
 		{
 			$Tlog = array_map("addslashes", $Tlog);
@@ -1096,7 +1096,7 @@ function get_id_url_ch($fl){
 	
 	$query = "SELECT id FROM {$EST['sqltb']}log ORDER BY id DESC LIMIT 1";
 	$result = $xoopsDB->query($query) or die("Query failed");
-	$num=mysql_fetch_row($result);
+	$num=$xoopsDB->fetchRow($result);
 	$id=++$num[0];
 	
 	//仮登録データのチェック

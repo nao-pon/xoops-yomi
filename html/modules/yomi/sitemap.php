@@ -103,9 +103,5 @@ foot_sp();
 include("footer.php");
 ?>
 <?php
-if (isset($link) && $link) {
-    @mysql_close($link);
-}
 exit;
-
 ?>

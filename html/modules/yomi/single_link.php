@@ -86,10 +86,6 @@ require $EST['temp_path']."search.html";
 
 include("footer.php");
 
-if (isset($link) && $link) {
-	@mysql_close($link);
-}
-
 exit;
 
 
@@ -99,7 +95,7 @@ function open_for_search($item_id){
 	$query = "SELECT * FROM {$EST['sqltb']}log WHERE id=".$item_id;
 	##検索処理実行
 	$result = $xoopsDB->query($query) or die("Query failed1");
-	if ($write[0] = mysql_fetch_row($result)) {
+	if ($write[0] = $xoopsDB->fetchRow($result)) {
 		$i = 1;
 	}
 	return $i;

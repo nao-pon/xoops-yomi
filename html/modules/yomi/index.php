@@ -169,7 +169,7 @@ if($_GET['mode']){
 		$result = $xoopsDB->query($query) or die("Query failed");
 		$_counter = array();
 		$_kt_len = strlen($Ssearch_kt) + 1;
-		while ($line = mysql_fetch_row($result)) {
+		while ($line = $xoopsDB->fetchRow($result)) {
 			$tmp = explode("&", trim($line[0], '&'));
 			foreach($tmp as $tmp2) {
 				if (strpos($tmp2, $Ssearch_kt) !== 0) continue;
@@ -195,22 +195,22 @@ if($_GET['mode']){
 
 		$query = "SELECT * FROM ".$EST['sqltb']."log WHERE category LIKE '%$kt_sql%' ORDER BY $order LIMIT $st_no, ".$EST['hyouji'].";";
 		$result = $xoopsDB->query($query) or die("Query failed");
-		while ($Slog = mysql_fetch_row($result)) {
+		while ($Slog = $xoopsDB->fetchRow($result)) {
 			if($CK_data[3] || $is_admin == 1) {
 				$query2="SELECT count, count_rev FROM $EST[sqltb]log WHERE id='$Slog[0]'";
 				$result2 = $xoopsDB->query($query2) or die("Query failed kt52 $query");
-				list($acc, $rev)=mysql_fetch_row($result2);
+				list($acc, $rev)=$xoopsDB->fetchRow($result2);
 
 				$query2="SELECT COUNT(*) FROM $EST[sqltb]rank WHERE time BETWEEN $start AND $end AND id='$Slog[0]'";
 				$result2 = $xoopsDB->query($query2) or die("Query failed kt40 $query");
-				$count=mysql_fetch_row($result2);
+				$count=$xoopsDB->fetchRow($result2);
 				$Slog['count'] = "${EST['rank_kikan']}日(${count[0]})";
 
 				$Slog['count'] .= "_"."総(${acc})";
 
 				$query2="SELECT COUNT(*) FROM $EST[sqltb]rev WHERE time BETWEEN $start AND $end AND id='$Slog[0]'";
 				$result2 = $xoopsDB->query($query2) or die("Query failed kt48 $query");
-				$count=mysql_fetch_row($result2);
+				$count=$xoopsDB->fetchRow($result2);
 				$Slog['count'] .= ":逆リンク "."${EST['rank_kikan']}日(${count[0]})";
 
 				$Slog['count'] .= "_"."総(${rev})";
@@ -258,22 +258,22 @@ if($_GET['mode']){
 		} else {echo "STOP in temp.php in 245"; exit;}
 		$query1="SELECT * FROM ".$EST['sqltb']."log WHERE".$query." LIMIT $st_no, ".$EST['hyouji'];
 		$result = $xoopsDB->query($query1) or die("Query failed kt110 $query");
-		while($Slog = mysql_fetch_row($result)){
+		while($Slog = $xoopsDB->fetchRow($result)){
 			if($CK_data[3] || $is_admin == 1) {
 				$query2="SELECT count, count_rev FROM $EST[sqltb]log WHERE id='$Slog[0]'";
 				$result2 = $xoopsDB->query($query2) or die("Query failed kt52 $query");
-				list($acc, $rev)=mysql_fetch_row($result2);
+				list($acc, $rev)=$xoopsDB->fetchRow($result2);
 
 				$query2="SELECT COUNT(*) FROM $EST[sqltb]rank WHERE time BETWEEN $start AND $end AND id='$Slog[0]'";
 				$result2 = $xoopsDB->query($query2) or die("Query failed kt40 $query");
-				$count=mysql_fetch_row($result2);
+				$count=$xoopsDB->fetchRow($result2);
 				$Slog['count'] = "${EST['rank_kikan']}日(${count[0]})";
 
 				$Slog['count'] .= "_"."総(${acc})";
 
 				$query2="SELECT COUNT(*) FROM $EST[sqltb]rev WHERE time BETWEEN $start AND $end AND id='$Slog[0]'";
 				$result2 = $xoopsDB->query($query2) or die("Query failed kt48 $query");
-				$count=mysql_fetch_row($result2);
+				$count=$xoopsDB->fetchRow($result2);
 				$Slog['count'] .= ":逆リンク "."${EST['rank_kikan']}日(${count[0]})";
 
 				$Slog['count'] .= "_"."総(${rev})";
@@ -292,7 +292,7 @@ if($_GET['mode']){
 		}
 		$query3="SELECT COUNT(*) FROM $EST[sqltb]log WHERE".$query;
 		$result = $xoopsDB->query($query3) or die("Query failed kt115 $query");
-		$num = mysql_fetch_row($result);
+		$num = $xoopsDB->fetchRow($result);
 		$Clog[$Ssearch_kt]=$num[0];
 	}
 	#ナビゲーションバーを表示
@@ -308,7 +308,7 @@ if($_GET['mode']){
 	if($_GET['mode'] == "new"){
 		$query = "SELECT COUNT(*) FROM $EST[sqltb]log";
 		$result = $xoopsDB->query($query) or die("Query failed yomi43 $query");
-		$total_url = mysql_fetch_row($result);
+		$total_url = $xoopsDB->fetchRow($result);
 		$navi .= " - 現在の総登録数:<b>$total_url[0]</b>サイト";
 	}
 	##ページ説明を表示
@@ -322,16 +322,13 @@ if($_GET['mode']){
 	require $EST['temp_path']."kt.html";
 
 	include("footer.php");
-	if (isset($link) && $link) {
-		@mysql_close($link);
-	}
 
 }elseif($EST['home'] && $EST['top']){
 	location($EST['home']);
 }else{
 	$query = "SELECT COUNT(*) FROM ".$EST['sqltb']."log";
 	$result = $xoopsDB->query($query) or die("Query failed yomi40 $query");
-	$tmp = mysql_fetch_row($result); #総登録数
+	$tmp = $xoopsDB->fetchRow($result); #総登録数
 	$Cpre_gane=$tmp[0];
 	$CK_data=get_cookie();
 	if (isset($CK_data[7])) $EST['defo_hyouji']=$CK_data[7];
@@ -373,19 +370,18 @@ function random(){
 	$i=1;
 	$query = "SELECT * FROM ".$EST['sqltb']."log";
 	$result = $xoopsDB->query($query) or die("Query failed yomi85 $query");
-	$total_url=mysql_num_rows($result);
+	$total_url=$xoopsDB->getRowsNum($result);
 	list($usec, $sec) = explode(' ', microtime());
 	srand((float)$sec + ((float)$usec * 100000));
 	$id = rand(1, $total_url);
 	$query = "SELECT url FROM ".$EST['sqltb']."log";
 	$result = $xoopsDB->query($query) or die("Query failed yomi91");
-	while($tmp = mysql_fetch_assoc($result)){
+	while($tmp = $xoopsDB->fetchArray($result)){
 		if($i == $id){
 			break;
 		}
 		$i++;
 	}
-	//mysql_close($link);
 	location($tmp['url']);
 	exit;
 }

@@ -34,14 +34,13 @@ if (isset($_GET['mode'])) {
 				$time=time();
 				$query="SELECT id FROM $EST[sqltb]rank WHERE id='$_GET[id]' AND ip='$_SERVER[REMOTE_ADDR]' AND time > ".($time-$EST[rank_time]*3600);
 				$result=$xoopsDB->query($query) or die("Query failed rank32 $query");
-				$tmp = mysql_fetch_row($result);
+				$tmp = $xoopsDB->fetchRow($result);
 				if(!$tmp) {
 					$query="INSERT INTO $EST[sqltb]rank (id,time,ip) VALUES ('$_GET[id]', '$time' ,'$_SERVER[REMOTE_ADDR]');";
 					$result=$xoopsDB->queryF($query) or die("Query failed rank36 $query");
 					$query = 'UPDATE ' . $EST['sqltb'] . 'log SET `count` = `count` + 1 WHERE `id` = ' . $_GET['id'];
 					$result=$xoopsDB->queryF($query) or die("Query failed rank38 $query");
 				}
-				//mysql_close($link);
 			}
 		}
 		if($_GET['url']){location($_GET['url']);}
@@ -57,16 +56,16 @@ if (isset($_GET['mode'])) {
 				$query="SELECT id, url, category FROM {$EST['sqltb']}log WHERE id='{$_GET['id']}'";
 				$result=$xoopsDB->query($query) or die("Query failed rank54 $query");
 				if ($result) { //IDが存在する場合のみ処理する
-					list($id, $url, $category) = mysql_fetch_row($result);
+					list($id, $url, $category) = $xoopsDB->fetchRow($result);
 					// $_SERVER['HTTP_REFERER']チェック
 					if ($ref = @$_SERVER['HTTP_REFERER']) {
-						$ref = preg_replace('#^(https?://[^/]+).*$#', '$1', $ref);
-						if (strpos($url, $ref) === 0) {
+						$ref = preg_replace('~^https?:(//[^/?#]+).*$~', '$1', $ref);
+						if (strpos(preg_replace('~^https?:~', '', $url), $ref) === 0) {
 							$time=time();
 							$_GET['id']=str_replace("\n", "", $_GET['id']);
 							$query="SELECT id FROM {$EST['sqltb']}rev WHERE id='{$_GET['id']}' AND ip='{$_SERVER['REMOTE_ADDR']}' AND time > ".($time-$EST['rank_time']*3600);
 							$result=$xoopsDB->query($query) or die("Query failed rank54 $query");
-							$tmp = mysql_fetch_row($result);
+							$tmp = $xoopsDB->fetchRow($result);
 							if(!$tmp) {
 								$query="INSERT INTO {$EST['sqltb']}rev (id,time,ip) VALUES ('{$_GET['id']}', '$time' ,'{$_SERVER['REMOTE_ADDR']}')";
 								$result=$xoopsDB->queryF($query) or die("Query failed rank58 $query");
@@ -189,7 +188,7 @@ if (isset($_GET['mode'])) {
 
 		if (!$Clog) {
 			$result = $xoopsDB->query($query." LIMIT ".$EST['rank_best']);
-			$Clog = mysql_num_rows($result);
+			$Clog = $xoopsDB->getRowsNum($result);
 		}
 
 		$query .= $start? " ORDER BY pt DESC" : " ORDER BY count_rev DESC";
@@ -199,7 +198,7 @@ if (isset($_GET['mode'])) {
 		$query .= " LIMIT $str_no , $end_no";
 
 		$result = $xoopsDB->query($query);
-		while($Rank = mysql_fetch_array($result)){
+		while($Rank = $xoopsDB->fetchBoth($result)){
 			$kt_fl=0;
 			if (isset($Rank['count_rev'])) {
 				$Slog = $Rank;
@@ -207,7 +206,7 @@ if (isset($_GET['mode'])) {
 			} else {
 				$query="SELECT * FROM $EST[sqltb]log WHERE id='$Rank[id]' LIMIT 1";
 				$result2 = $xoopsDB->query($query) or die("Query failed rev_rank120 $query");
-				$Slog = mysql_fetch_row($result2);
+				$Slog = $xoopsDB->fetchRow($result2);
 				$Slog[16] = $Rank['pt'];
 			}
 			if($Slog[0]){
@@ -343,7 +342,7 @@ if ($start) {
 
 if (!$Clog) {
 	$result = $xoopsDB->query($query." LIMIT ".$EST['rank_best']) or die("Query failed rank109 $query");
-	$Clog = mysql_num_rows($result);
+	$Clog = $xoopsDB->getRowsNum($result);
 }
 
 $query .= $start? " ORDER BY pt DESC" : " ORDER BY count DESC";
@@ -351,14 +350,14 @@ $query .= $start? " ORDER BY pt DESC" : " ORDER BY count DESC";
 $query .= " LIMIT $str_no , $end_no";
 
 $result = $xoopsDB->query($query) or die("Query failed rank109 $query");
-while($Rank = mysql_fetch_array($result)){
+while($Rank = $xoopsDB->fetchBoth($result)){
 	if (isset($Rank['count_rev'])) {
 		$Slog = $Rank;
 		$Slog['pt'] = $Rank['count'];
 	} else {
 		$query="SELECT * FROM $EST[sqltb]log WHERE id='$Rank[id]' LIMIT 1";
 		$result2 = $xoopsDB->query($query) or die("Query failed rank120 $query");
-		$Slog = mysql_fetch_row($result2);
+		$Slog = $xoopsDB->fetchRow($result2);
 		$Slog['pt'] = $Rank['pt'];
 	}
 	if($Slog[0]){

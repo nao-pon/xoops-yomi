@@ -30,7 +30,7 @@ function meta($T_mode, $cut=""){
 	$K_book=$_GET['word'];
 	$K_plus=$_GET['word'];
 	$WORD_url=$_GET['word'];
-	$Sjis=mb_convert_encoding($_GET['word'], "SJIS", "EUC-JP");
+	$Sjis=mb_convert_encoding($_GET['word'], "SJIS", _CHARSET);
 	$K_book=str_replace("-", "", $K_book);
 	##メソッド等の設定=>$methodに格納
 	if ($_GET['method'] == 'and') {
@@ -242,7 +242,7 @@ function meta($T_mode, $cut=""){
 	  'xoops'		=>	'action=results',
 	  'yahoo'		=>	"n=$_GET[hyouji]&w=$Myahoo",
 	  'infoseek'	=>	"sv=JP&lk=noframes&rt=JG&qp=$method&nh=$_GET[hyouji]",
-	  'google'		=>	"num=$_GET[hyouji]&hl=ja&ie=EUC-JP&oe=EUC-JP",
+	  'google'		=>	"num=$_GET[hyouji]&hl=ja&ie="._CHARSET."&oe="._CHARSET,
 	  'goo'			=>	"SM=".($_GET['method'] == 'and'?"MC":"SC")."&DC=$_GET[hyouji]",
 	  'inetguide'	=>	"from=0&n=20&index=netguide",
 	  'excite'		=>	"lk=excite_jp&c=japan",
@@ -292,8 +292,8 @@ function meta($T_mode, $cut=""){
 				$word = $_GET['word'];
 				if (!empty($lines[6]))
 				{
-					if ($lines[6] == "sjis") $word = mb_convert_encoding($_GET['word'], "SJIS", "EUC-JP");
-					if ($lines[6] == "utf8") $word = mb_convert_encoding($_GET['word'], "UTF-8", "EUC-JP");
+					if ($lines[6] == "sjis") $word = mb_convert_encoding($_GET['word'], "SJIS", _CHARSET);
+					if ($lines[6] == "utf8") $word = mb_convert_encoding($_GET['word'], "UTF-8", _CHARSET);
 				}
 				if ($_GET['method'] == 'and')
 				{

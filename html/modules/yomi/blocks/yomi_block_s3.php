@@ -22,7 +22,7 @@ function b_yomi_s3($options) {
 
 	$query = "SELECT COUNT(*) FROM ".$xoopsDB->prefix("yomi_log").$where.";";
 	$result = $xoopsDB->query($query) or die("Query failed $query");
-	list($count) = mysql_fetch_row($result);
+	list($count) = $xoopsDB->fetchRow($result);
 	srand(b_yomi_s3_make_seed());
 	$limit = rand(0,$count-$kensu);
 

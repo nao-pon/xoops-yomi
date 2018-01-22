@@ -54,7 +54,7 @@ function b_yomi_s2($options) {
 		else
 			$query="SELECT id,COUNT(*) AS pt FROM ".$xoopsDB->prefix("yomi_rank")." WHERE time BETWEEN $start AND $end GROUP BY id ORDER BY pt DESC{$limit}";
 		$result = $xoopsDB->query($query) or die("Query failed rank109 $query");
-		while($Rank = mysql_fetch_assoc($result))
+		while($Rank = $xoopsDB->fetchArray($result))
 		{
 			$id = strval($Rank['id']);
 			$ranking[$id] += $Rank['pt'];
@@ -70,7 +70,7 @@ function b_yomi_s2($options) {
 		else
 			$query="SELECT id,COUNT(*) AS pt FROM ".$xoopsDB->prefix("yomi_rev")." WHERE time BETWEEN $start AND $end GROUP BY id ORDER BY pt DESC{$limit}";
 		$result = $xoopsDB->query($query) or die("Query failed rank109 $query");
-		while($Rank = mysql_fetch_assoc($result))
+		while($Rank = $xoopsDB->fetchArray($result))
 		{
 			$id = strval($Rank['id']);
 			$ranking[$id] += $Rank['pt'];
@@ -87,7 +87,7 @@ function b_yomi_s2($options) {
 		$kt_fl=0;
 		$query="SELECT * FROM ".$xoopsDB->prefix("yomi_log")." WHERE id='".$id."' LIMIT 1";
 		$result2 = $xoopsDB->query($query) or die("Query failed rank120 $query");
-		$Slog = mysql_fetch_assoc($result2);
+		$Slog = $xoopsDB->fetchArray($result2);
 		if($Slog['id']){
 			$Slog['pt'] = $pt;
 			$Slog['out'] = (isset($out[$id]))? $out[$id] : 0;

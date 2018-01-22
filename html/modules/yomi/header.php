@@ -40,7 +40,8 @@ if (is_object($xoopsTpl)) $xoopsTpl->assign('ads_shown',1);
 $is_admin = 0;
 $x_uid = 0;
 if ( $xoopsUser ) {
-	$xoopsModule = XoopsModule::getByDirname("yomi");
+	$module_handler = xoops_gethandler('module');
+	$xoopsModule = $module_handler->getByDirname('yomi');
 	if ( $xoopsUser->isAdmin($xoopsModule->mid()) ) { 
 		$is_admin = 1;
 	}

@@ -9,7 +9,7 @@ if( ! class_exists( 'HypCommonFunc' ) ) {
 	if (defined('XOOPS_TRUST_PATH') && file_exists(XOOPS_TRUST_PATH . '/class/hyp_common/hyp_common_func.php')) {
 		include_once XOOPS_TRUST_PATH . '/class/hyp_common/hyp_common_func.php';
 	} else {
-		include_once XOOPS_ROOT_PATH . '/modules/yomi/include/hyp_common/hyp_common_func.php';
+		die('ERROR: xoops-yomi require HypCommonFunc (https://xoops.hypweb.net/modules/xpwiki/156.html)');
 	}
 }
 

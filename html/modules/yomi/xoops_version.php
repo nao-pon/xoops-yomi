@@ -27,7 +27,6 @@ $modversion['tables'][1] = "yomi_log";
 $modversion['tables'][2] = "yomi_rank";
 $modversion['tables'][3] = "yomi_rev";
 $modversion['tables'][4] = "yomi_votedata";
-$modversion['tables'][5] = "yomi_comments";
 
 //Admin things
 $modversion['hasAdmin'] = 1;

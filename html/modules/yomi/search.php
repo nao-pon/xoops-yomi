@@ -128,8 +128,6 @@ if($_GET['mode'] == "search"){ #検索結果表示画面
 			if(!empty($_GET["word$i"])){$_GET['word'] .= " ".$_GET["word$i"];}
 		}
 	}
-	//キーワード文字エンコード変換
-	//$_GET['word'] = mb_convert_encoding($_GET['word'], "EUC-JP", "auto");
 
 	if(!$_GET['hyouji']){$_GET['hyouji']=$EST['hyouji'];}
 
@@ -253,10 +251,6 @@ if($_GET['mode'] == "search"){ #検索結果表示画面
 	require $EST['temp_path']."search.html";
 
 	include("footer.php");
-
-	if (isset($link) && $link) {
-		@mysql_close($link);
-	}
 
 	exit;
 }
@@ -384,10 +378,8 @@ function open_for_search($target_kt, $target_day, $sort){
 	if($ltime) {$query .= "($ltime)";}
 	$query = "SELECT * FROM $EST[sqltb]log WHERE".$query.$order;
 	##検索処理実行
-	//$link=mysql_connect($EST[host], $EST[sqlid], $EST[sqlpass]) or die("Could not connect");
-	//mysql_select_db($EST[sqldb]) or die("Could not select database");
 	$result = $xoopsDB->query($query) or die("Query failed1");
-		while($line = mysql_fetch_row($result)){
+		while($line = $xoopsDB->fetchRow($result)){
 			$write[] = $line;
 			$i++;
 		}
@@ -431,9 +423,6 @@ function set_word(){
 		$keywords=explode(" ",$keyword);
 		$keywords = array_map("addslashes", $keywords);
 
-		//$link=mysql_connect($EST[host], $EST[sqlid], $EST[sqlpass]) or die("Could not connect");
-		//mysql_select_db($EST[sqldb]) or die("Could not select database");
-
 		if(count($keywords)>0){
 			foreach ($keywords as $i){
 				if($i && $i != "and" && $i != "or" && $i != "not" && (!preg_match("/#id:[0-9]*/",$i))){
@@ -441,7 +430,7 @@ function set_word(){
 					$i=str_replace("\n", "", $i);
 					$query = "SELECT word FROM $EST[sqltb]key WHERE word='$i' AND ip='$_SERVER[REMOTE_ADDR]' AND time > ".($time-24*3600);
 					$result=$xoopsDB->query($query) or die("Query failed search289 $query");
-					$tmp = mysql_fetch_row($result);
+					$tmp = $xoopsDB->fetchRow($result);
 					if(!$tmp) {
 						$query="INSERT INTO $EST[sqltb]key (word, time, ip) VALUES ('$i', '$time', '$_SERVER[REMOTE_ADDR]')";
 						$result=$xoopsDB->queryF($query) or die("Query failed search291 $query");

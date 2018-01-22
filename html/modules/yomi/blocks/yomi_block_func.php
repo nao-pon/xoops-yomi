@@ -1,8 +1,4 @@
 <?php
-if( ! class_exists( 'HypCommonFunc' ) )
-{
-	include_once(XOOPS_ROOT_PATH."/modules/yomi/include/hyp_common/hyp_common_func.php");
-}
 
 include_once XOOPS_ROOT_PATH . '/modules/yomi/include/func.inc.php';
 
@@ -100,7 +96,7 @@ function b_yomi_show_cols($result,$cols,$title_m,$message_m,$w_m,$h_m)
 	}
 	else
 	{
-		while($Slog = mysql_fetch_assoc($result)){
+		while($Slog = $xoopsDB->fetchArray($result)){
 			$col++;
 			$ret .= "<td$td_style class='xoops_yomi_block_td'>";
 			$ret .= b_yomi_show_items($Slog,$title_m,$message_m,$w_m,$h_m);

@@ -294,7 +294,7 @@ function sendmail($mailto,$from_mail,$kenmei,$mail_mode,$admin,$log,$arg6="",$PR
 	if ($old_from) @ ini_set("sendmail_from", $old_from);
 
 	mb_language ("ja");
-	mb_internal_encoding("EUC-JP");
+	mb_internal_encoding(_CHARSET);
 	if (ini_get('safe_mode')) {
 		mb_send_mail($mailto,$kenmei,$honbun,"From: $from_mail");
 	} else {
