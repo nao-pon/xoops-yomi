@@ -69,6 +69,7 @@ function b_yomi_show_items($Slog,$title_m,$message_m,$w_m,$h_m)
 }
 function b_yomi_show_cols($result,$cols,$title_m,$message_m,$w_m,$h_m)
 {
+	global $xoopsDB;
 	if (defined('HYP_K_TAI_RENDER') && HYP_K_TAI_RENDER) {
 		$cols = 1;
 	}
