@@ -21,4 +21,5 @@ $result = mysqli_query($link, $query) or die(mysqli_error($link));
 list($count) = mysqli_fetch_row($result); #ÁíÅÐÏ¿¿ô
 mysqli_close($link);
 
+header('Content-Type:text/javascript');
 echo "document.getElementById('yomi_bcat_count').innerHTML = '{$count}';";
