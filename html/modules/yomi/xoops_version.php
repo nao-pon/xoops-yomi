@@ -9,7 +9,7 @@ $modversion['credits'] = "<a href='http://xoops.hypweb.net/'><b>\"Yomi-Search[XO
 $modversion['author'] = "nao-pon <a href='http://xoops.hypweb.net/'>http://xoops.hypweb.net/</a>";
 $modversion['help'] = "";
 $modversion['license'] = "Consent is required";
-$modversion['official'] = 1;
+$modversion['official'] = 0;
 
 //管理画面アイコン好きなほうを選択
 //オリジナルバージョン(ダサダサ)
@@ -201,4 +201,3 @@ $modversion['config'][] = array(
 if (!defined('XOOPS_CUBE_LEGACY') && substr(XOOPS_VERSION, 6, 3) < 2.1 && !empty($_POST['fct']) && !empty($_POST['op']) && $_POST['fct'] == 'modulesadmin' && $_POST['op'] == 'update_ok' && $_POST['dirname'] == $modversion['dirname']) {
     include dirname(__FILE__) . '/include/x20_keepblockoptions.inc.php';
 }
-?>

@@ -134,5 +134,12 @@ function xoops_module_update_yomi ( $module ) {
         }
     }
 
+    // Ver 0.95 `ip` to VARCHAR(39)
+    foreach(array('yomi_key', 'yomi_log', 'yomi_rank', 'yomi_rev') as $table) {
+        $table = $db->prefix($table);
+        $query = 'ALTER TABLE `' . $table . '` CHANGE `ip` `ip` VARCHAR(39)';
+        $db->query($query);
+    }
+
 	return TRUE;
 }
