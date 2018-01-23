@@ -17,8 +17,8 @@ Yomi-Search [XOOPS] は、原作者の WonderLink-Yomi 様およびYomi-Search P
 
 以下のサイトへアクセスして利用規定をお読みください。(現在リンク切れ)
 
-* トップページ http://yomi.pekori.to/
-* 規約ページ http://yomi.pekori.to/kiyaku.html
+* トップページ http://yomi.pekori.to/ ([Internet Archive](https://web.archive.org/web/20150326231421/http://yomi.pekori.to:80/))
+* 規約ページ http://yomi.pekori.to/kiyaku.html ([Internet Archive](https://web.archive.org/web/20150328080239/http://yomi.pekori.to:80/kiyaku.html))
 
 (以下はWonderLink配布スクリプト利用規約より抜粋)
 
