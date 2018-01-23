@@ -48,8 +48,12 @@ foreach($ganes as $tmp=>$val){
 	else{$c_no="";}
 	if($g_fl[$tmp]){$c_other=" checked";}
 	else{$c_other="";}
+	if(!strstr($tmp,"_")){
+		echo "<tr valign=bottom><td>";
+		echo "<br>[削除] <input type=submit value=\"設定実行\">";
+		echo "</td></tr>";
+	}
 	echo "<tr valign=bottom><td>";
-	if(!strstr($tmp,"_")){echo "<br>[削除] <input type=submit value=\"設定実行\"><br>";}
 	?>
 　<input type=checkbox name=d_<?php echo $tmp?> value=on> <a href="<?php echo $Ekt.$tmp.$Eend?>" target="_blank"><?php echo $tmp?></a> <input type=text name=kt_<?php echo $tmp?> value="<?php echo $val?>">
 </td><td>
