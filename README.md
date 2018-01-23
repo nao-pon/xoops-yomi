@@ -1,7 +1,7 @@
 # Yomi-Search [XOOPS] について
 
-Yomi-Search [XOOPS] は、原作者の WonderLink-Yomi 様およびYomi-Search PHP化プロジェクト様の
-許可を頂いて、nao-pon がXOOPSモジュールへ改造して再配布しています。
+Yomi-Search [XOOPS] は、原作者の WonderLink-Yomi 様およびYomi-Search PHP化プロジェクト様の許可を頂いて、nao-pon がXOOPSモジュールへ改造して再配布しています。
+
 ご使用にあたり以下の注意事項・利用規定を必ずお読みください。
 
 
