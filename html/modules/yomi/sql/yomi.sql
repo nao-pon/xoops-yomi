@@ -16,7 +16,7 @@
 CREATE TABLE `yomi_key` (
   `word` varchar(50) default NULL,
   `time` int(10) unsigned default NULL,
-  `ip` varchar(15) default NULL,
+  `ip` varchar(39) default NULL,
   KEY `word` (`word`)
 ) ENGINE=MyISAM;
 # --------------------------------------------------------
@@ -40,7 +40,7 @@ CREATE TABLE `yomi_log` (
   `stamp` int(10) unsigned default NULL,
   `banner` varchar(255) default NULL,
   `renew` tinyint(3) unsigned default NULL,
-  `ip` varchar(15) default NULL,
+  `ip` varchar(39) default NULL,
   `keywd` varchar(255) default NULL,
   `build_time` int(10) unsigned default NULL,
   `uid` int(5) unsigned NOT NULL default '0',
@@ -64,7 +64,7 @@ CREATE TABLE `yomi_log` (
 CREATE TABLE `yomi_rank` (
   `id` int(10) unsigned default NULL,
   `time` int(10) unsigned default NULL,
-  `ip` varchar(15) default NULL,
+  `ip` varchar(39) default NULL,
   KEY `id` (`id`),
   KEY `time` (`time`)
 ) ENGINE=MyISAM;
@@ -77,7 +77,7 @@ CREATE TABLE `yomi_rank` (
 CREATE TABLE `yomi_rev` (
   `id` int(10) unsigned default NULL,
   `time` int(10) unsigned default NULL,
-  `ip` varchar(15) default NULL,
+  `ip` varchar(39) default NULL,
   KEY `id` (`id`),
   KEY `time` (`time`)
 ) ENGINE=MyISAM;
